@@ -1,4 +1,4 @@
-import { Landing, Home, hola, blog } from "./Views";
+import { Landing, Home, Hola, Blog } from "./Views";
 import { Routes, Route } from "react-router-dom";
 
 export default function App() {
