@@ -1,0 +1,58 @@
+@keyframes pulse-scale {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.nav-logo {
+  text-decoration: none; /* Quita la línea debajo del nombre */
+  display: inline-block; /* Asegura que respete el tamaño del contenido */
+}
+
+.nav-logo:hover .logo-container {
+  animation: pulse-scale 2s infinite ease-in-out;
+}
+
+.logo-img {
+  max-height: 40px;
+  height: auto;
+}
+
+.logo-text {
+  font-size: 1.9rem;
+  font-weight: bold;
+  color: black;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #ff5500;
+  font-size: 22px;
+  font-weight: bold;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 3px;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px; /* Posición fija debajo del texto */
+  width: 100%;
+  height: 2px;
+  background-color: #ff5500;
+  transform: scaleX(0); /* Inicialmente invisible */
+  transform-origin: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.nav-link:hover::after {
+  transform: scaleX(1); /* Aparece sin mover el texto */
+}
