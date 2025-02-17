@@ -1,19 +1,25 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { AppBar, Toolbar, Typography, Grid2, Box } from "@mui/material";
 import LogoRey from "../../assets/Rey.svg";
-import "../NavBar/NavBar.Module.css";
+import styles from "../NavBar/NavBar.module.css";
 
 export default function NavBar() {
+  const location = useLocation();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        // position="static"
         sx={{
           backgroundColor: "white",
           boxShadow: "none",
-          borderBottom: "1px solid #ddd",
+          borderBottom: { xs: "none", sm: "1px solid #ddd" },
+          borderTop: { xs: "1px solid #ddd", sm: "none" },
           minHeight: "36px",
+          position: { xs: "fixed" },
+          bottom: { xs: 0, sm: "auto" },
+          top: { xs: "auto", sm: 0 },
+          width: "100%",
+          zIndex: 1000,
         }}
       >
         <Toolbar
@@ -25,17 +31,18 @@ export default function NavBar() {
             padding: "0px 12px",
           }}
         >
-          <NavLink to="/" className="nav-logo">
+          <NavLink to="/" className={styles.navlogo}>
             <Box
-              className="logo-container"
+              className={styles.logocontainer}
               sx={{
                 display: "flex",
                 alignItems: "center",
-                gap: 1,
               }}
             >
-              <img src={LogoRey} alt="logo" className="logo-img" />
-              <span className="logo-text">HernandoRey</span>
+              <img src={LogoRey} alt="logo" className={styles.logoimg} />
+              <span className={`${styles.logotext} ${styles.hiddenOnMobile}`}>
+                HernandoRey
+              </span>
             </Box>
           </NavLink>
           <Grid2
@@ -50,13 +57,23 @@ export default function NavBar() {
               transform: "translateX(-50%)",
             }}
           >
-            {["Hola", "Blog"].map((text, index) => (
-              <Grid2 item key={index}>
-                <NavLink to={`/${text.toLowerCase()}`} className="nav-link">
-                  {text}
-                </NavLink>
-              </Grid2>
-            ))}
+            {["Hola", "Blog"].map((text, index) => {
+              const path = `/${text.toLowerCase()}`;
+              const isActive = location.pathname === path;
+
+              return (
+                <Grid2 item key={index}>
+                  <NavLink
+                    to={path}
+                    className={`${styles.navlink} ${
+                      isActive ? styles.active : ""
+                    }`}
+                  >
+                    {text}
+                  </NavLink>
+                </Grid2>
+              );
+            })}
           </Grid2>
         </Toolbar>
       </AppBar>
