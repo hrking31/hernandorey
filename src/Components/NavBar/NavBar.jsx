@@ -1,8 +1,9 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { AppBar, Toolbar, Typography, Grid2, Box } from "@mui/material";
+import { AppBar, Toolbar, Grid2, Box } from "@mui/material";
 import LogoRey from "../../assets/Rey.svg";
 import styles from "../NavBar/NavBar.module.css";
+import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 
 export default function NavBar() {
   const location = useLocation();
@@ -10,9 +11,9 @@ export default function NavBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         sx={{
-          backgroundColor: "white",
+          // backgroundColor: "#ffffff",
           boxShadow: "none",
-          borderBottom: { xs: "none", sm: "1px solid #ddd" },
+          borderBottom: { xs: "none", sm: "0.5px solid #ddd" },
           borderTop: { xs: "1px solid #ddd", sm: "none" },
           minHeight: "36px",
           position: { xs: "fixed" },
@@ -75,6 +76,7 @@ export default function NavBar() {
               );
             })}
           </Grid2>
+          <ThemeSwitcher />
         </Toolbar>
       </AppBar>
     </Box>
