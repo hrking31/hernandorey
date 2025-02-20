@@ -1,17 +1,19 @@
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import { AppBar, Toolbar, Grid2, Box } from "@mui/material";
+import { AppBar, Toolbar, Box } from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import LogoRey from "../../assets/Rey.svg";
 import styles from "../NavBar/NavBar.module.css";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
+import { useTheme } from "@mui/material/styles";
 
 export default function NavBar() {
   const location = useLocation();
+  const theme = useTheme();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         sx={{
-          // backgroundColor: "#ffffff",
           boxShadow: "none",
           borderBottom: { xs: "none", sm: "0.5px solid #ddd" },
           borderTop: { xs: "1px solid #ddd", sm: "none" },
@@ -41,12 +43,18 @@ export default function NavBar() {
               }}
             >
               <img src={LogoRey} alt="logo" className={styles.logoimg} />
-              <span className={`${styles.logotext} ${styles.hiddenOnMobile}`}>
+              <span
+                className={`${styles.logotext} ${styles.hiddenOnMobile}`}
+                style={{
+                  color: theme.palette.mode === "dark" ? "#f5f5f5" : "#282c34", 
+                  transition: "color 0.3s ease",
+                }}
+              >
                 HernandoRey
               </span>
             </Box>
           </NavLink>
-          <Grid2
+          <Grid
             container
             justifyContent="center"
             alignItems="center"
@@ -63,7 +71,7 @@ export default function NavBar() {
               const isActive = location.pathname === path;
 
               return (
-                <Grid2 item key={index}>
+                <Grid key={index} xs={12} sm={6} md={4}>
                   <NavLink
                     to={path}
                     className={`${styles.navlink} ${
@@ -72,10 +80,10 @@ export default function NavBar() {
                   >
                     {text}
                   </NavLink>
-                </Grid2>
+                </Grid>
               );
             })}
-          </Grid2>
+          </Grid>
           <ThemeSwitcher />
         </Toolbar>
       </AppBar>

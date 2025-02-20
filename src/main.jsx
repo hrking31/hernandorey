@@ -7,13 +7,13 @@ import store from "./Store/Store.js";
 import ThemeProviderWrapper from "./Theme/ThemeContext.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <Provider store={store}>
-    <ThemeProviderWrapper>
-      <BrowserRouter>
-        <React.StrictMode>
+  <React.StrictMode>
+    <Provider store={store}>
+      <ThemeProviderWrapper>
+        <BrowserRouter>
           <App />
-        </React.StrictMode>
-      </BrowserRouter>
-    </ThemeProviderWrapper>
-  </Provider>
+        </BrowserRouter>
+      </ThemeProviderWrapper>
+    </Provider>
+  </React.StrictMode>
 );
