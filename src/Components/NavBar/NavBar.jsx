@@ -46,7 +46,7 @@ export default function NavBar() {
               <span
                 className={`${styles.logotext} ${styles.hiddenOnMobile}`}
                 style={{
-                  color: theme.palette.mode === "dark" ? "#f5f5f5" : "#282c34", 
+                  color: theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
                   transition: "color 0.3s ease",
                 }}
               >

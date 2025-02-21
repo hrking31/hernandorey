@@ -11,7 +11,7 @@ export const getTheme = (mode) =>
         main: "#1976d2",
       },
       background: {
-        default: mode === "dark" ? "#282c34" : "#f5f5f5",
+        default: mode === "dark" ? "#20252c" : "#fcfcfc",
         paper: mode === "dark" ? "#1e1e1e" : "#ffffff",
       },
       text: {
@@ -23,7 +23,7 @@ export const getTheme = (mode) =>
       MuiAppBar: {
         styleOverrides: {
           root: {
-            background: mode === "dark" ? "#282c34" : "#f5f5f5",
+            background: mode === "dark" ? "#20252c" : "#fcfcfc",
           },
         },
       },

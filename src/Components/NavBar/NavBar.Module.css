@@ -44,7 +44,7 @@
 
 .navlink {
   text-decoration: none;
-  color: #ff5500;
+  color: #e7562e;
   font-size: 22px;
   font-weight: bold;
   position: relative;
@@ -52,7 +52,7 @@
   padding-bottom: 3px;
   top: -3px;
 }
-
+/* #ff2a00; */
 .navlink::after {
   content: "";
   position: absolute;
@@ -60,14 +60,22 @@
   bottom: -2px;
   width: 100%;
   height: 2px;
-  background-color: #ff5500;
+  background-color: #e7762e;
   transform: scaleX(0);
   transform-origin: center;
   transition: transform 0.3s ease-in-out;
 }
 
+.navlink:hover {
+  color: #e7762e;
+}
+
 .navlink:hover::after {
   transform: scaleX(1);
+}
+
+.navlink.active {
+  color: #e7762e;
 }
 
 .active::after {
