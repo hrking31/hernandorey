@@ -19,6 +19,11 @@ export const getTheme = (mode) =>
         secondary: mode === "dark" ? "#b0b0b0" : "#666666",
       },
     },
+
+    typography: {
+      fontFamily: "Poppins, sans-serif",
+    },
+
     components: {
       MuiAppBar: {
         styleOverrides: {

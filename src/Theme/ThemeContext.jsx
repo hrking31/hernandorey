@@ -2,6 +2,7 @@ import React, { createContext, useState, useMemo } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { getTheme } from "./Theme";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Divider, Typography, Avatar, Box } from "@mui/material";
 
 export const ThemeContext = createContext();
 
