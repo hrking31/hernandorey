@@ -3,7 +3,7 @@
   "name": "Hernando Rey",
   "short_name": "HRey",
   "description": "Hola, soy Hernando Rey. {Código que transforma las ideas en realidad}",
-  "start_url": "/",
+  "start_url": "https://hernandorey-7e7c2.web.app/",
   "icons": [
     {
       "src": "/web-app-manifest-192x192.png",
@@ -22,4 +22,3 @@
   "background_color": "#ffffff",
   "display": "standalone"
 }
-//"https://hernandorey-7e7c2.web.app/",
