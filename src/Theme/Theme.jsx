@@ -21,7 +21,10 @@ export const getTheme = (mode) =>
     },
 
     typography: {
-      fontFamily: "Poppins, sans-serif",
+      fontFamily: "'Raleway', sans-serif", 
+      h1: { fontFamily: "'Raleway', sans-serif", fontWeight: 700 },
+      h2: { fontFamily: "'Raleway', sans-serif", fontWeight: 900 },  
+      body1: { fontFamily: "'Raleway', sans-serif" },
     },
 
     components: {
