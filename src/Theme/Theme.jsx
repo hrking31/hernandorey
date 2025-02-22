@@ -21,10 +21,24 @@ export const getTheme = (mode) =>
     },
 
     typography: {
-      fontFamily: "'Raleway', sans-serif", 
-      h1: { fontFamily: "'Raleway', sans-serif", fontWeight: 700 },
-      h2: { fontFamily: "'Raleway', sans-serif", fontWeight: 900 },  
-      body1: { fontFamily: "'Raleway', sans-serif" },
+      fontFamily: "'Raleway', sans-serif",
+      h2: {
+        fontFamily: "'Raleway', sans-serif",
+        fontStyle: "normal",
+        fontWeight: 900,
+      },
+
+      body1: {
+        fontFamily: "'Raleway', sans-serif",
+        fontStyle: "italic",
+        fontWeight: 500,
+      },
+
+      body2: {
+        fontFamily: "'Raleway', sans-serif",
+        fontStyle: "normal",
+        fontWeight: 500,
+      },
     },
 
     components: {
