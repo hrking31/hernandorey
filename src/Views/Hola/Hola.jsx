@@ -1,8 +1,10 @@
 import { Divider, Typography, Avatar, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
+import { useTheme } from "@mui/material/styles";
 
 export default function AboutMe() {
+  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -100,7 +102,12 @@ export default function AboutMe() {
             lineHeight: 1.8,
           }}
         >
-          <strong style={{ color: "#20252c", fontWeight: "900" }}>
+          <strong
+            sx={{
+              color: theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
+              fontWeight: "900",
+            }}
+          >
             Como Desarrollador Full Stack,
           </strong>
           mi pasión por la programación se combina con un compromiso de
@@ -116,7 +123,6 @@ export default function AboutMe() {
         </Typography>
       </Box>
       <Divider sx={{ width: "80%", mt: 2 }} />
-      
     </Box>
   );
 }

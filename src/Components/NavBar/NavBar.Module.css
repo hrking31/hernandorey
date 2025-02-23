@@ -47,12 +47,13 @@
   color: #e7562e;
   font-size: 20px;
   font-weight: 900;
+  font-Style: normal;
   position: relative;
   display: inline-block;
   padding-bottom: 3px;
   top: -3px;
 }
-/* #ff2a00; */
+
 .navlink::after {
   content: "";
   position: absolute;
