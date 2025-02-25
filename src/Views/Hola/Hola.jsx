@@ -1,27 +1,36 @@
 import { Divider, Typography, Avatar, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
+import ReYaz from "../../assets/ReYaz.jpg";
 import { useTheme } from "@mui/material/styles";
+import styles from "../Hola/Hola.module.css";
 
 export default function AboutMe() {
   const theme = useTheme();
+
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        px: 2,
-        mt: { xs: 8, md: 18 },
+        justifyContent: "center",
+        width: "100%",
+        minHeight: "50vh",
+        textAlign: "center",
+        mt: { xs: 6.4, md: 18 },
+        // border: "2px solid #000",
       }}
     >
       <Box
         sx={{
           width: "100%",
+          minHeight: "10vh",
           display: "flex",
           justifyContent: "flex-end",
-          pr: { xs: 3, md: 41 },
+          pr: { xs: 1.5, md: 27 },
           mb: 2,
+          // border: "2px solid #000",
         }}
       >
         <Grid container alignItems="center" justifyContent="flex-end" gap={1}>
@@ -36,21 +45,19 @@ export default function AboutMe() {
           <Avatar
             src={ReyPerfil}
             sx={{
-              width: { xs: 50, sm: 60, md: 65 },
-              height: { xs: 50, sm: 60, md: 65 },
+              width: { xs: 62, sm: 60, md: 65 },
+              height: { xs: 62, sm: 60, md: 65 },
             }}
           />
         </Grid>
       </Box>
-
       <Box
         sx={{
-          maxWidth: { xs: "90%", sm: "80%", md: "70%" },
+          width: { xs: "90%", sm: "80%", md: "70%" },
           textAlign: "left",
           mt: { xs: 2, md: 4 },
           mb: { xs: 3, md: 5 },
-          ml: { xs: "auto", md: 36 },
-          mr: { xs: "auto", md: "auto" },
+          // border: "2px solid #000",
         }}
       >
         <Typography
@@ -67,14 +74,12 @@ export default function AboutMe() {
           .
         </Typography>
       </Box>
-
       <Box
         sx={{
-          maxWidth: { xs: "90%", sm: "80%", md: "70%" },
+          width: { xs: "90%", sm: "80%", md: "70%" },
           textAlign: "left",
           mb: { xs: 3, md: 5 },
-          ml: { xs: "auto", md: 36 },
-          mr: { xs: "auto", md: "auto" },
+          // border: "2px solid #000",
         }}
       >
         <Typography
@@ -89,10 +94,10 @@ export default function AboutMe() {
       </Box>
       <Box
         sx={{
-          maxWidth: { xs: "90%", sm: "80%", md: "70%" },
+          width: { xs: "90%", sm: "80%", md: "70%" },
           textAlign: "left",
-          ml: { xs: "auto", md: 36 },
-          mr: { xs: "auto", md: "auto" },
+          mb: { xs: 3, md: 4 },
+          // border: "2px solid #000",
         }}
       >
         <Typography
@@ -122,7 +127,55 @@ export default function AboutMe() {
           experiencias de usuario excepcionales.
         </Typography>
       </Box>
-      <Divider sx={{ width: "80%", mt: 2 }} />
+
+      <Divider
+        sx={{
+          width: { xs: "90%", sm: "80%", md: "70%" },
+          mt: 2,
+          mb: { xs: 3, md: 5 },
+        }}
+      />
+
+      <Box
+        sx={{
+          width: "100%",
+          minHeight: "10vh",
+          display: "flex",
+          justifyContent: "flex-end",
+          pr: { xs: 1.5, md: 24 },
+          mb: 6,
+          // border: "2px solid #000",
+        }}
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            fontSize: { xs: "2.4rem", sm: "2.5rem", md: "3.9rem" },
+          }}
+        >
+          Yo soy
+        </Typography>
+      </Box>
+
+      <Box
+        className={styles.imageContainer}
+        sx={{
+          width: "100%",
+          display: "flex",
+          // justifyContent: "flex-start",
+          justifyContent: { xs: "center", md: "350px" },
+          mt: 6,
+          mb: 10,
+          // border: "2px solid #000",
+        }}
+      >
+        <img
+          src={ReYaz}
+          alt="Img"
+          className={styles.image}
+          // style={{ marginLeft: window.innerWidth < 600 ? "70px" : "350px" }}
+        />
+      </Box>
     </Box>
   );
 }
