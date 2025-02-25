@@ -1,3 +1,45 @@
+/* .imageContainer img {
+  max-width: 255px;
+  height: auto;
+  border-radius: 8px;
+  view-timeline-name: --image;
+  view-timeline-axis: block;
+  animation-timeline: --image;
+  animation-name: scroll-image;
+  animation-range: entry 25% cover 30%;
+  animation-fill-mode: both;
+}
+
+@keyframes scroll-image {
+  from {
+    transform: scale(0.1);
+    opacity: 0.1;
+  }
+  to {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+} */
+
+/* @media (max-width: 600px) {
+  @keyframes scroll-image {
+    from {
+      transform: scale(0.1);
+      opacity: 0.1;
+    }
+    to {
+      transform: scale(1.4); 
+      opacity: 1;
+    }
+  }
+
+  .imageContainer img {
+    max-width: 220px; 
+  }
+} */
+
+
+
 .imageContainer img {
   max-width: 255px;
   height: auto;
@@ -22,17 +64,6 @@
 }
 
 @media (max-width: 600px) {
-  @keyframes scroll-image {
-    from {
-      transform: scale(0.1);
-      opacity: 0.1;
-    }
-    to {
-      transform: scale(1.4); 
-      opacity: 1;
-    }
-  }
-
   .imageContainer img {
     max-width: 220px; 
   }

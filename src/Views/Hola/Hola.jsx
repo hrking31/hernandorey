@@ -1,4 +1,12 @@
-import { Divider, Typography, Avatar, Box } from "@mui/material";
+import {
+  Divider,
+  Typography,
+  Avatar,
+  Box,
+  List,
+  ListItem,
+} from "@mui/material";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import Grid from "@mui/material/Grid2";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
 import ReYaz from "../../assets/ReYaz.jpg";
@@ -64,7 +72,7 @@ export default function AboutMe() {
           variant="body2"
           component="p"
           sx={{
-            fontSize: { md: "1.3rem" },
+            fontSize: { xs: "1rem", sm: "1.2rem", md: "1.3rem" },
           }}
         >
           Soy tu amigo y colega en el mundo del código...
@@ -85,7 +93,7 @@ export default function AboutMe() {
         <Typography
           variant="body1"
           sx={{
-            fontSize: { xs: "1rem", sm: "2rem", md: "2rem" },
+            fontSize: { xs: "1.2rem", sm: "2rem", md: "2rem" },
           }}
         >
           Ingeniero electrónico y desarrollador web, combinando hardware y
@@ -103,7 +111,7 @@ export default function AboutMe() {
         <Typography
           variant="body2"
           sx={{
-            fontSize: { md: "1.3rem" },
+            fontSize: { xs: "1rem", sm: "1.2rem", md: "1.3rem" },
             lineHeight: 1.8,
           }}
         >
@@ -115,7 +123,7 @@ export default function AboutMe() {
           >
             Como Desarrollador Full Stack,
           </strong>
-          mi pasión por la programación se combina con un compromiso de
+          &nbsp;mi pasión por la programación se combina con un compromiso de
           aprendizaje constante para dominar tecnologías emergentes. Tengo
           experiencia en el ciclo completo de desarrollo de aplicaciones web,
           diseñando interfaces intuitivas con React en el frontend y
@@ -139,11 +147,11 @@ export default function AboutMe() {
       <Box
         sx={{
           width: "100%",
-          minHeight: "10vh",
+          // minHeight: "10vh",
           display: "flex",
           justifyContent: "flex-end",
           pr: { xs: 1.5, md: 24 },
-          mb: 6,
+          mb: { xs: 1, md: 4 },
           // border: "2px solid #000",
         }}
       >
@@ -157,25 +165,61 @@ export default function AboutMe() {
         </Typography>
       </Box>
 
-      <Box
+      <Grid
+        container
+        spacing={1}
+        // flexDirection={{ xs: "column-reverse", md: "row" }}
         className={styles.imageContainer}
         sx={{
           width: "100%",
           display: "flex",
-          // justifyContent: "flex-start",
-          justifyContent: { xs: "center", md: "350px" },
-          mt: 6,
+          justifyContent: { xs: "center", md: "flex-start" },
+          mt: { md: 7 },
           mb: 10,
           // border: "2px solid #000",
         }}
       >
-        <img
-          src={ReYaz}
-          alt="Img"
-          className={styles.image}
-          // style={{ marginLeft: window.innerWidth < 600 ? "70px" : "350px" }}
-        />
-      </Box>
+        <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              mx: { xs: "auto", md: "0" },
+              ml: { md: "345px" },
+            }}
+          >
+            <img src={ReYaz} alt="Img" className={styles.image} />
+          </Box>
+        </Grid>
+
+        <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+          <Box sx={{ ml: { md: 9.5 }, mb: { xs: 5 } }}>
+            <List>
+              {[
+                "Hernando Alberto Rey Jimenez",
+                "Hrking31",
+                "Nací en Colombia. Marzo 31, 1982",
+                "Vivo en Barranquilla",
+                "Padre de dos princesas",
+                "CV",
+              ].map((text, index) => (
+                <ListItem
+                  key={index}
+                  sx={{ display: "flex", alignItems: "center", gap: 1.2 }}
+                >
+                  <FiberManualRecordIcon sx={{ fontSize: 11, color: "#000" }} />
+                  <Typography
+                    variant="body2"
+                    sx={{ fontSize: "1.3rem", lineHeight: 1.4 }}
+                  >
+                    {text}
+                  </Typography>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </Grid>
+      </Grid>
     </Box>
   );
 }
