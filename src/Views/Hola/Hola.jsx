@@ -28,7 +28,7 @@ export default function AboutMe() {
         minHeight: "50vh",
         textAlign: "center",
         mt: { xs: 6.4, md: 18 },
-        border: "2px solid #000",
+        // border: "2px solid #000",
       }}
     >
       <Box
@@ -152,7 +152,7 @@ export default function AboutMe() {
           // border: "2px solid #000",
         }}
       >
-        <Grid item xs={12} md={6} order={{ xs: 2, md: 1 }}>
+        <Grid  xs={12} md={6} order={{ xs: 2, md: 1 }}>
           <Box
             sx={{
               display: "flex",
@@ -165,7 +165,7 @@ export default function AboutMe() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} md={6} order={{ xs: 1, md: 2 }}>
+        <Grid  xs={12} md={6} order={{ xs: 1, md: 2 }}>
           <Box sx={{ ml: { md: 9.5 }, mb: { xs: 5 } }}>
             <List>
               {[
@@ -221,7 +221,7 @@ export default function AboutMe() {
                     lineHeight: 0.5,
                   }}
                 >
-                  2. Eterno Autodidacta
+                  2. Autodidacta
                 </Typography>
               }
             />

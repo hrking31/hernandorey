@@ -1,7 +1,3 @@
-self.addEventListener("install", (event) => {
-  console.log("Service Worker instalado");
-});
+self.addEventListener("install", (event) => {});
 
-self.addEventListener("fetch", (event) => {
-  console.log("Interceptando petición a:", event.request.url);
-});
+self.addEventListener("fetch", (event) => {});
