@@ -5,6 +5,7 @@ import {
   Box,
   List,
   ListItem,
+  ListItemText,
 } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import Grid from "@mui/material/Grid2";
@@ -27,7 +28,7 @@ export default function AboutMe() {
         minHeight: "50vh",
         textAlign: "center",
         mt: { xs: 6.4, md: 18 },
-        // border: "2px solid #000",
+        border: "2px solid #000",
       }}
     >
       <Box
@@ -42,14 +43,7 @@ export default function AboutMe() {
         }}
       >
         <Grid container alignItems="center" justifyContent="flex-end" gap={1}>
-          <Typography
-            variant="h2"
-            sx={{
-              fontSize: { xs: "2.4rem", sm: "2.5rem", md: "3.9rem" },
-            }}
-          >
-            Hola 👋🏻
-          </Typography>
+          <Typography variant="h2">Hola 👋🏻</Typography>
           <Avatar
             src={ReyPerfil}
             sx={{
@@ -68,13 +62,7 @@ export default function AboutMe() {
           // border: "2px solid #000",
         }}
       >
-        <Typography
-          variant="body2"
-          component="p"
-          sx={{
-            fontSize: { xs: "1rem", sm: "1.2rem", md: "1.3rem" },
-          }}
-        >
+        <Typography variant="body2" component="p">
           Soy tu amigo y colega en el mundo del código...
           <strong style={{ color: "#e7562e", fontWeight: "900" }}>
             Hernando Rey
@@ -90,12 +78,7 @@ export default function AboutMe() {
           // border: "2px solid #000",
         }}
       >
-        <Typography
-          variant="body1"
-          sx={{
-            fontSize: { xs: "1.2rem", sm: "2rem", md: "2rem" },
-          }}
-        >
+        <Typography variant="body1">
           Ingeniero electrónico y desarrollador web, combinando hardware y
           software para crear soluciones únicas.
         </Typography>
@@ -111,7 +94,6 @@ export default function AboutMe() {
         <Typography
           variant="body2"
           sx={{
-            fontSize: { xs: "1rem", sm: "1.2rem", md: "1.3rem" },
             lineHeight: 1.8,
           }}
         >
@@ -155,20 +137,11 @@ export default function AboutMe() {
           // border: "2px solid #000",
         }}
       >
-        <Typography
-          variant="h2"
-          sx={{
-            fontSize: { xs: "2.4rem", sm: "2.5rem", md: "3.9rem" },
-          }}
-        >
-          Yo soy
-        </Typography>
+        <Typography variant="h2">Yo soy</Typography>
       </Box>
-
       <Grid
         container
         spacing={1}
-        // flexDirection={{ xs: "column-reverse", md: "row" }}
         className={styles.imageContainer}
         sx={{
           width: "100%",
@@ -207,10 +180,18 @@ export default function AboutMe() {
                   key={index}
                   sx={{ display: "flex", alignItems: "center", gap: 1.2 }}
                 >
-                  <FiberManualRecordIcon sx={{ fontSize: 11, color: "#000" }} />
+                  <FiberManualRecordIcon
+                    sx={{
+                      fontSize: 11,
+                      color:
+                        theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
+                    }}
+                  />
                   <Typography
                     variant="body2"
-                    sx={{ fontSize: "1.3rem", lineHeight: 1.4 }}
+                    sx={{
+                      lineHeight: 0.8,
+                    }}
                   >
                     {text}
                   </Typography>
@@ -220,6 +201,55 @@ export default function AboutMe() {
           </Box>
         </Grid>
       </Grid>
+
+      <Box
+        sx={{
+          width: { xs: "90%", sm: "80%", md: "70%" },
+          textAlign: "left",
+          mb: { xs: 3, md: 4 },
+          // border: "2px solid #000",
+        }}
+      >
+        <Typography variant="h4">Educación</Typography>
+        <List>
+          <ListItem>
+            <ListItemText
+              primary={
+                <Typography
+                  variant="body2"
+                  sx={{
+                    lineHeight: 0.5,
+                  }}
+                >
+                  2. Eterno Autodidacta
+                </Typography>
+              }
+            />
+          </ListItem>
+          <ListItem>
+            <ListItemText
+              primary={
+                <Typography
+                  variant="body2"
+                  sx={{
+                    lineHeight: 0.5,
+                  }}
+                >
+                  1. Ingeniero Electrónico (2005) PCA
+                </Typography>
+              }
+            />
+          </ListItem>
+        </List>
+      </Box>
+
+      <Divider
+        sx={{
+          width: { xs: "90%", sm: "80%", md: "70%" },
+          mt: 2,
+          mb: { xs: 3, md: 5 },
+        }}
+      />
     </Box>
   );
 }
