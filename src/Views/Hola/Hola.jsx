@@ -5,7 +5,7 @@ import {
   Box,
   List,
   ListItem,
-  ListItemText,
+  Container,
 } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import Grid from "@mui/material/Grid2";
@@ -13,9 +13,27 @@ import ReyPerfil from "../../assets/ReyPerfil.jpg";
 import ReYaz from "../../assets/ReYaz.jpg";
 import { useTheme } from "@mui/material/styles";
 import styles from "../Hola/Hola.module.css";
+import LinkItem from "../../Components/LinkItem/LinkItem";
 
 export default function AboutMe() {
   const theme = useTheme();
+  const links = [
+    {
+      href: "/Blog",
+      text: "Blog Hernando Rey",
+      subtext: "Librería de UI para React",
+    },
+    {
+      href: "https://alarmaremota-sbl01.web.app/",
+      text: "Alarma ITX",
+      subtext: "Repositorio de código",
+    },
+    {
+      href: "https://ferrequiposdelacosta.com",
+      text: "Ferrequipos De La Costa",
+      subtext: "Motor de búsqueda",
+    },
+  ];
 
   return (
     <Box
@@ -129,11 +147,11 @@ export default function AboutMe() {
       <Box
         sx={{
           width: "100%",
-          // minHeight: "10vh",
+          minHeight: "10vh",
           display: "flex",
           justifyContent: "flex-end",
-          pr: { xs: 1.5, md: 24 },
-          mb: { xs: 1, md: 4 },
+          pr: { xs: 1.5, md: 27 },
+          mb: 2,
           // border: "2px solid #000",
         }}
       >
@@ -152,7 +170,7 @@ export default function AboutMe() {
           // border: "2px solid #000",
         }}
       >
-        <Grid  xs={12} md={6} order={{ xs: 2, md: 1 }}>
+        <Grid xs={12} md={6} order={{ xs: 2, md: 1 }}>
           <Box
             sx={{
               display: "flex",
@@ -165,7 +183,7 @@ export default function AboutMe() {
           </Box>
         </Grid>
 
-        <Grid  xs={12} md={6} order={{ xs: 1, md: 2 }}>
+        <Grid xs={12} md={6} order={{ xs: 1, md: 2 }}>
           <Box sx={{ ml: { md: 9.5 }, mb: { xs: 5 } }}>
             <List>
               {[
@@ -173,7 +191,7 @@ export default function AboutMe() {
                 "Hrking31",
                 "Nací en Colombia. Marzo 31, 1982",
                 "Vivo en Barranquilla",
-                "Padre de dos princesas",
+                "Padre de dos Princesas 👑✨💖",
                 "CV",
               ].map((text, index) => (
                 <ListItem
@@ -201,45 +219,33 @@ export default function AboutMe() {
           </Box>
         </Grid>
       </Grid>
-
       <Box
         sx={{
           width: { xs: "90%", sm: "80%", md: "70%" },
           textAlign: "left",
-          mb: { xs: 3, md: 4 },
+          mb: { xs: 3, md: 3 },
           // border: "2px solid #000",
         }}
       >
         <Typography variant="h4">Educación</Typography>
-        <List>
-          <ListItem>
-            <ListItemText
-              primary={
-                <Typography
-                  variant="body2"
-                  sx={{
-                    lineHeight: 0.5,
-                  }}
-                >
-                  2. Autodidacta
-                </Typography>
-              }
-            />
-          </ListItem>
-          <ListItem>
-            <ListItemText
-              primary={
-                <Typography
-                  variant="body2"
-                  sx={{
-                    lineHeight: 0.5,
-                  }}
-                >
-                  1. Ingeniero Electrónico (2005) PCA
-                </Typography>
-              }
-            />
-          </ListItem>
+        <List dense>
+          {[
+            "Henry 🚀.",
+            "Autodidacta.",
+            "Ingeniero Electrónico (2005) PCA.",
+          ].map((text, index, array) => (
+            <ListItem
+              key={index}
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+              }}
+            >
+              <Typography variant="body2">{array.length - index}.</Typography>
+              <Typography variant="body2">{text}</Typography>
+            </ListItem>
+          ))}
         </List>
       </Box>
 
@@ -250,6 +256,51 @@ export default function AboutMe() {
           mb: { xs: 3, md: 5 },
         }}
       />
+
+      <Box
+        sx={{
+          width: "100%",
+          minHeight: "10vh",
+          display: "flex",
+          justifyContent: "flex-end",
+          pr: { xs: 1.5, md: 27 },
+          mb: 2,
+          // border: "2px solid #000",
+        }}
+      >
+        <Typography variant="h2">¿Qué he hecho?</Typography>
+      </Box>
+      <Box
+        sx={{
+          width: { xs: "90%", sm: "80%", md: "70%" },
+          textAlign: "left",
+          mb: { xs: 3, md: 3 },
+          // border: "2px solid #000",
+        }}
+      >
+        <Typography variant="h4">Proyectos</Typography>
+      </Box>
+
+      <Box
+        sx={{
+          width: { xs: "90%", sm: "80%", md: "70%" },
+          alignItems: "center",
+          justifyContent: "center",
+          mb: { xs: 8, md: 8 },
+          // border: "2px solid #000",
+        }}
+      >
+        <Box sx={{ mt: 4 }}>
+          {links.map((link, index) => (
+            <LinkItem
+              key={index}
+              href={link.href}
+              text={link.text}
+              subtext={link.subtext}
+            />
+          ))}
+        </Box>
+      </Box>
     </Box>
   );
 }
