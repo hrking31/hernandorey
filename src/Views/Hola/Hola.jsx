@@ -5,12 +5,14 @@ import {
   Box,
   List,
   ListItem,
-  Container,
 } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import Grid from "@mui/material/Grid2";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
 import ReYaz from "../../assets/ReYaz.jpg";
+import AlarmaITXLogo from "../../assets/AlarmaITX.svg";
+import BlogLogo from "../../../public/favicon.svg";
+import FerrequiposLogo from "../../assets/FerrequiposLogo.svg";
 import { useTheme } from "@mui/material/styles";
 import styles from "../Hola/Hola.module.css";
 import LinkItem from "../../Components/LinkItem/LinkItem";
@@ -19,16 +21,20 @@ export default function AboutMe() {
   const theme = useTheme();
   const links = [
     {
+      logo: BlogLogo,
       href: "/Blog",
       text: "Blog Hernando Rey",
-      subtext: "Librería de UI para React",
+      subtext:
+        "mi pasión por la programación se combina con un compromiso de aprendizaje  en el ciclo completo de desarrollo de aplicaciones web",
     },
     {
+      logo: AlarmaITXLogo,
       href: "https://alarmaremota-sbl01.web.app/",
       text: "Alarma ITX",
       subtext: "Repositorio de código",
     },
     {
+      logo: FerrequiposLogo,
       href: "https://ferrequiposdelacosta.com",
       text: "Ferrequipos De La Costa",
       subtext: "Motor de búsqueda",
@@ -284,19 +290,29 @@ export default function AboutMe() {
       <Box
         sx={{
           width: { xs: "90%", sm: "80%", md: "70%" },
+          display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
+          mx: "auto",
           mb: { xs: 8, md: 8 },
           // border: "2px solid #000",
         }}
       >
-        <Box sx={{ mt: 4 }}>
+        <Box
+          sx={{
+            width: { xs: "90%", sm: "80%", md: "88%" },
+            mt: 4,
+            mb: 4,
+          }}
+        >
           {links.map((link, index) => (
             <LinkItem
               key={index}
               href={link.href}
               text={link.text}
               subtext={link.subtext}
+              logo={link.logo}
             />
           ))}
         </Box>
