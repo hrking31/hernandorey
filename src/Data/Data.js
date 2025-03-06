@@ -2,7 +2,7 @@ import AlarmaITXLogo from "../assets/AlarmaITX.svg";
 import BlogLogo from "../../public/favicon.svg";
 import FerrequiposLogo from "../assets/FerrequiposLogo.svg";
 
-export const MenuNavBar = ["Hola", "Blog"];
+export const MenuNavBar = ["Blog", "Hola"];
 
 export const YoSoy = [
   "Hernando Alberto Rey Jimenez",

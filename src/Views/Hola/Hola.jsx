@@ -14,6 +14,7 @@ import { useTheme } from "@mui/material/styles";
 import styles from "../Hola/Hola.module.css";
 import LinkItem from "../../Components/LinkItem/LinkItem";
 import { links, YoSoy, Estudios } from "../../Data/Data";
+import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 
 export default function AboutMe() {
   const theme = useTheme();
@@ -297,6 +298,7 @@ export default function AboutMe() {
             />
           ))}
         </Box>
+      <SocialMedia />
       </Box>
     </Box>
   );

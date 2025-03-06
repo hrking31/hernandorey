@@ -1,5 +1,4 @@
 import { Link as MuiLink, Typography, Box, Avatar } from "@mui/material";
-import Grid from "@mui/material/Grid2";
 import { NavLink } from "react-router-dom";
 
 const LinkItem = ({ href, text, subtext, logo }) => {
@@ -49,7 +48,7 @@ const LinkItem = ({ href, text, subtext, logo }) => {
           cursor: "pointer",
         }}
       >
-        <Box display="flex" alignItems="center" gap={4.5}>
+        <Box display="flex"  gap={4.5}>
           <Box
             sx={{
               textAlign: "left",
@@ -59,8 +58,8 @@ const LinkItem = ({ href, text, subtext, logo }) => {
             <Avatar
               src={logo}
               sx={{
-                width: { xs: 30, sm: 50, md: 55 },
-                height: { xs: 30, sm: 50, md: 55 },
+                width: { xs: 35, sm: 50, md: 55 },
+                height: { xs: 35, sm: 50, md: 55 },
               }}
             >
               L
@@ -99,8 +98,6 @@ const LinkItem = ({ href, text, subtext, logo }) => {
         </Box>
       </Box>
     </LinkWrapper>
-
-    
   );
 };
 
