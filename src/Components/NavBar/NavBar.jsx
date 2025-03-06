@@ -6,6 +6,7 @@ import LogoRey from "../../assets/Rey.svg";
 import styles from "../NavBar/NavBar.module.css";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import { useTheme } from "@mui/material/styles";
+import { MenuNavBar } from "../../Data/Data";
 
 export default function NavBar() {
   const location = useLocation();
@@ -66,7 +67,7 @@ export default function NavBar() {
               transform: "translateX(-50%)",
             }}
           >
-            {["Hola", "Blog"].map((text, index) => {
+            {MenuNavBar.map((text, index) => {
               const path = `/${text.toLowerCase()}`;
               const isActive = location.pathname === path;
 

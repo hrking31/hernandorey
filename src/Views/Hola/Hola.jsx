@@ -10,36 +10,13 @@ import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import Grid from "@mui/material/Grid2";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
 import ReYaz from "../../assets/ReYaz.jpg";
-import AlarmaITXLogo from "../../assets/AlarmaITX.svg";
-import BlogLogo from "../../../public/favicon.svg";
-import FerrequiposLogo from "../../assets/FerrequiposLogo.svg";
 import { useTheme } from "@mui/material/styles";
 import styles from "../Hola/Hola.module.css";
 import LinkItem from "../../Components/LinkItem/LinkItem";
+import { links, YoSoy, Estudios } from "../../Data/Data";
 
 export default function AboutMe() {
   const theme = useTheme();
-  const links = [
-    {
-      logo: BlogLogo,
-      href: "/Blog",
-      text: "Blog Hernando Rey",
-      subtext:
-        "mi pasión por la programación se combina con un compromiso de aprendizaje  en el ciclo completo de desarrollo de aplicaciones web",
-    },
-    {
-      logo: AlarmaITXLogo,
-      href: "https://alarmaremota-sbl01.web.app/",
-      text: "Alarma ITX",
-      subtext: "Repositorio de código",
-    },
-    {
-      logo: FerrequiposLogo,
-      href: "https://ferrequiposdelacosta.com",
-      text: "Ferrequipos De La Costa",
-      subtext: "Motor de búsqueda",
-    },
-  ];
 
   return (
     <Box
@@ -52,6 +29,7 @@ export default function AboutMe() {
         minHeight: "50vh",
         textAlign: "center",
         mt: { xs: 6.4, md: 18 },
+        px: { xs: 1, md: 2.8 },
         // border: "2px solid #000",
       }}
     >
@@ -61,7 +39,7 @@ export default function AboutMe() {
           minHeight: "10vh",
           display: "flex",
           justifyContent: "flex-end",
-          pr: { xs: 1.5, md: 27 },
+          px: { xs: 1.5, md: 24 },
           mb: 2,
           // border: "2px solid #000",
         }}
@@ -102,7 +80,16 @@ export default function AboutMe() {
           // border: "2px solid #000",
         }}
       >
-        <Typography variant="body1">
+        <Typography
+          variant="body1"
+          sx={{
+            lineHeight: 1.4,
+            textAlign: "justify",
+            textJustify: "inter-word",
+            wordBreak: "break-word",
+            hyphens: "auto",
+          }}
+        >
           Ingeniero electrónico y desarrollador web, combinando hardware y
           software para crear soluciones únicas.
         </Typography>
@@ -118,7 +105,11 @@ export default function AboutMe() {
         <Typography
           variant="body2"
           sx={{
-            lineHeight: 1.8,
+            lineHeight: 1.6,
+            textAlign: "justify",
+            textJustify: "inter-word",
+            wordBreak: "break-word",
+            hyphens: "auto",
           }}
         >
           <strong
@@ -147,6 +138,7 @@ export default function AboutMe() {
           width: { xs: "90%", sm: "80%", md: "70%" },
           mt: 2,
           mb: { xs: 3, md: 5 },
+          pr: 4,
         }}
       />
 
@@ -156,7 +148,7 @@ export default function AboutMe() {
           minHeight: "10vh",
           display: "flex",
           justifyContent: "flex-end",
-          pr: { xs: 1.5, md: 27 },
+          px: { xs: 1.5, md: 24 },
           mb: 2,
           // border: "2px solid #000",
         }}
@@ -192,14 +184,7 @@ export default function AboutMe() {
         <Grid xs={12} md={6} order={{ xs: 1, md: 2 }}>
           <Box sx={{ ml: { md: 9.5 }, mb: { xs: 5 } }}>
             <List>
-              {[
-                "Hernando Alberto Rey Jimenez",
-                "Hrking31",
-                "Nací en Colombia. Marzo 31, 1982",
-                "Vivo en Barranquilla",
-                "Padre de dos Princesas 👑✨💖",
-                "CV",
-              ].map((text, index) => (
+              {YoSoy.map((text, index) => (
                 <ListItem
                   key={index}
                   sx={{ display: "flex", alignItems: "center", gap: 1.2 }}
@@ -235,11 +220,7 @@ export default function AboutMe() {
       >
         <Typography variant="h4">Educación</Typography>
         <List dense>
-          {[
-            "Henry 🚀.",
-            "Autodidacta.",
-            "Ingeniero Electrónico (2005) PCA.",
-          ].map((text, index, array) => (
+          {Estudios.map((text, index, array) => (
             <ListItem
               key={index}
               sx={{
@@ -269,7 +250,7 @@ export default function AboutMe() {
           minHeight: "10vh",
           display: "flex",
           justifyContent: "flex-end",
-          pr: { xs: 1.5, md: 27 },
+          px: { xs: 1.5, md: 24 },
           mb: 2,
           // border: "2px solid #000",
         }}

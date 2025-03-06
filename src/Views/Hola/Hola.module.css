@@ -1,5 +1,5 @@
 .imageContainer img {
-  max-width: 255px;
+  max-width: 245px;
   height: auto;
   border-radius: 8px;
   view-timeline-name: --image;
@@ -16,13 +16,13 @@
     opacity: 0.1;
   }
   to {
-    transform: scale(1.4);
+    transform: scale(1.5);
     opacity: 1;
   }
 }
 
 @media (max-width: 600px) {
   .imageContainer img {
-    max-width: 220px;
+    max-width: 225px;
   }
 }
