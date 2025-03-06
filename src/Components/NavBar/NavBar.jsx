@@ -41,6 +41,7 @@ export default function NavBar() {
               sx={{
                 display: "flex",
                 alignItems: "center",
+                cursor: "pointer",
               }}
             >
               <img src={LogoRey} alt="logo" className={styles.logoimg} />
