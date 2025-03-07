@@ -15,6 +15,7 @@ import styles from "../Hola/Hola.module.css";
 import LinkItem from "../../Components/LinkItem/LinkItem";
 import { links, YoSoy, Estudios } from "../../Data/Data";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
+import PDF from "../../../public/Hernando Rey.pdf";
 
 export default function AboutMe() {
   const theme = useTheme();
@@ -184,11 +185,28 @@ export default function AboutMe() {
 
         <Grid xs={12} md={6} order={{ xs: 1, md: 2 }}>
           <Box sx={{ ml: { md: 9.5 }, mb: { xs: 5 } }}>
-            <List>
-              {YoSoy.map((text, index) => (
+            {/* <List>
+              {YoSoy.map((item, index) => (
                 <ListItem
                   key={index}
-                  sx={{ display: "flex", alignItems: "center", gap: 1.2 }}
+                  sx={{
+                    ...(item.mostrarEn === "solo-pantalla"
+                      ? { "@media print": { display: "none" } }
+                      : {}),
+                    ...(item.mostrarEn === "solo-imprimir"
+                      ? {
+                          visibility: "hidden",
+                          position: "absolute",
+                          "@media print": {
+                            visibility: "visible",
+                            position: "static",
+                          },
+                        }
+                      : {}),
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.2,
+                  }}
                 >
                   <FiberManualRecordIcon
                     sx={{
@@ -203,8 +221,78 @@ export default function AboutMe() {
                       lineHeight: 0.8,
                     }}
                   >
-                    {text}
+                    {item.text}
                   </Typography>
+                </ListItem>
+              ))}
+            </List> */}
+            <List>
+              {YoSoy.map((item, index) => (
+                <ListItem
+                  key={index}
+                  sx={{
+                    ...(item.mostrarEn === "solo-pantalla"
+                      ? { "@media print": { display: "none" } }
+                      : {}),
+                    ...(item.mostrarEn === "solo-imprimir"
+                      ? {
+                          visibility: "hidden",
+                          position: "absolute",
+                          "@media print": {
+                            visibility: "visible",
+                            position: "static",
+                          },
+                        }
+                      : {}),
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.2,
+                  }}
+                >
+                  <FiberManualRecordIcon
+                    sx={{
+                      fontSize: 11,
+                      color:
+                        theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
+                    }}
+                  />
+                  {item.text === "CV" ? (
+                    <Typography
+                      variant="body2"
+                      component="a"
+                      // href="https://firebasestorage.googleapis.com/v0/b/mi-negocio-30949.appspot.com/o/Hernando%20Rey.pdf?alt=media&token=dc810166-bdae-424c-bc13-f07645511f85"
+                      href={PDF}
+                      // target="_blank"
+                      // rel="noopener noreferrer"
+                      download
+                      sx={{
+                        lineHeight: 0.8,
+                        textDecoration: "underline",
+                        color: "blue",
+                      }}
+                    >
+                      {item.text}
+                    </Typography>
+                  ) : item.text.startsWith("http") ? (
+                    <Typography
+                      variant="body2"
+                      component="a"
+                      href={item.text}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        lineHeight: 0.8,
+                        textDecoration: "underline",
+                        color: "blue",
+                      }}
+                    >
+                      {item.text}
+                    </Typography>
+                  ) : (
+                    <Typography variant="body2" sx={{ lineHeight: 0.8 }}>
+                      {item.text}
+                    </Typography>
+                  )}
                 </ListItem>
               ))}
             </List>
@@ -277,7 +365,7 @@ export default function AboutMe() {
           alignItems: "center",
           justifyContent: "center",
           mx: "auto",
-          mb: { xs: 8, md: 8 },
+          mb: { xs: 5, md: 7 },
           // border: "2px solid #000",
         }}
       >
@@ -285,7 +373,6 @@ export default function AboutMe() {
           sx={{
             width: { xs: "90%", sm: "80%", md: "88%" },
             mt: 4,
-            mb: 4,
           }}
         >
           {links.map((link, index) => (
@@ -298,7 +385,9 @@ export default function AboutMe() {
             />
           ))}
         </Box>
-      <SocialMedia />
+      </Box>
+      <Box sx={{ "@media print": { display: "none" }, mb: { xs: 10, md: 7 } }}>
+        <SocialMedia />
       </Box>
     </Box>
   );

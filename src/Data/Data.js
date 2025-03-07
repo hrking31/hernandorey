@@ -5,12 +5,15 @@ import FerrequiposLogo from "../assets/FerrequiposLogo.svg";
 export const MenuNavBar = ["Blog", "Hola"];
 
 export const YoSoy = [
-  "Hernando Alberto Rey Jimenez",
-  "Hrking31",
-  "Nací en Colombia. Marzo 31, 1982",
-  "Vivo en Barranquilla",
-  "Padre de dos Princesas 👑✨💖",
-  "CV",
+  { text: "Hernando Alberto Rey Jimenez", mostrarEn: "ambos" },
+  { text: "Hrking31", mostrarEn: "ambos" },
+  { text: "Nací en Colombia. Marzo 31, 1982", mostrarEn: "ambos" },
+  { text: "Vivo en Barranquilla", mostrarEn: "ambos" },
+  { text: "Padre de dos Princesas 👑✨💖", mostrarEn: "ambos" },
+  { text: "hrking31@gmail.com", mostrarEn: "solo-imprimir" },
+  { text: "302 8446805", mostrarEn: "solo-imprimir" },
+  { text: "https://hernandorey-31.web.app/", mostrarEn: "solo-imprimir" },
+  { text: "CV", mostrarEn: "solo-pantalla" },
 ];
 
 export const Estudios = [
