@@ -35,18 +35,14 @@ export const getTheme = (mode) =>
         fontFamily: "'Raleway', sans-serif",
         fontStyle: "italic",
         fontWeight: 500,
-        fontSize: "2rem",
-        [`@media (max-width:900px)`]: { fontSize: "2rem" },
-        [`@media (max-width:600px)`]: { fontSize: "1.2rem" },
+        fontSize: "clamp(1.2rem, calc(1rem + 0.5vw), 2rem)",
       },
 
       body2: {
         fontFamily: "'Raleway', sans-serif",
         fontStyle: "normal",
         fontWeight: 500,
-        fontSize: "1.3rem",
-        [`@media (max-width:900px)`]: { fontSize: "1.2rem" },
-        [`@media (max-width:600px)`]: { fontSize: "1rem" },
+        fontSize: "clamp(1rem, calc(1rem + 0.5vw), 1.25rem)",
       },
 
       h4: {

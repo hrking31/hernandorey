@@ -13,7 +13,7 @@ import ReYaz from "../../assets/ReYaz.jpg";
 import { useTheme } from "@mui/material/styles";
 import styles from "../Hola/Hola.module.css";
 import LinkItem from "../../Components/LinkItem/LinkItem";
-import { links, YoSoy, Estudios } from "../../Data/Data";
+import { YoSoy, Estudios, links } from "../../Data/Data";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 import PDF from "../../../public/Hernando Rey.pdf";
 
@@ -28,25 +28,22 @@ export default function AboutMe() {
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
-        minHeight: "50vh",
         textAlign: "center",
-        mt: { xs: 6.4, md: 18 },
         px: { xs: 1, md: 2.8 },
+        mt: { xs: 6.4, md: 18 },
         // border: "2px solid #000",
       }}
     >
       <Box
         sx={{
-          width: "100%",
-          minHeight: "10vh",
+          width: { xs: "90%", sm: "80%", md: "70%" },
           display: "flex",
           justifyContent: "flex-end",
-          px: { xs: 1.5, md: 24 },
           mb: 2,
           // border: "2px solid #000",
         }}
       >
-        <Grid container alignItems="center" justifyContent="flex-end" gap={1}>
+        <Grid container alignItems="center" gap={1}>
           <Typography variant="h2">Hola 👋🏻</Typography>
           <Avatar
             src={ReyPerfil}
@@ -139,19 +136,16 @@ export default function AboutMe() {
         sx={{
           width: { xs: "90%", sm: "80%", md: "70%" },
           mt: 2,
-          mb: { xs: 3, md: 5 },
-          pr: 4,
+          mb: { xs: 3, md: 6 },
+          borderBottomWidth: "2.5px",
         }}
       />
 
       <Box
         sx={{
-          width: "100%",
-          minHeight: "10vh",
+          width: { xs: "90%", sm: "80%", md: "70%" },
           display: "flex",
           justifyContent: "flex-end",
-          px: { xs: 1.5, md: 24 },
-          mb: 2,
           // border: "2px solid #000",
         }}
       >
@@ -159,73 +153,46 @@ export default function AboutMe() {
       </Box>
       <Grid
         container
-        spacing={1}
+        spacing={2}
         className={styles.imageContainer}
         sx={{
           width: "100%",
           display: "flex",
-          justifyContent: { xs: "center", md: "flex-start" },
-          mt: { md: 7 },
+          justifyContent: "center",
+          mt: { sx: 2, md: 4 },
           mb: 10,
           // border: "2px solid #000",
         }}
       >
-        <Grid xs={12} md={6} order={{ xs: 2, md: 1 }}>
+        <Grid xs={12} sm={12} md={6} order={{ xs: 2, sm: 1, md: 1 }}>
           <Box
             sx={{
               display: "flex",
+              width: 375,
+              height: 375,
               alignItems: "center",
-              mx: { xs: "auto", md: "0" },
-              ml: { md: "345px" },
+              justifyContent: "center",
+              overflow: "visible",
+              // border: "2px solid #000",
             }}
           >
             <img src={ReYaz} alt="Img" className={styles.image} />
           </Box>
         </Grid>
 
-        <Grid xs={12} md={6} order={{ xs: 1, md: 2 }}>
-          <Box sx={{ ml: { md: 9.5 }, mb: { xs: 5 } }}>
-            {/* <List>
-              {YoSoy.map((item, index) => (
-                <ListItem
-                  key={index}
-                  sx={{
-                    ...(item.mostrarEn === "solo-pantalla"
-                      ? { "@media print": { display: "none" } }
-                      : {}),
-                    ...(item.mostrarEn === "solo-imprimir"
-                      ? {
-                          visibility: "hidden",
-                          position: "absolute",
-                          "@media print": {
-                            visibility: "visible",
-                            position: "static",
-                          },
-                        }
-                      : {}),
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1.2,
-                  }}
-                >
-                  <FiberManualRecordIcon
-                    sx={{
-                      fontSize: 11,
-                      color:
-                        theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
-                    }}
-                  />
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      lineHeight: 0.8,
-                    }}
-                  >
-                    {item.text}
-                  </Typography>
-                </ListItem>
-              ))}
-            </List> */}
+        <Grid xs={12} sm={12} md={6} order={{ xs: 1, sm: 2, md: 2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              width: 375,
+              height: 375,
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+              margin: "auto",
+              // border: "2px solid #000",
+            }}
+          >
             <List>
               {YoSoy.map((item, index) => (
                 <ListItem
@@ -264,7 +231,7 @@ export default function AboutMe() {
                       href={PDF}
                       // target="_blank"
                       // rel="noopener noreferrer"
-                      download
+                      download="CV-HernandoRey.pdf"
                       sx={{
                         lineHeight: 0.8,
                         textDecoration: "underline",
@@ -329,18 +296,15 @@ export default function AboutMe() {
         sx={{
           width: { xs: "90%", sm: "80%", md: "70%" },
           mt: 2,
-          mb: { xs: 3, md: 5 },
+          mb: { xs: 3, md: 6 },
+          borderBottomWidth: "2.5px",
         }}
       />
-
       <Box
         sx={{
-          width: "100%",
-          minHeight: "10vh",
+          width: { xs: "90%", sm: "80%", md: "70%" },
           display: "flex",
           justifyContent: "flex-end",
-          px: { xs: 1.5, md: 24 },
-          mb: 2,
           // border: "2px solid #000",
         }}
       >
@@ -350,7 +314,8 @@ export default function AboutMe() {
         sx={{
           width: { xs: "90%", sm: "80%", md: "70%" },
           textAlign: "left",
-          mb: { xs: 3, md: 3 },
+          mt: { xs: 3, md: 4 },
+          mb: { xs: 2, md: 3 },
           // border: "2px solid #000",
         }}
       >

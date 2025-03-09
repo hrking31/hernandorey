@@ -1,7 +1,7 @@
 .imageContainer img {
   max-width: 245px;
   height: auto;
-  border-radius: 8px;
+  border-radius: 1rem;
   view-timeline-name: --image;
   view-timeline-axis: block;
   animation-timeline: --image;
@@ -23,6 +23,6 @@
 
 @media (max-width: 600px) {
   .imageContainer img {
-    max-width: 225px;
+    max-width: 245px;
   }
 }

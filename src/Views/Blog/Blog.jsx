@@ -1,5 +1,13 @@
-import { Divider, Typography, Avatar, Box } from "@mui/material";
+// import { Divider, Typography, Avatar, Box } from "@mui/material";
+// import Grid from "@mui/material/Grid2";
+
+///////////////////////////////////////////////////////////////////////////
+import { Divider, Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
+import LinkItem from "../../Components/LinkItem/LinkItem";
+import { links } from "../../Data/Data";
+import SocialMedia from "../../Components/SocialMedia/SocialMedia";
+/////////////////////////////////////////////////////////////////////////////////
 
 export default function Blog() {
   return (
@@ -61,6 +69,51 @@ export default function Blog() {
           descubrimientos y experimentos, diseñada para aprender en comunidad
           mientras construyo soluciones tangibles.
         </Typography>
+      </Box>
+      <Box
+        sx={{
+          width: "100%",
+          minHeight: "10vh",
+          display: "flex",
+          justifyContent: "flex-end",
+          px: { xs: 1.5, md: 24 },
+          mb: 2,
+          // border: "2px solid #000",
+        }}
+      >
+        <Typography variant="h2">Artículos</Typography>
+      </Box>
+      <Box
+        sx={{
+          width: { xs: "90%", sm: "80%", md: "70%" },
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          mx: "auto",
+          mb: { xs: 5, md: 7 },
+          // border: "2px solid #000",
+        }}
+      >
+        <Box
+          sx={{
+            width: { xs: "90%", sm: "80%", md: "88%" },
+            mt: 4,
+          }}
+        >
+          {links.map((link, index) => (
+            <LinkItem
+              key={index}
+              href={link.href}
+              text={link.text}
+              subtext={link.subtext}
+              logo={link.logo}
+            />
+          ))}
+        </Box>
+      </Box>
+      <Box sx={{ "@media print": { display: "none" }, mb: { xs: 10, md: 7 } }}>
+        <SocialMedia />
       </Box>
     </Box>
   );
