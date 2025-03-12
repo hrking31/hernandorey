@@ -6,16 +6,13 @@ import {
   List,
   ListItem,
 } from "@mui/material";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import Grid from "@mui/material/Grid2";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
-import ReYaz from "../../assets/ReYaz.jpg";
 import { useTheme } from "@mui/material/styles";
-import styles from "../Hola/Hola.module.css";
 import LinkItem from "../../Components/LinkItem/LinkItem";
-import { YoSoy, Estudios, links } from "../../Data/Data";
+import { Estudios, links } from "../../Data/Data";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
-import PDF from "../../../public/Hernando Rey.pdf";
+import Profile from "../../Components/Profile/Profile";
 
 export default function AboutMe() {
   const theme = useTheme();
@@ -36,10 +33,10 @@ export default function AboutMe() {
     >
       <Box
         sx={{
-          width: { xs: "90%", sm: "80%", md: "70%" },
+          width: `clamp(70%, 85vw, 90%)`,
           display: "flex",
           justifyContent: "flex-end",
-          mb: 2,
+          mb: { xs: 4, md: 5.5 },
           // border: "2px solid #000",
         }}
       >
@@ -56,9 +53,11 @@ export default function AboutMe() {
       </Box>
       <Box
         sx={{
-          width: { xs: "90%", sm: "80%", md: "70%" },
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
           textAlign: "left",
-          mt: { xs: 2, md: 4 },
           mb: { xs: 3, md: 5 },
           // border: "2px solid #000",
         }}
@@ -73,7 +72,10 @@ export default function AboutMe() {
       </Box>
       <Box
         sx={{
-          width: { xs: "90%", sm: "80%", md: "70%" },
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
           textAlign: "left",
           mb: { xs: 3, md: 5 },
           // border: "2px solid #000",
@@ -95,9 +97,12 @@ export default function AboutMe() {
       </Box>
       <Box
         sx={{
-          width: { xs: "90%", sm: "80%", md: "70%" },
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
           textAlign: "left",
-          mb: { xs: 3, md: 4 },
+          mb: { xs: 3, md: 4.5 },
           // border: "2px solid #000",
         }}
       >
@@ -131,19 +136,23 @@ export default function AboutMe() {
           experiencias de usuario excepcionales.
         </Typography>
       </Box>
-
       <Divider
         sx={{
-          width: { xs: "90%", sm: "80%", md: "70%" },
-          mt: 2,
-          mb: { xs: 3, md: 6 },
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
+          mt: 1,
+          mb: { xs: 3, md: 5.5 },
           borderBottomWidth: "2.5px",
         }}
       />
-
       <Box
         sx={{
-          width: { xs: "90%", sm: "80%", md: "70%" },
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
           display: "flex",
           justifyContent: "flex-end",
           // border: "2px solid #000",
@@ -151,130 +160,48 @@ export default function AboutMe() {
       >
         <Typography variant="h2">Yo soy</Typography>
       </Box>
-      <Grid
-        container
-        spacing={2}
-        className={styles.imageContainer}
+
+      <Box
         sx={{
-          width: "100%",
+          // width: { xs: "90%", sm: "90%", md: "70%" },
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
+          margin: "auto",
           display: "flex",
-          justifyContent: "center",
-          mt: { sx: 2, md: 4 },
-          mb: 10,
+          justifyContent: "flex-end",
+          mt: { xs: 2, md: 4 },
+          mb: { xs: 3, md: 5 },
           // border: "2px solid #000",
         }}
       >
-        <Grid xs={12} sm={12} md={6} order={{ xs: 2, sm: 1, md: 1 }}>
-          <Box
-            sx={{
-              display: "flex",
-              width: 375,
-              height: 375,
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "visible",
-              // border: "2px solid #000",
-            }}
-          >
-            <img src={ReYaz} alt="Img" className={styles.image} />
-          </Box>
-        </Grid>
-
-        <Grid xs={12} sm={12} md={6} order={{ xs: 1, sm: 2, md: 2 }}>
-          <Box
-            sx={{
-              display: "flex",
-              width: 375,
-              height: 375,
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              margin: "auto",
-              // border: "2px solid #000",
-            }}
-          >
-            <List>
-              {YoSoy.map((item, index) => (
-                <ListItem
-                  key={index}
-                  sx={{
-                    ...(item.mostrarEn === "solo-pantalla"
-                      ? { "@media print": { display: "none" } }
-                      : {}),
-                    ...(item.mostrarEn === "solo-imprimir"
-                      ? {
-                          visibility: "hidden",
-                          position: "absolute",
-                          "@media print": {
-                            visibility: "visible",
-                            position: "static",
-                          },
-                        }
-                      : {}),
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1.2,
-                  }}
-                >
-                  <FiberManualRecordIcon
-                    sx={{
-                      fontSize: 11,
-                      color:
-                        theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
-                    }}
-                  />
-                  {item.text === "CV" ? (
-                    <Typography
-                      variant="body2"
-                      component="a"
-                      // href="https://firebasestorage.googleapis.com/v0/b/mi-negocio-30949.appspot.com/o/Hernando%20Rey.pdf?alt=media&token=dc810166-bdae-424c-bc13-f07645511f85"
-                      href={PDF}
-                      // target="_blank"
-                      // rel="noopener noreferrer"
-                      download="CV-HernandoRey.pdf"
-                      sx={{
-                        lineHeight: 0.8,
-                        textDecoration: "underline",
-                        color: "blue",
-                      }}
-                    >
-                      {item.text}
-                    </Typography>
-                  ) : item.text.startsWith("http") ? (
-                    <Typography
-                      variant="body2"
-                      component="a"
-                      href={item.text}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      sx={{
-                        lineHeight: 0.8,
-                        textDecoration: "underline",
-                        color: "blue",
-                      }}
-                    >
-                      {item.text}
-                    </Typography>
-                  ) : (
-                    <Typography variant="body2" sx={{ lineHeight: 0.8 }}>
-                      {item.text}
-                    </Typography>
-                  )}
-                </ListItem>
-              ))}
-            </List>
-          </Box>
-        </Grid>
-      </Grid>
+        <Profile />
+      </Box>
       <Box
         sx={{
-          width: { xs: "90%", sm: "80%", md: "70%" },
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
           textAlign: "left",
-          mb: { xs: 3, md: 3 },
+          mb: { xs: 2, md: 3 },
           // border: "2px solid #000",
         }}
       >
         <Typography variant="h4">Educación</Typography>
+      </Box>
+      <Box
+        sx={{
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
+          textAlign: "left",
+          mb: { xs: 2, md: 2 },
+          // border: "2px solid #000",
+        }}
+      >
         <List dense>
           {Estudios.map((text, index, array) => (
             <ListItem
@@ -291,18 +218,23 @@ export default function AboutMe() {
           ))}
         </List>
       </Box>
-
       <Divider
         sx={{
-          width: { xs: "90%", sm: "80%", md: "70%" },
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
           mt: 2,
-          mb: { xs: 3, md: 6 },
+          mb: { xs: 5, md: 5 },
           borderBottomWidth: "2.5px",
         }}
       />
       <Box
         sx={{
-          width: { xs: "90%", sm: "80%", md: "70%" },
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
           display: "flex",
           justifyContent: "flex-end",
           // border: "2px solid #000",
@@ -312,32 +244,35 @@ export default function AboutMe() {
       </Box>
       <Box
         sx={{
-          width: { xs: "90%", sm: "80%", md: "70%" },
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
           textAlign: "left",
           mt: { xs: 3, md: 4 },
-          mb: { xs: 2, md: 3 },
+          mb: { xs: 2.5, md: 5 },
           // border: "2px solid #000",
         }}
       >
         <Typography variant="h4">Proyectos</Typography>
       </Box>
-
       <Box
         sx={{
-          width: { xs: "90%", sm: "80%", md: "70%" },
+          width: "90%", // Valor por defecto
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          mx: "auto",
-          mb: { xs: 5, md: 7 },
+          mb: { xs: 6, md: 7 },
           // border: "2px solid #000",
         }}
       >
         <Box
           sx={{
-            width: { xs: "90%", sm: "80%", md: "88%" },
-            mt: 4,
+            width: { xs: "90%", sm: "90%", md: "88%" },
           }}
         >
           {links.map((link, index) => (
