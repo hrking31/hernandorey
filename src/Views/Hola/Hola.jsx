@@ -9,8 +9,8 @@ import {
 import Grid from "@mui/material/Grid2";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
 import { useTheme } from "@mui/material/styles";
-import LinkItem from "../../Components/LinkItem/LinkItem";
 import { Estudios, links } from "../../Data/Data";
+import LinkItem from "../../Components/LinkItem/LinkItem";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 import Profile from "../../Components/Profile/Profile";
 
@@ -28,12 +28,18 @@ export default function AboutMe() {
         textAlign: "center",
         px: { xs: 1, md: 2.8 },
         mt: { xs: 6.4, md: 18 },
+        "@media print": {
+          pt: 8,
+          margin: "0",
+        },
         // border: "2px solid #000",
       }}
     >
       <Box
         sx={{
-          width: `clamp(70%, 85vw, 90%)`,
+          width: "90%",
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
           display: "flex",
           justifyContent: "flex-end",
           mb: { xs: 4, md: 5.5 },
@@ -53,7 +59,7 @@ export default function AboutMe() {
       </Box>
       <Box
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
@@ -72,7 +78,7 @@ export default function AboutMe() {
       </Box>
       <Box
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
@@ -97,7 +103,7 @@ export default function AboutMe() {
       </Box>
       <Box
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
@@ -138,18 +144,19 @@ export default function AboutMe() {
       </Box>
       <Divider
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
           mt: 1,
           mb: { xs: 3, md: 5.5 },
+          "@media print": { display: "none" },
           borderBottomWidth: "2.5px",
         }}
       />
       <Box
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
@@ -158,12 +165,11 @@ export default function AboutMe() {
           // border: "2px solid #000",
         }}
       >
-        <Typography variant="h2">Yo soy</Typography>
+        <Typography variant="h3">Yo soy</Typography>
       </Box>
 
       <Box
         sx={{
-          // width: { xs: "90%", sm: "90%", md: "70%" },
           width: "90%", // Valor por defecto
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
@@ -172,7 +178,7 @@ export default function AboutMe() {
           display: "flex",
           justifyContent: "flex-end",
           mt: { xs: 2, md: 4 },
-          mb: { xs: 3, md: 5 },
+          mb: { xs: 4, md: 6 },
           // border: "2px solid #000",
         }}
       >
@@ -180,7 +186,7 @@ export default function AboutMe() {
       </Box>
       <Box
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
@@ -193,7 +199,7 @@ export default function AboutMe() {
       </Box>
       <Box
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
@@ -220,31 +226,35 @@ export default function AboutMe() {
       </Box>
       <Divider
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
           mt: 2,
           mb: { xs: 5, md: 5 },
+          "@media print": { display: "none" },
           borderBottomWidth: "2.5px",
         }}
       />
       <Box
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
           display: "flex",
           justifyContent: "flex-end",
+          "@media print": {
+            pt: 8,
+          },
           // border: "2px solid #000",
         }}
       >
-        <Typography variant="h2">¿Qué he hecho?</Typography>
+        <Typography variant="h3">¿Qué he hecho?</Typography>
       </Box>
       <Box
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
@@ -258,7 +268,7 @@ export default function AboutMe() {
       </Box>
       <Box
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
@@ -282,6 +292,7 @@ export default function AboutMe() {
               text={link.text}
               subtext={link.subtext}
               logo={link.logo}
+              // variant="default"
             />
           ))}
         </Box>

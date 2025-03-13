@@ -1,6 +1,12 @@
-import AlarmaITXLogo from "../assets/AlarmaITX.svg";
-import BlogLogo from "../../public/favicon.svg";
-import FerrequiposLogo from "../assets/FerrequiposLogo.svg";
+// import AlarmaITXLogo from "../assets/AlarmaITX.svg";
+// import BlogLogo from "../assets/BlogLogo.svg";
+// import FerrequiposLogo from "../assets/FerrequiposLogo.svg";
+import {
+  AlarmaITXLogo,
+  BlogLogo,
+  FerrequiposLogo,
+} from "../assets/LogosProyectos/LogosIndex";
+import { Js, Git, VsCode } from "../assets/LogosPost/LogosIndex";
 
 export const MenuNavBar = ["Blog", "Hola"];
 
@@ -43,5 +49,23 @@ export const links = [
     text: "Ferrequipos De La Costa",
     subtext:
       "Colaboro en proyectos como Desarrollador Web Freelance. Estoy más orientado al Frontend, pero también hago Backend.",
+  },
+];
+
+export const post = [
+  {
+    logo: Js,
+    href: "/Blog",
+    text: "JavaScript",
+  },
+  {
+    logo: Git,
+    href: "/Blog",
+    text: "Git",
+  },
+  {
+    logo: VsCode,
+    href: "/Blog",
+    text: "Visual Studio Code",
   },
 ];

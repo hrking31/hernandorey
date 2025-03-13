@@ -10,67 +10,85 @@ const ProfileContainer = styled("div")(({ theme }) => ({
   width: "100%",
   display: "flex",
   flexWrap: "wrap",
+  flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  gap: theme.spacing(2),
+  gap: theme.spacing(3),
+  paddingLeft: 0,
+  [theme.breakpoints.up("991")]: { paddingLeft: "8.5vw" },
+  [theme.breakpoints.up("lg")]: { paddingLeft: "5.5vw" },
   // border: "2px solid #000",
-  [theme.breakpoints.up("md")]: {
+
+  [theme.breakpoints.up(763)]: {
     flexWrap: "nowrap",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  [theme.breakpoints.up("md")]: {
     justifyContent: "flex-start",
+  },
+
+  "@media print": {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: "0.5rem",
+    paddingBottom: "2rem",
   },
 }));
 
 const ProfileImage = styled("img")(({ theme }) => ({
   width: "100%",
-  maxWidth: 500,
+  maxWidth: "none",
   borderRadius: "1rem",
   display: "block",
   margin: "auto",
-  // border: "2px solid #000",
   order: 2,
+  // border: "2px solid #000",
+
+  [theme.breakpoints.up(763)]: {
+    flexShrink: 0,
+    width: "45%",
+    maxWidth: 300,
+    order: -1,
+  },
+
   [theme.breakpoints.up("md")]: {
     width: "40%",
     maxWidth: 380,
-    order: -1,
-    marginLeft: `clamp(5%, 8vw, 12%)`,
   },
+
   [theme.breakpoints.up("lg")]: {
     width: "60%",
     maxWidth: 370,
-    order: -1,
-    margin: "0",
-    marginLeft: theme.spacing(9),
   },
-  [theme.breakpoints.down("md")]: {
-    width: "100%", 
-    maxWidth: "none", 
-    margin: "0",
+
+  "@media print": {
+    width: "40%",
+    maxWidth: 200,
   },
 }));
 
 const ProfileList = styled(List)(({ theme }) => ({
-  width: "100%", 
-  maxWidth: "500",
+  width: "100%",
+  maxWidth: "none",
   margin: "auto",
   // border: "2px solid #000",
+  order: 1,
 
-  [theme.breakpoints.up("md")]: {
-    width: "100%", 
-    maxWidth: "none", 
-    order: 1,
-
+  [theme.breakpoints.up(763)]: {
+    flexGrow: 1,
+    width: "55%",
+    maxWidth: "none",
   },
 
-  [theme.breakpoints.up("lg")]: {
-    width: "100%", 
-    maxWidth: 400, 
+  "@media print": {
+    width: "60%",
+    maxWidth: "none",
+    lineHeight: "1",
+    padding: "0",
     margin: "0",
-  },
-
-  [theme.breakpoints.down("md")]: {
-    width: "100%", 
-    maxWidth: "none", 
-    margin: "0",
+    fontSize: "0.7rem",
   },
 }));
 
@@ -100,6 +118,7 @@ export default function Profile() {
               display: "flex",
               alignItems: "center",
               gap: 1.2,
+              minHeight: "unset",
             }}
           >
             <FiberManualRecordIcon
@@ -115,9 +134,11 @@ export default function Profile() {
                 href={PDF}
                 download="CV-HernandoRey.pdf"
                 sx={{
-                  lineHeight: 0.8,
                   textDecoration: "underline",
-                  color: "blue",
+                  color: "#08c",
+                  "&:hover": {
+                    color: "#e7762e",
+                  },
                 }}
               >
                 {item.text}
@@ -134,7 +155,9 @@ export default function Profile() {
                 {item.text}
               </Typography>
             ) : (
-              <Typography variant="body2">{item.text}</Typography>
+              <Typography variant="body2" sx={{ lineHeight: 0.8 }}>
+                {item.text}
+              </Typography>
             )}
           </ListItem>
         ))}

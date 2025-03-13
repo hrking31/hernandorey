@@ -26,9 +26,26 @@ export const getTheme = (mode) =>
         fontFamily: "'Raleway', sans-serif",
         fontStyle: "normal",
         fontWeight: 900,
-        fontSize: "3.9rem",
-        [`@media (max-width:900px)`]: { fontSize: "2.5rem" },
+        fontSize: "clamp(2.4rem, 5vw, 3.9rem)",
+        [`@media (max-width:900px)`]: { fontSize: "2.8rem" },
         [`@media (max-width:600px)`]: { fontSize: "2.4rem" },
+      },
+      h3: {
+        fontFamily: "'Raleway', sans-serif",
+        fontStyle: "normal",
+        fontWeight: 900,
+        fontSize: "calc(1.3rem + 2.7vw)",
+        [`@media (max-width:900px)`]: { fontSize: "2.4rem" },
+        [`@media (max-width:600px)`]: { fontSize: "2rem" },
+      },
+
+      h4: {
+        fontFamily: "'Raleway', sans-serif",
+        fontStyle: "normal",
+        fontWeight: 600,
+        fontSize: "calc(1.5rem + 1.5vw)",
+        [`@media (max-width:900px)`]: { fontSize: "2rem" },
+        [`@media (max-width:600px)`]: { fontSize: "1.8rem" },
       },
 
       body1: {
@@ -43,15 +60,6 @@ export const getTheme = (mode) =>
         fontStyle: "normal",
         fontWeight: 500,
         fontSize: "clamp(0.875rem, 1rem + 0.3vw, 1.25rem)",
-      },
-
-      h4: {
-        fontFamily: "'Raleway', sans-serif",
-        fontStyle: "normal",
-        fontWeight: 600,
-        fontSize: "3.2rem",
-        [`@media (max-width:900px)`]: { fontSize: "2rem" },
-        [`@media (max-width:600px)`]: { fontSize: "1.8rem" },
       },
     },
 

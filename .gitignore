@@ -1,6 +1,7 @@
 # Logs
 logs
 *.log
+src/Components/Firebase/FirebaseConfig.js
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
