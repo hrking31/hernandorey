@@ -170,7 +170,7 @@ export default function AboutMe() {
 
       <Box
         sx={{
-          width: "90%", // Valor por defecto
+          width: "90%", 
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
@@ -292,7 +292,7 @@ export default function AboutMe() {
               text={link.text}
               subtext={link.subtext}
               logo={link.logo}
-              // variant="default"
+              variant={"default"}
             />
           ))}
         </Box>

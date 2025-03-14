@@ -102,30 +102,20 @@ export default function Blog() {
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
+          textAlign: "left",
           mb: { xs: 6, md: 7 },
           // border: "2px solid #000",
         }}
       >
-        <Box
-          sx={{
-            width: { xs: "90%", sm: "80%", md: "88%" },
-            mt: 4,
-          }}
-        >
-          {post.map((link, index) => (
-            <LinkItem
-              key={index}
-              href={link.href}
-              text={link.text}
-              logo={link.logo}
-              // variant="compact"
-            />
-          ))}
-        </Box>
+        {post.map((link, index) => (
+          <LinkItem
+            key={index}
+            href={link.href}
+            text={link.text}
+            logo={link.logo}
+            variant={"compact"}
+          />
+        ))}
       </Box>
       <Box sx={{ mb: { xs: 10, md: 7 } }}>
         <SocialMedia />

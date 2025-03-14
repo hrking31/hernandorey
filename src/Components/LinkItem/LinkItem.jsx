@@ -1,39 +1,32 @@
 import { Link as MuiLink, Typography, Box, Avatar } from "@mui/material";
 import { NavLink } from "react-router-dom";
 
-const LinkItem = ({ href, text, subtext, logo }) => {
+const LinkWrapper = ({ href, children }) => {
   const isInternal = href.startsWith("/");
 
-  const LinkWrapper = ({ children }) =>
-    isInternal ? (
-      <NavLink
-        to={href}
-        style={{
-          display: "block",
-          textDecoration: "none",
-          color: "inherit",
-        }}
-      >
-        {children}
-      </NavLink>
-    ) : (
-      <MuiLink
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        underline="none"
-        sx={{
-          display: "block",
-          textDecoration: "none",
-          color: "inherit",
-        }}
-      >
-        {children}
-      </MuiLink>
-    );
+  return isInternal ? (
+    <NavLink
+      to={href}
+      style={{ display: "block", textDecoration: "none", color: "inherit" }}
+    >
+      {children}
+    </NavLink>
+  ) : (
+    <MuiLink
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      underline="none"
+      sx={{ display: "block", textDecoration: "none", color: "inherit" }}
+    >
+      {children}
+    </MuiLink>
+  );
+};
 
+const LinkItem = ({ href, text, subtext, logo, variant = "default" }) => {
   return (
-    <LinkWrapper>
+    <LinkWrapper href={href}>
       <Box
         sx={{
           display: "block",
@@ -48,47 +41,40 @@ const LinkItem = ({ href, text, subtext, logo }) => {
           cursor: "pointer",
         }}
       >
-        <Box display="flex"  gap={4.5}>
-          <Box
+        <Box display="flex" gap={4} alignItems="center">
+          <Avatar
+            src={logo}
             sx={{
-              textAlign: "left",
-              pl: 2,
+              width: { xs: 35, sm: 50, md: 55 },
+              height: { xs: 35, sm: 50, md: 55 },
+              ml: 2,
             }}
-          >
-            <Avatar
-              src={logo}
-              sx={{
-                width: { xs: 35, sm: 50, md: 55 },
-                height: { xs: 35, sm: 50, md: 55 },
-              }}
-            >
-              L
-            </Avatar>
-          </Box>
+          />
           <Box
             sx={{
-              width: "auto",
               textAlign: "left",
+              display: "flex",
               flexDirection: "column",
+              alignItems: variant === "default" ? "flex-start" : "center",
             }}
           >
             <Typography
               variant="body2"
-              sx={{ fontSize: "1rem", fontWeight: 700 }}
+              sx={{
+                fontSize: "1rem",
+                fontWeight: variant === "default" ? 700 : 900,
+              }}
             >
               {text}
             </Typography>
-
-            {subtext && (
+            {variant === "default" && subtext && (
               <Typography
                 variant="body2"
                 sx={{
                   fontSize: "14px",
                   color: "text.secondary",
                   textAlign: "justify",
-                  textJustify: "inter-word",
                   wordBreak: "break-word",
-                  hyphens: "auto",
                 }}
               >
                 {subtext}
@@ -102,100 +88,3 @@ const LinkItem = ({ href, text, subtext, logo }) => {
 };
 
 export default LinkItem;
-
-
-// import { Link as MuiLink, Typography, Box, Avatar } from "@mui/material";
-// import { NavLink } from "react-router-dom";
-
-// const LinkItem = ({ href, text, subtext, logo, variant = "default" }) => {
-//   const isInternal = href.startsWith("/");
-
-//   const LinkWrapper = ({ children }) =>
-//     isInternal ? (
-//       <NavLink
-//         to={href}
-//         style={{
-//           display: "block",
-//           textDecoration: "none",
-//           color: "inherit",
-//         }}
-//       >
-//         {children}
-//       </NavLink>
-//     ) : (
-//       <MuiLink
-//         href={href}
-//         target="_blank"
-//         rel="noopener noreferrer"
-//         underline="none"
-//         sx={{
-//           display: "block",
-//           textDecoration: "none",
-//           color: "inherit",
-//         }}
-//       >
-//         {children}
-//       </MuiLink>
-//     );
-
-//   return (
-//     <LinkWrapper>
-//       <Box
-//         sx={{
-//           display: "flex",
-//           alignItems: "center",
-//           borderBottom: variant === "default" ? "1px solid" : "none",
-//           borderColor: "divider",
-//           paddingY: 1,
-//           transition: "all 0.3s ease-in-out",
-//           "&:hover": {
-//             backgroundColor: "divider",
-//             borderBottomColor: "transparent",
-//           },
-//           cursor: "pointer",
-//           justifyContent: variant === "compact" ? "center" : "flex-start",
-//           gap: variant === "compact" ? 1.5 : 4.5,
-//         }}
-//       >
-//         <Avatar
-//           src={logo}
-//           sx={{
-//             width: { xs: 35, sm: 50, md: 55 },
-//             height: { xs: 35, sm: 50, md: 55 },
-//           }}
-//         >
-//           L
-//         </Avatar>
-
-//         <Typography
-//           variant="body2"
-//           sx={{
-//             fontSize: "1rem",
-//             fontWeight: 700,
-//             textAlign: "center",
-//           }}
-//         >
-//           {text}
-//         </Typography>
-
-//         {variant === "default" && subtext && (
-//           <Typography
-//             variant="body2"
-//             sx={{
-//               fontSize: "14px",
-//               color: "text.secondary",
-//               textAlign: "justify",
-//               textJustify: "inter-word",
-//               wordBreak: "break-word",
-//               hyphens: "auto",
-//             }}
-//           >
-//             {subtext}
-//           </Typography>
-//         )}
-//       </Box>
-//     </LinkWrapper>
-//   );
-// };
-
-// export default LinkItem;
