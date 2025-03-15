@@ -1,0 +1,93 @@
+/* .imageContainer img {
+  max-width: 245px;
+  height: auto;
+  border-radius: 1rem;
+  view-timeline-name: --image;
+  view-timeline-axis: block;
+  animation-timeline: --image;
+  animation-name: scroll-image;
+  animation-range: entry 25% cover 30%;
+  animation-fill-mode: both;
+}
+
+@keyframes scroll-image {
+  from {
+    transform: scale(0.1);
+    opacity: 0.1;
+  }
+  to {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .imageContainer img {
+    max-width: 245px;
+  }
+} */
+
+/* hasta aca es el codigo bueno */
+
+/* 
+@media (max-width: 150px) {
+  .imageContainer img {
+    max-width: 50px;
+  }
+} */
+
+/* .imageContainer img {
+  max-width: clamp(50px, 50vw, 245px);
+} */
+
+/* estas son pruebas] */
+
+/* Mejora la animación en dispositivos pequeños */
+
+/* @keyframes scroll-image {
+  from {
+    transform: scale(0.5);
+    opacity: 0.3;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+} */
+.animated-image {
+  max-width: 245px;
+  height: auto;
+  border-radius: 1rem;
+  view-timeline-name: --image;
+  view-timeline-axis: block;
+  animation-timeline: --image;
+  animation-name: scroll-image;
+  animation-range: entry 25% cover 30%; /* Se inicia antes y dura más */
+  animation-fill-mode: both; /* Mantiene el estado final de la animación */
+  opacity: 0;
+}
+
+@keyframes scroll-image {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  20% {
+    transform: scale(0.5);
+    opacity: 0.3;
+  }
+  60% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .animated-image {
+    max-width: 245px;
+  }
+}

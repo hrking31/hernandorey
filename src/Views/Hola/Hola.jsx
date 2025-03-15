@@ -167,10 +167,9 @@ export default function AboutMe() {
       >
         <Typography variant="h3">Yo soy</Typography>
       </Box>
-
       <Box
         sx={{
-          width: "90%", 
+          width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
@@ -292,7 +291,6 @@ export default function AboutMe() {
               text={link.text}
               subtext={link.subtext}
               logo={link.logo}
-              variant={"default"}
             />
           ))}
         </Box>

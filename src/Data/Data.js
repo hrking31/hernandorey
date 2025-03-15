@@ -54,18 +54,18 @@ export const links = [
 
 export const post = [
   {
+    id: "js",
     logo: Js,
-    href: "/Blog",
     text: "JavaScript",
   },
   {
+    id: "git",
     logo: Git,
-    href: "/Blog",
     text: "Git",
   },
   {
+    id: "vsc",
     logo: VsCode,
-    href: "/Blog",
     text: "Visual Studio Code",
   },
 ];

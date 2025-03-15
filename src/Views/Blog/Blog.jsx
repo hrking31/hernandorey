@@ -1,7 +1,8 @@
 import { Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import LinkItem from "../../Components/LinkItem/LinkItem";
+// import LinkItem from "../../Components/LinkItem/LinkItem";
 import { post } from "../../Data/Data";
+import CardsPost from "../../Components/CardsPost/CardsPost";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 
 export default function Blog() {
@@ -107,15 +108,15 @@ export default function Blog() {
           // border: "2px solid #000",
         }}
       >
-        {post.map((link, index) => (
+        {/* {post.map((link, index) => (
           <LinkItem
             key={index}
             href={link.href}
             text={link.text}
             logo={link.logo}
-            variant={"compact"}
           />
-        ))}
+        ))} */}
+        <CardsPost posts={post} />
       </Box>
       <Box sx={{ mb: { xs: 10, md: 7 } }}>
         <SocialMedia />
