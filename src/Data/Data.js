@@ -68,4 +68,19 @@ export const post = [
     logo: VsCode,
     text: "Visual Studio Code",
   },
+  {
+    id: "js",
+    logo: Js,
+    text: "JavaScript",
+  },
+  {
+    id: "git",
+    logo: Git,
+    text: "Git",
+  },
+  {
+    id: "vsc",
+    logo: VsCode,
+    text: "Visual Studio Code",
+  },
 ];

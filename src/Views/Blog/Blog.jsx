@@ -108,14 +108,6 @@ export default function Blog() {
           // border: "2px solid #000",
         }}
       >
-        {/* {post.map((link, index) => (
-          <LinkItem
-            key={index}
-            href={link.href}
-            text={link.text}
-            logo={link.logo}
-          />
-        ))} */}
         <CardsPost posts={post} />
       </Box>
       <Box sx={{ mb: { xs: 10, md: 7 } }}>

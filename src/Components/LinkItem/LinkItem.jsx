@@ -132,12 +132,12 @@ const LinkItem = ({ href, text, subtext, logo }) => {
           borderBottom: "1px solid",
           borderColor: "divider",
           paddingY: 1,
+          cursor: "pointer",
           transition: "all 0.3s ease-in-out",
           "&:hover": {
             backgroundColor: "divider",
             borderBottomColor: "transparent",
           },
-          cursor: "pointer",
         }}
       >
         <Box display="flex" gap={4.5}>
@@ -145,13 +145,14 @@ const LinkItem = ({ href, text, subtext, logo }) => {
             sx={{
               textAlign: "left",
               pl: 2,
+              pt:0.5,
             }}
           >
             <Avatar
               src={logo}
               sx={{
-                width: { xs: 35, sm: 50, md: 55 },
-                height: { xs: 35, sm: 50, md: 55 },
+                width: { xs: 35, sm: 45, md: 55 },
+                height: { xs: 35, sm: 45, md: 55 },
               }}
             >
               L
