@@ -298,7 +298,7 @@ export default function AboutMe() {
           ))}
         </Box>
       </Box>
-      <Box sx={{ "@media print": { display: "none" }, mb: { xs: 14.5, md: 7 } }}>
+      <Box sx={{ "@media print": { display: "none" } }}>
         <SocialMedia />
       </Box>
     </Box>
