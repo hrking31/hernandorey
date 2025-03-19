@@ -113,7 +113,7 @@ export default function Blog() {
       >
         <CardsPost posts={post} />
       </Box>
-      <Box sx={{ mb: { xs: 10, md: 7 } }}>
+      <Box sx={{ mb: { xs: 14.5, md: 7 } }}>
         <SocialMedia />
       </Box>
     </Box>
