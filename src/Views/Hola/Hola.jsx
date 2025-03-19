@@ -15,6 +15,9 @@ import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 import Profile from "../../Components/Profile/Profile";
 
 export default function AboutMe() {
+  console.log(
+    "👋 Hola Soy tu amigo y colega en el mundo del código... Hernando rey 🦁"
+  );
   const theme = useTheme();
 
   return (

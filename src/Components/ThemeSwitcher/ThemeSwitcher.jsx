@@ -14,11 +14,15 @@ export default function ThemeSwitcher() {
       sx={{
         color: mode === "dark" ? "#f5f5f5" : "#282c34",
         backgroundColor:
-          mode === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)", 
+          mode === "dark" ? "rgba(255, 255, 255, 0.2)" : "rgba(0, 0, 0, 0.1)",
         transition: "background-color 0.3s ease",
         "&:hover": {
           backgroundColor:
-            mode === "dark" ? "rgba(255, 255, 255, 0.3)" : "rgba(0, 0, 0, 0.2)", 
+            mode === "dark" ? "rgba(255, 255, 255, 0.3)" : "rgba(0, 0, 0, 0.2)",
+        },
+        "@media (max-width: 400px)": {
+          fontSize: "0.8rem",
+            padding: "4px",
         },
       }}
     >

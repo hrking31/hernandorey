@@ -12,7 +12,7 @@ export const MenuNavBar = ["Blog", "Hola"];
 
 export const YoSoy = [
   { text: "Hernando Alberto Rey Jimenez", mostrarEn: "ambos" },
-  { text: "Hrking31", mostrarEn: "ambos" },
+  { text: "a.k.a. Hrking31", mostrarEn: "ambos" },
   { text: "Nací en Colombia. Marzo 31, 1982", mostrarEn: "ambos" },
   { text: "Vivo en Barranquilla", mostrarEn: "ambos" },
   { text: "Padre de dos Princesas 👑✨💖", mostrarEn: "ambos" },
@@ -53,21 +53,6 @@ export const links = [
 ];
 
 export const post = [
-  {
-    id: "js",
-    logo: Js,
-    text: "JavaScript",
-  },
-  {
-    id: "git",
-    logo: Git,
-    text: "Git",
-  },
-  {
-    id: "vsc",
-    logo: VsCode,
-    text: "Visual Studio Code",
-  },
   {
     id: "js",
     logo: Js,

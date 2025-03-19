@@ -19,15 +19,44 @@
   animation: pulse-scale 2s infinite ease-in-out;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 992px) {
   .navlogo:hover .logocontainer {
     animation: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .appbar {
+    position: fixed !important;
+    bottom: 0 !important;
+    top: auto !important;
+  }
+}
+
+@media (min-width: 993px) {
+  .appbar {
+    border-bottom: 0.5px solid #ddd;
+    border-top: none;
+  }
+}
+
+
+@media (max-width: 992px) {
+  .appbar {
+    border-top: 0.5px solid #ddd;
+    border-bottom: none;
   }
 }
 
 .logoimg {
   max-height: 40px;
   height: auto;
+}
+
+@media (max-width: 400px) {
+  .logoimg {
+    max-height: 30px; 
+  }
 }
 
 .logotext {
@@ -37,11 +66,41 @@
   font-style: normal;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 992px) {
   .logotext {
     display: none;
   }
 }
+
+.navContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  gap: 32px; 
+}
+
+.navbar {
+  height: 30px; 
+}
+
+@media (max-width: 400px) {
+  .navContainer {
+    gap: 30px;
+  }
+}
+
+@media (max-width: 200px) {
+  .navContainer {
+        flex-direction: column; /* Apilar elementos */
+    align-items: center;
+     height: 30px; 
+    gap: 0px;
+  }
+}
+
 
 .navlink {
   text-decoration: none;
@@ -53,6 +112,7 @@
   display: inline-block;
   padding-bottom: 3px;
   top: -3px;
+  align-items: center;
 }
 
 .navlink::after {
@@ -83,3 +143,4 @@
 .active::after {
   transform: scaleX(1);
 }
+

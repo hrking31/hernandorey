@@ -73,4 +73,3 @@ export const getTheme = (mode) =>
       },
     },
   });
-// Color: #282c34
