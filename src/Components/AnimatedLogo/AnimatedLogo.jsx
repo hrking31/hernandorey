@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
-import Logo from "../../assets/Rey.svg";
+import Logo from "../../assets/Rey.png";
 import "./AnimatedLogo.css";
 
 const AnimatedLogo = () => {

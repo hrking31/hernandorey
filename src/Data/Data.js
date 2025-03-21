@@ -1,6 +1,3 @@
-// import AlarmaITXLogo from "../assets/AlarmaITX.svg";
-// import BlogLogo from "../assets/BlogLogo.svg";
-// import FerrequiposLogo from "../assets/FerrequiposLogo.svg";
 import {
   AlarmaITXLogo,
   BlogLogo,
@@ -37,6 +34,13 @@ export const links = [
       "CMS personalizado con Firebase para gestionar textos, imágenes y código desde una interfaz de administración, automatizando la renderización de posts y agilizando la creación de artículos.",
   },
   {
+    logo: FerrequiposLogo,
+    href: "https://mi-negocio-30949.web.app",
+    text: "Mi-negocio.com",
+    subtext:
+      "Catálogo digital de productos con funcionalidades CRUD (creación, edición y eliminación de productos), generación de cuentas de cobro y cotizaciones con descarga de PDFs con membrete.",
+  },
+  {
     logo: AlarmaITXLogo,
     href: "https://alarmaremota-sbl01.web.app/",
     text: "Alarma ITX",
@@ -68,4 +72,19 @@ export const post = [
     logo: VsCode,
     text: "Visual Studio Code",
   },
+];
+
+export const tecnologias = [
+  { name: "React", color: "45b8d8", logo: "react" },
+  { name: "Docker", color: "46a2f1", logo: "docker" },
+  { name: "Express", color: "000000", logo: "express" },
+  { name: "Redux", color: "764ABC", logo: "redux" },
+  { name: "Redux Toolkit", color: "764ABC", logo: "redux" },
+  { name: "Git", color: "F05032", logo: "git" },
+  { name: "CSS", color: "1572B6", logo: "css3" },
+  { name: "Node.js", color: "43853d", logo: "Node.js" },
+  { name: "Sequelize", color: "52B0E7", logo: "sequelize" },
+  { name: "MySQL", color: "4479A1", logo: "mysql" },
+  { name: "PostgreSQL", color: "336791", logo: "postgresql" },
+  { name: "MongoDB", color: "47A248", logo: "mongodb" },
 ];

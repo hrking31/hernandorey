@@ -133,16 +133,18 @@ export default function AboutMe() {
           >
             Como Desarrollador Full Stack,
           </strong>
-          &nbsp;mi pasión por la programación se combina con un compromiso de
-          aprendizaje constante para dominar tecnologías emergentes. Tengo
-          experiencia en el ciclo completo de desarrollo de aplicaciones web,
-          diseñando interfaces intuitivas con React en el frontend y
-          construyendo APIs robustas con Node.js y Express en el backend. Me
-          especializo en crear arquitecturas escalables, integrando bases de
-          datos SQL/NoSQL (como PostgreSQL y MongoDB) y servicios en la nube
-          para maximizar el rendimiento y la eficiencia. Cada línea de código
-          que escribo busca no solo resolver problemas, sino también ofrecer
-          experiencias de usuario excepcionales.
+          &nbsp; combino mi pasión por la
+          programación con un compromiso constante de aprendizaje para dominar
+          tecnologías emergentes. Tengo experiencia en todo el ciclo de
+          desarrollo de aplicaciones web, desde la creación de interfaces
+          intuitivas con React en el frontend hasta la construcción de APIs
+          robustas con Node.js y Express en el backend. Me especializo en
+          diseñar arquitecturas escalables, integrando bases de datos SQL y
+          NoSQL (como PostgreSQL y MongoDB) y aprovechando servicios en la nube
+          para optimizar el rendimiento y la eficiencia. Cada línea de código
+          que escribo no solo resuelve problemas, sino que también busca ofrecer
+          experiencias de usuario excepcionales y soluciones tecnológicas
+          innovadoras.
         </Typography>
       </Box>
       <Divider

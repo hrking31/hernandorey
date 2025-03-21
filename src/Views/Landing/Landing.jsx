@@ -3,6 +3,7 @@ import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 import AnimatedLogo from "../../Components/AnimatedLogo/AnimatedLogo";
+import { tecnologias } from "../../Data/Data";
 
 const LandingContainer = styled(Box)(({ theme }) => ({
   width: "90%",
@@ -119,6 +120,26 @@ export default function Landing() {
           <Typography sx={{ fontSize: "1.5rem", fontWeight: 700 }}>
             Software Engineer & UX
           </Typography>
+          <Box
+            sx={{
+              display: "block",
+              "@media (min-width: 992px)": { display: "none" },
+              mt: 2,
+            }}
+          >
+            {tecnologias.map((tech, index) => (
+              <img
+                key={index}
+                alt={tech.name}
+                src={`https://img.shields.io/badge/-${tech.name}-${tech.color}?style=flat-square&logo=${tech.logo}&logoColor=white`}
+                style={{
+                  margin: "4px",
+                  maxWidth: "100px",
+                  height: "auto",
+                }}
+              />
+            ))}
+          </Box>
         </LandingImage>
 
         <LandingText>
@@ -172,14 +193,34 @@ export default function Landing() {
         </LandingText>
       </LandingContainer>
 
+      <Box
+        sx={{
+          width: "90%",
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
+          display: "none",
+          "@media (min-width: 992px)": { display: "block" },
+          mt: 6,
+        }}
+      >
+        {tecnologias.map((tech, index) => (
+          <img
+            key={index}
+            alt={tech.name}
+            src={`https://img.shields.io/badge/-${tech.name}-${tech.color}?style=flat-square&logo=${tech.logo}&logoColor=white`}
+            style={{ margin: "4px", maxWidth: "100px", height: "auto" }}
+          />
+        ))}
+      </Box>
       <Divider
         sx={{
           width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
-          mt: 7,
-          mb: { xs: 3, md: 5.5 },
+          mt: 6,
+          mb: { xs: 5.5, md: 7.5 },
           borderBottomWidth: "2.5px",
         }}
       />

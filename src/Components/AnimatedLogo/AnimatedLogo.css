@@ -41,7 +41,19 @@
   margin-bottom: 25px;
 }
 
-.image {
+.image1 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #e7762e;
+}
+
+.image2 {
   width: 100%;
   height: 100%;
   border-radius: 50%;
