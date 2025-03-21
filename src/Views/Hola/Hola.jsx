@@ -10,9 +10,9 @@ import Grid from "@mui/material/Grid2";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
 import { useTheme } from "@mui/material/styles";
 import { Estudios, links } from "../../Data/Data";
+import Profile from "../../Components/Profile/Profile";
 import LinkItem from "../../Components/LinkItem/LinkItem";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
-import Profile from "../../Components/Profile/Profile";
 
 export default function AboutMe() {
   console.log(

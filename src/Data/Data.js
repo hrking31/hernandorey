@@ -34,21 +34,21 @@ export const links = [
     href: "/Blog",
     text: "Blog Hernando Rey",
     subtext:
-      "mi pasión por la programación se combina con un compromiso de aprendizaje en el ciclo completo de desarrollo de aplicaciones web",
+      "CMS personalizado con Firebase para gestionar textos, imágenes y código desde una interfaz de administración, automatizando la renderización de posts y agilizando la creación de artículos.",
   },
   {
     logo: AlarmaITXLogo,
     href: "https://alarmaremota-sbl01.web.app/",
     text: "Alarma ITX",
     subtext:
-      "Disfruto llevar a cabo la maquetación e interactividad de interfaces, así como la optimización de carga en sitios y aplicaciones web.",
+      "Sistema de monitorización remota con sensores ESP32 para visualizar en tiempo real el estado de equipos, optimizando la supervisión y control de dispositivos de manera eficiente.",
   },
   {
     logo: FerrequiposLogo,
     href: "https://ferrequiposdelacosta.com",
     text: "Ferrequipos De La Costa",
     subtext:
-      "Colaboro en proyectos como Desarrollador Web Freelance. Estoy más orientado al Frontend, pero también hago Backend.",
+      "Catálogo digital de productos con funcionalidades CRUD (creación, edición y eliminación de productos), generación de cuentas de cobro y cotizaciones con descarga de PDFs con membrete.",
   },
 ];
 

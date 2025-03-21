@@ -28,7 +28,9 @@ export default function CardPost({ logo, text, id }) {
                   width: { xs: 28, sm: 30, md: 35 },
                   height: { xs: 28, sm: 30, md: 35 },
                 }}
-              />
+              >
+                L
+              </Avatar>
             )}
             <Typography
               variant="body2"

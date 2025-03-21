@@ -40,7 +40,7 @@ export default function NavBar() {
                 cursor: "pointer",
               }}
             >
-              <img src={LogoRey} alt="logo" className={styles.logoimg} />
+              <img src={LogoRey} className={styles.logoimg} />
               <span
                 className={`${styles.logotext} ${styles.hiddenOnMobile}`}
                 style={{

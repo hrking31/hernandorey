@@ -40,7 +40,6 @@
   }
 }
 
-
 @media (max-width: 992px) {
   .appbar {
     border-top: 0.5px solid #ddd;
@@ -55,13 +54,13 @@
 
 @media (max-width: 400px) {
   .logoimg {
-    max-height: 30px; 
+    max-height: 30px;
   }
 }
 
 .logotext {
-  font-size: 1.9rem;
-  font-weight: bold;
+  font-size: 2.5rem;
+  font-weight: 900;
   color: black;
   font-style: normal;
 }
@@ -75,15 +74,15 @@
 .navContainer {
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  gap: 32px; 
+  gap: 32px;
 }
 
 .navbar {
-  height: 30px; 
+  height: 30px;
 }
 
 @media (max-width: 400px) {
@@ -94,13 +93,12 @@
 
 @media (max-width: 200px) {
   .navContainer {
-        flex-direction: column; /* Apilar elementos */
+    flex-direction: column; /* Apilar elementos */
     align-items: center;
-     height: 30px; 
+    height: 30px;
     gap: 0px;
   }
 }
-
 
 .navlink {
   text-decoration: none;
@@ -143,4 +141,3 @@
 .active::after {
   transform: scaleX(1);
 }
-
