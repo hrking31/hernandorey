@@ -12,6 +12,7 @@ import { useTheme } from "@mui/material/styles";
 import { Estudios, links } from "../../Data/Data";
 import Profile from "../../Components/Profile/Profile";
 import LinkItem from "../../Components/LinkItem/LinkItem";
+import { tecnologias } from "../../Data/Data";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 
 export default function AboutMe() {
@@ -133,18 +134,17 @@ export default function AboutMe() {
           >
             Como Desarrollador Full Stack,
           </strong>
-          &nbsp; combino mi pasión por la
-          programación con un compromiso constante de aprendizaje para dominar
-          tecnologías emergentes. Tengo experiencia en todo el ciclo de
-          desarrollo de aplicaciones web, desde la creación de interfaces
-          intuitivas con React en el frontend hasta la construcción de APIs
-          robustas con Node.js y Express en el backend. Me especializo en
-          diseñar arquitecturas escalables, integrando bases de datos SQL y
-          NoSQL (como PostgreSQL y MongoDB) y aprovechando servicios en la nube
-          para optimizar el rendimiento y la eficiencia. Cada línea de código
-          que escribo no solo resuelve problemas, sino que también busca ofrecer
-          experiencias de usuario excepcionales y soluciones tecnológicas
-          innovadoras.
+          &nbsp; combino mi pasión por la programación con un compromiso
+          constante de aprendizaje para dominar tecnologías emergentes. Tengo
+          experiencia en todo el ciclo de desarrollo de aplicaciones web, desde
+          la creación de interfaces intuitivas con React en el frontend hasta la
+          construcción de APIs robustas con Node.js y Express en el backend. Me
+          especializo en diseñar arquitecturas escalables, integrando bases de
+          datos SQL y NoSQL (como PostgreSQL y MongoDB) y aprovechando servicios
+          en la nube para optimizar el rendimiento y la eficiencia. Cada línea
+          de código que escribo no solo resuelve problemas, sino que también
+          busca ofrecer experiencias de usuario excepcionales y soluciones
+          tecnológicas innovadoras.
         </Typography>
       </Box>
       <Divider
@@ -227,6 +227,58 @@ export default function AboutMe() {
             </ListItem>
           ))}
         </List>
+      </Box>
+      <Divider
+        sx={{
+          width: "90%",
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
+          mt: 2,
+          mb: { xs: 4, md: 4 },
+          "@media print": { display: "none" },
+          borderBottomWidth: "2.5px",
+        }}
+      />
+      <Box
+        sx={{
+          width: "90%",
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
+          textAlign: "left",
+          mb: { xs: 2, md: 3 },
+          "@media print": {
+            pt: 8,
+            margin: "0",
+          },
+          // border: "2px solid #000",
+        }}
+      >
+        <Typography variant="h4">Tecnologías</Typography>
+      </Box>
+      <Box
+        sx={{
+          width: "90%",
+          [theme.breakpoints.up("md")]: { width: "90%" },
+          [theme.breakpoints.up("lg")]: { width: "70%" },
+          maxWidth: "90%",
+          mt: 2.5,
+          mb: { xs: 2, md: 3 },
+        }}
+      >
+        {tecnologias.map((tech, index) => (
+          <img
+            key={index}
+            alt={tech.name}
+            src={`https://img.shields.io/badge/-${tech.name}-${tech.color}?style=flat-square&logo=${tech.logo}&logoColor=white`}
+            style={{
+              margin: "4px",
+              maxWidth: "100px",
+              height: "auto",
+            }}
+          />
+        ))}
       </Box>
       <Divider
         sx={{

@@ -1,6 +1,7 @@
 import {
   AlarmaITXLogo,
   BlogLogo,
+  MiNegocio,
   FerrequiposLogo,
 } from "../assets/LogosProyectos/LogosIndex";
 import { Js, Git, VsCode } from "../assets/LogosPost/LogosIndex";
@@ -34,11 +35,11 @@ export const links = [
       "CMS personalizado con Firebase para gestionar textos, imágenes y código desde una interfaz de administración, automatizando la renderización de posts y agilizando la creación de artículos.",
   },
   {
-    logo: FerrequiposLogo,
+    logo: MiNegocio,
     href: "https://mi-negocio-30949.web.app",
     text: "Mi-negocio.com",
     subtext:
-      "Catálogo digital de productos con funcionalidades CRUD (creación, edición y eliminación de productos), generación de cuentas de cobro y cotizaciones con descarga de PDFs con membrete.",
+      "Catálogo digital versátil para cualquier tipo de producto, con funcionalidades CRUD (crear, editar y eliminar productos), generación de cotizaciones y cuentas de cobro en PDF personalizado y opción de descarga.",
   },
   {
     logo: AlarmaITXLogo,
@@ -76,9 +77,9 @@ export const post = [
 
 export const tecnologias = [
   { name: "React", color: "45b8d8", logo: "react" },
-  { name: "Docker", color: "46a2f1", logo: "docker" },
+  // { name: "Docker", color: "46a2f1", logo: "docker" },
   { name: "Express", color: "000000", logo: "express" },
-  { name: "Redux", color: "764ABC", logo: "redux" },
+  // { name: "Redux", color: "764ABC", logo: "redux" },
   { name: "Redux Toolkit", color: "764ABC", logo: "redux" },
   { name: "Git", color: "F05032", logo: "git" },
   { name: "CSS", color: "1572B6", logo: "css3" },
@@ -86,5 +87,5 @@ export const tecnologias = [
   { name: "Sequelize", color: "52B0E7", logo: "sequelize" },
   { name: "MySQL", color: "4479A1", logo: "mysql" },
   { name: "PostgreSQL", color: "336791", logo: "postgresql" },
-  { name: "MongoDB", color: "47A248", logo: "mongodb" },
+  // { name: "MongoDB", color: "47A248", logo: "mongodb" },
 ];

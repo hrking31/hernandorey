@@ -48,13 +48,20 @@
 }
 
 .logoimg {
-  max-height: 40px;
+  max-height: 50px;
   height: auto;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 247px) {
   .logoimg {
-    max-height: 30px;
+    max-height: 40px;
+    margin-left: -12px;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .navlogo:hover .logoimg {
+    animation: pulse-scale 2s infinite ease-in-out;
   }
 }
 
@@ -93,7 +100,7 @@
 
 @media (max-width: 200px) {
   .navContainer {
-    flex-direction: column; /* Apilar elementos */
+    flex-direction: column;
     align-items: center;
     height: 30px;
     gap: 0px;

@@ -10,6 +10,7 @@ import { MenuNavBar } from "../../Data/Data";
 export default function NavBar() {
   const location = useLocation();
   const theme = useTheme();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar

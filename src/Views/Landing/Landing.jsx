@@ -3,7 +3,7 @@ import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 import AnimatedLogo from "../../Components/AnimatedLogo/AnimatedLogo";
-import { tecnologias } from "../../Data/Data";
+// import { tecnologias } from "../../Data/Data";
 
 const LandingContainer = styled(Box)(({ theme }) => ({
   width: "90%",
@@ -120,7 +120,7 @@ export default function Landing() {
           <Typography sx={{ fontSize: "1.5rem", fontWeight: 700 }}>
             Software Engineer & UX
           </Typography>
-          <Box
+          {/* <Box
             sx={{
               display: "block",
               "@media (min-width: 992px)": { display: "none" },
@@ -139,7 +139,7 @@ export default function Landing() {
                 }}
               />
             ))}
-          </Box>
+          </Box> */}
         </LandingImage>
 
         <LandingText>
@@ -193,7 +193,7 @@ export default function Landing() {
         </LandingText>
       </LandingContainer>
 
-      <Box
+      {/* <Box
         sx={{
           width: "90%",
           [theme.breakpoints.up("md")]: { width: "90%" },
@@ -212,7 +212,7 @@ export default function Landing() {
             style={{ margin: "4px", maxWidth: "100px", height: "auto" }}
           />
         ))}
-      </Box>
+      </Box> */}
       <Divider
         sx={{
           width: "90%",
