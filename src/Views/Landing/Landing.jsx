@@ -1,9 +1,8 @@
-import { Typography, Avatar, Box, Divider } from "@mui/material";
+import { Typography, Box, Divider } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useTheme } from "@mui/material/styles";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 import AnimatedLogo from "../../Components/AnimatedLogo/AnimatedLogo";
-// import { tecnologias } from "../../Data/Data";
 
 const LandingContainer = styled(Box)(({ theme }) => ({
   width: "90%",
@@ -120,99 +119,81 @@ export default function Landing() {
           <Typography sx={{ fontSize: "1.5rem", fontWeight: 700 }}>
             Software Engineer & UX
           </Typography>
-          {/* <Box
-            sx={{
-              display: "block",
-              "@media (min-width: 992px)": { display: "none" },
-              mt: 2,
-            }}
-          >
-            {tecnologias.map((tech, index) => (
-              <img
-                key={index}
-                alt={tech.name}
-                src={`https://img.shields.io/badge/-${tech.name}-${tech.color}?style=flat-square&logo=${tech.logo}&logoColor=white`}
-                style={{
-                  margin: "4px",
-                  maxWidth: "100px",
-                  height: "auto",
-                }}
-              />
-            ))}
-          </Box> */}
         </LandingImage>
 
         <LandingText>
-          <Typography
-            variant="body2"
-            sx={{
-              lineHeight: 1.6,
-              textAlign: "justify",
-              textJustify: "inter-word",
-              wordBreak: "break-word",
-              hyphens: "auto",
-            }}
-          >
-            <Box display="flex" flexDirection="column" gap={2}>
-              <Box>
-                <strong
-                  sx={{
-                    color:
-                      theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
-                    fontWeight: "900",
-                  }}
-                >
-                  Como Developer,
-                </strong>
-                &nbsp;me gusta crear soluciones que unen diseño, tecnología y
-                funcionalidad.
-              </Box>
-              <Box>
-                <strong
-                  sx={{
-                    color:
-                      theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
-                    fontWeight: "900",
-                  }}
-                >
-                  Resolver problemas,
-                </strong>
-                &nbsp;optimizar procesos y crear soluciones, ya sea a través de
-                sistemas automatizados o experiencias digitales.
-              </Box>
-              <Box>
-                Disfruto todo el proceso de creación, desde la concepción de una
-                idea hasta su materialización en un producto real.
-              </Box>
-              <Box>
-                Adicto al café ☕, amante del ejercicio 🏋🏻💪, cinéfilo
-                empedernido 🎬🍿, y entusiasta de la domótica 🏠..
-              </Box>
-            </Box>
-          </Typography>
+          <Box display="flex" flexDirection="column" gap={2}>
+            <Typography
+              variant="body2"
+              sx={{
+                lineHeight: 1.6,
+                textAlign: "justify",
+                textJustify: "inter-word",
+                wordBreak: "break-word",
+                hyphens: "auto",
+              }}
+            >
+              <strong
+                sx={{
+                  color: theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
+                  fontWeight: "900",
+                }}
+              >
+                Como Developer,
+              </strong>
+              &nbsp;me gusta crear soluciones que unen diseño, tecnología y
+              funcionalidad.
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                lineHeight: 1.6,
+                textAlign: "justify",
+                textJustify: "inter-word",
+                wordBreak: "break-word",
+                hyphens: "auto",
+              }}
+            >
+              <strong
+                sx={{
+                  color: theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
+                  fontWeight: "900",
+                }}
+              >
+                Resolver problemas,
+              </strong>
+              &nbsp;optimizar procesos y crear soluciones, ya sea a través de
+              sistemas automatizados o experiencias digitales.
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                lineHeight: 1.6,
+                textAlign: "justify",
+                textJustify: "inter-word",
+                wordBreak: "break-word",
+                hyphens: "auto",
+              }}
+            >
+              Disfruto todo el proceso de creación, desde la concepción de una
+              idea hasta su materialización en un producto real.
+            </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                lineHeight: 1.6,
+                textAlign: "justify",
+                textJustify: "inter-word",
+                wordBreak: "break-word",
+                hyphens: "auto",
+              }}
+            >
+              Adicto al café ☕, amante del ejercicio 🏋🏻💪, cinéfilo empedernido
+              🎬🍿, y entusiasta de la domótica 🏠..
+            </Typography>
+          </Box>
         </LandingText>
       </LandingContainer>
-
-      {/* <Box
-        sx={{
-          width: "90%",
-          [theme.breakpoints.up("md")]: { width: "90%" },
-          [theme.breakpoints.up("lg")]: { width: "70%" },
-          maxWidth: "90%",
-          display: "none",
-          "@media (min-width: 992px)": { display: "block" },
-          mt: 6,
-        }}
-      >
-        {tecnologias.map((tech, index) => (
-          <img
-            key={index}
-            alt={tech.name}
-            src={`https://img.shields.io/badge/-${tech.name}-${tech.color}?style=flat-square&logo=${tech.logo}&logoColor=white`}
-            style={{ margin: "4px", maxWidth: "100px", height: "auto" }}
-          />
-        ))}
-      </Box> */}
       <Divider
         sx={{
           width: "90%",

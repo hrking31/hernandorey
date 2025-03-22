@@ -11,6 +11,7 @@ import ReyPerfil from "../../assets/ReyPerfil.jpg";
 import { useTheme } from "@mui/material/styles";
 import { Estudios, links } from "../../Data/Data";
 import Profile from "../../Components/Profile/Profile";
+// import AnimacionImg from "../../Components/AnimacionImg/AnimacionImg"
 import LinkItem from "../../Components/LinkItem/LinkItem";
 import { tecnologias } from "../../Data/Data";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
@@ -188,6 +189,7 @@ export default function AboutMe() {
       >
         <Profile />
       </Box>
+      {/* <AnimacionImg/> */}
       <Box
         sx={{
           width: "90%",
@@ -208,7 +210,7 @@ export default function AboutMe() {
           [theme.breakpoints.up("lg")]: { width: "70%" },
           maxWidth: "90%",
           textAlign: "left",
-          mb: { xs: 2, md: 2 },
+          mb: { xs: 3, md: 4 },
           // border: "2px solid #000",
         }}
       >
@@ -228,18 +230,6 @@ export default function AboutMe() {
           ))}
         </List>
       </Box>
-      <Divider
-        sx={{
-          width: "90%",
-          [theme.breakpoints.up("md")]: { width: "90%" },
-          [theme.breakpoints.up("lg")]: { width: "70%" },
-          maxWidth: "90%",
-          mt: 2,
-          mb: { xs: 4, md: 4 },
-          "@media print": { display: "none" },
-          borderBottomWidth: "2.5px",
-        }}
-      />
       <Box
         sx={{
           width: "90%",
@@ -265,17 +255,19 @@ export default function AboutMe() {
           maxWidth: "90%",
           mt: 2.5,
           mb: { xs: 2, md: 3 },
+          // border: "2px solid #000",
         }}
       >
         {tecnologias.map((tech, index) => (
-          <img
+          <Box
             key={index}
+            component="img"
             alt={tech.name}
             src={`https://img.shields.io/badge/-${tech.name}-${tech.color}?style=flat-square&logo=${tech.logo}&logoColor=white`}
-            style={{
+            sx={{
               margin: "4px",
               maxWidth: "100px",
-              height: "auto",
+              height: { xs: "auto", md: "25px" },
             }}
           />
         ))}

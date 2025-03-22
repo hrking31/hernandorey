@@ -1,6 +1,5 @@
 import { Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-// import LinkItem from "../../Components/LinkItem/LinkItem";
 import { post } from "../../Data/Data";
 import CardsPost from "../../Components/CardsPost/CardsPost";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
@@ -59,11 +58,11 @@ export default function Blog() {
             hyphens: "auto",
           }}
         >
-          En este espacio comparto mi viaje en el mundo tech: artículos,
-          tutoriales, teoría aplicada y fragmentos de código. Exploro desarrollo
-          web, automatización con Home Assistant y teclados ergonómicos como el
-          Corne. También publico presentaciones, reflexiones sobre software y
-          proyectos donde fusiono programación con hardware.
+          En este espacio comparto mi viaje en el mundo tech a través de
+          artículos, tutoriales, teoría aplicada y fragmentos de código. Exploro
+          el desarrollo web, la automatización con Home Assistant, el teclado
+          ergonómico Corne y proyectos que combinan programación con
+          hardware.
         </Typography>
       </Box>
       <Box
