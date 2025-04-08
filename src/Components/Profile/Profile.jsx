@@ -1,4 +1,4 @@
-import { List, ListItem, Typography } from "@mui/material";
+import { List, ListItem, Typography, Tooltip } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { styled } from "@mui/material/styles";
 import ReYaz from "../../assets/ReYaz.jpg";
@@ -94,6 +94,7 @@ const ProfileList = styled(List)(({ theme }) => ({
 
 export default function Profile() {
   const theme = useTheme();
+
   return (
     <ProfileContainer>
       <ProfileImage src={ReYaz} alt="Hernando Rey" />
@@ -128,21 +129,23 @@ export default function Profile() {
               }}
             />
             {item.text === "CV" ? (
-              <Typography
-                variant="body2"
-                component="a"
-                href={PDF}
-                download="CV-HernandoRey.pdf"
-                sx={{
-                  textDecoration: "underline",
-                  color: "#08c",
-                  "&:hover": {
-                    color: "#e7762e",
-                  },
-                }}
-              >
-                {item.text}
-              </Typography>
+              <Tooltip title="¡Aquí tienes mi CV!" arrow>
+                <Typography
+                  variant="body2"
+                  component="a"
+                  href={PDF}
+                  download="CV-HernandoRey.pdf"
+                  sx={{
+                    textDecoration: "underline",
+                    color: "#08c",
+                    "&:hover": {
+                      color: "#e7762e",
+                    },
+                  }}
+                >
+                  {item.text}
+                </Typography>
+              </Tooltip>
             ) : item.text.startsWith("http") ? (
               <Typography
                 variant="body2"

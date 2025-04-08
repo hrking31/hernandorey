@@ -11,7 +11,7 @@ import ReyPerfil from "../../assets/ReyPerfil.jpg";
 import { useTheme } from "@mui/material/styles";
 import { Estudios, links } from "../../Data/Data";
 import Profile from "../../Components/Profile/Profile";
-// import AnimacionImg from "../../Components/AnimacionImg/AnimacionImg"
+import AnimacionImg from "../../Components/AnimacionImg/AnimacionImg";
 import LinkItem from "../../Components/LinkItem/LinkItem";
 import { tecnologias } from "../../Data/Data";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
@@ -189,7 +189,7 @@ export default function AboutMe() {
       >
         <Profile />
       </Box>
-      {/* <AnimacionImg/> */}
+      {/* <AnimacionImg /> */}
       <Box
         sx={{
           width: "90%",

@@ -13,7 +13,7 @@ const SocialMedia = () => {
       const handleCopy = () => {
         navigator.clipboard.writeText(email);
         setCopied(true);
-        setTimeout(() => setCopied(false), 2000); // Restablece el estado después de 2s
+        setTimeout(() => setCopied(false), 2000); 
       };
 
   return (

@@ -1,4 +1,4 @@
-.imageContainer img {
+/* .imageContainer img {
   max-width: 245px;
   height: auto;
   border-radius: 1rem;
@@ -19,5 +19,18 @@
     transform: scale(1.5);
     opacity: 1;
   }
+} */
+
+.imageContainer img {
+  max-width: 245px;
+  height: auto;
+  border-radius: 1rem;
+  transition: transform 1s ease-out, opacity 1s ease-out;
+  transform: scale(0.1);
+  opacity: 0;
 }
 
+.unset img {
+  transform: scale(1.5);
+  opacity: 1;
+}
