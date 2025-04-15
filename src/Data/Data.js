@@ -78,6 +78,7 @@ export const post = [
 export const tecnologias = [
   { name: "React", color: "45b8d8", logo: "react" },
   // { name: "Redux", color: "764ABC", logo: "redux" },
+  { name: "JavaScript", color: "F7DF1E", logo: "javascript" },
   { name: "Redux Toolkit", color: "764ABC", logo: "redux" },
   { name: "CSS", color: "1572B6", logo: "css3" },
   { name: "Material UI", color: "007FFF", logo: "mui" },
