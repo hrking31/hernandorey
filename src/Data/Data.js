@@ -3,6 +3,7 @@ import {
   BlogLogo,
   MiNegocio,
   FerrequiposLogo,
+  HR,
 } from "../assets/LogosProyectos/LogosIndex";
 import { Js, Git, VsCode } from "../assets/LogosPost/LogosIndex";
 
@@ -55,6 +56,13 @@ export const links = [
     subtext:
       "Catálogo digital de productos con funcionalidades CRUD (creación, edición y eliminación de productos), generación de cuentas de cobro y cotizaciones con descarga de PDFs con membrete.",
   },
+  {
+    logo: HR,
+    href: "https://demobolsa-31.web.app/",
+    text: "DemoBolsa",
+    subtext:
+      "Una aplicación web responsiva para visualizar datos en tiempo real de la bolsa de valores, utilizando la API gratuita de Alpha Vantage. Muestra datos en tiempo real para acciones populares como Apple, Microsoft, Google, IBM.",
+  },
 ];
 
 export const post = [
@@ -77,7 +85,7 @@ export const post = [
 
 export const tecnologias = [
   { name: "React", color: "45b8d8", logo: "react" },
-  // { name: "Redux", color: "764ABC", logo: "redux" },
+  { name: "Redux", color: "764ABC", logo: "redux" },
   { name: "JavaScript", color: "F7DF1E", logo: "javascript" },
   { name: "Redux Toolkit", color: "764ABC", logo: "redux" },
   { name: "CSS", color: "1572B6", logo: "css3" },
@@ -87,7 +95,7 @@ export const tecnologias = [
   { name: "Sequelize", color: "52B0E7", logo: "sequelize" },
   { name: "MySQL", color: "4479A1", logo: "mysql" },
   { name: "PostgreSQL", color: "336791", logo: "postgresql" },
-  // { name: "MongoDB", color: "47A248", logo: "mongodb" },
+  { name: "MongoDB", color: "47A248", logo: "mongodb" },
   { name: "Git", color: "F05032", logo: "git" },
-  // { name: "Docker", color: "46a2f1", logo: "docker" },
+  { name: "Docker", color: "46a2f1", logo: "docker" },
 ];
