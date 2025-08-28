@@ -18,8 +18,8 @@ export default defineConfig({
           "Hola, soy Hernando Rey. Código que transforma las ideas en realidad",
         start_url: "/",
         display: "standalone",
-        background_color: "#ffffff",
-        theme_color: "#ffffff",
+        background_color: "#e7562e",
+        theme_color: "#e7562e",
         icons: [
           {
             src: "/web-app-manifest-192x192.png",
