@@ -1,4 +1,3 @@
-import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { AppBar, Toolbar, Box } from "@mui/material";
 import LogoRey from "../../assets/Rey.svg";
@@ -6,6 +5,7 @@ import styles from "../NavBar/NavBar.module.css";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
 import { useTheme } from "@mui/material/styles";
 import { MenuNavBar } from "../../Data/Data";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
 export default function NavBar() {
   const location = useLocation();
@@ -73,6 +73,20 @@ export default function NavBar() {
               })}
             </Box>
           </nav>
+
+          <NavLink to="/signin" className={styles.navlogin}>
+            <AccountCircle
+              sx={{
+                fontSize: 30,
+                m: 1.5,
+                "@media (max-width: 400px)": {
+                  fontSize: 26,
+                  m: 2,
+                },
+              }}
+            />
+          </NavLink>
+
           <ThemeSwitcher />
         </Toolbar>
       </AppBar>

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { ThemeContext } from "../../Theme/ThemeContext";
 import { IconButton } from "@mui/material";
 import Brightness4Icon from "@mui/icons-material/Brightness4";

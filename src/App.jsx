@@ -1,9 +1,25 @@
-import { Landing, Hola, Blog, Post, Admin } from "./Views";
-import { Routes, Route } from "react-router-dom";
+import { useEffect, useRef } from "react";
+import { Landing, Hola, Blog, Post, Admin, SignIn } from "./Views";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { ProtectedRoutes } from "./Components/ProtectedRoutes/ProtectedRoutes.jsx";
+import { auth } from "./Components/Firebase/Firebase";
+import { signOut } from "firebase/auth";
 import NavBar from "./Components/NavBar/NavBar";
 import { Box } from "@mui/material";
 
 export default function App() {
+  const location = useLocation();
+   const prevPath = useRef(location.pathname);
+
+  useEffect(() => {
+    if (prevPath.current === "/admin" && location.pathname !== "/admin") {
+      signOut(auth).then(() => {
+        console.log("Sesión cerrada automáticamente");
+      });
+    }
+    prevPath.current = location.pathname; 
+  }, [location.pathname]);
+
   return (
     <div>
       <Box sx={{ "@media print": { display: "none" } }}>
@@ -14,7 +30,15 @@ export default function App() {
         <Route path="/hola" element={<Hola />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/post/:id" element={<Post />} />
-        <Route path="/admin" element={<Admin />} />"
+        <Route path="/signin" element={<SignIn />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoutes>
+              <Admin />
+            </ProtectedRoutes>
+          }
+        />
       </Routes>
     </div>
   );

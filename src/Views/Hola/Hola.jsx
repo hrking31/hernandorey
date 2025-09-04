@@ -12,7 +12,7 @@ import {
 import Grid from "@mui/material/Grid2";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
 import { useTheme } from "@mui/material/styles";
-import { Estudios, links } from "../../Data/Data";
+import { Estudios } from "../../Data/Data";
 import Profile from "../../Components/Profile/Profile";
 import AnimacionImg from "../../Components/AnimacionImg/AnimacionImg";
 import LinkItem from "../../Components/LinkItem/LinkItem";
@@ -24,9 +24,8 @@ export default function AboutMe() {
     "👋 Hola Soy tu amigo y colega en el mundo del código... Hernando rey 🦁"
   );
   const theme = useTheme();
-    const [proyectos, setProyectos] = useState([]);
+  const [proyectos, setProyectos] = useState([]);
 
-    
   useEffect(() => {
     const fetchData = async () => {
       const snap = await getDocs(collection(db, "proyectos"));
@@ -346,18 +345,21 @@ export default function AboutMe() {
             width: { xs: "90%", sm: "90%", md: "88%" },
           }}
         >
-          {proyectos.map((link, index) => (
-            <LinkItem
-              key={index}
-              href={link.href}
-              text={link.text}
-              subtext={link.subtext}
-              logo={link.logoUrl}
-            />
-          ))}
+          {proyectos
+            .slice()
+            .sort((a, b) => (a.order || 0) - (b.order || 0))
+            .map((link) => (
+              <LinkItem
+                key={link.id}
+                href={link.href}
+                text={link.text}
+                subtext={link.subtext}
+                logo={link.logoUrl}
+              />
+            ))}
         </Box>
       </Box>
-      
+
       <Box sx={{ "@media print": { display: "none" } }}>
         <SocialMedia />
       </Box>

@@ -27,44 +27,6 @@ export const Estudios = [
   "Ingeniero Electrónico (2005) PCA.",
 ];
 
-export const links = [
-  {
-    logo: BlogLogo,
-    href: "/Blog",
-    text: "Blog Hernando Rey",
-    subtext:
-      "CMS personalizado con Firebase para gestionar textos, imágenes y código desde una interfaz de administración, automatizando la renderización de posts y agilizando la creación de artículos.",
-  },
-  {
-    logo: MiNegocio,
-    href: "https://mi-negocio-30949.web.app",
-    text: "Mi-negocio.com",
-    subtext:
-      "Catálogo digital versátil para cualquier tipo de producto, con funcionalidades CRUD (crear, editar y eliminar productos), generación de cotizaciones y cuentas de cobro en PDF personalizado y opción de descarga.",
-  },
-  {
-    logo: AlarmaITXLogo,
-    href: "https://alarmaremota-sbl01.web.app/",
-    text: "Alarma ITX",
-    subtext:
-      "Sistema de monitorización remota con sensores ESP32 para visualizar en tiempo real el estado de equipos, optimizando la supervisión y control de dispositivos de manera eficiente.",
-  },
-  {
-    logo: FerrequiposLogo,
-    href: "https://ferrequiposdelacosta.com",
-    text: "Ferrequipos De La Costa",
-    subtext:
-      "Catálogo digital de productos con funcionalidades CRUD (creación, edición y eliminación de productos), generación de cuentas de cobro y cotizaciones con descarga de PDFs con membrete.",
-  },
-  {
-    logo: HR,
-    href: "https://demobolsa-31.web.app/",
-    text: "DemoBolsa",
-    subtext:
-      "Una aplicación web responsiva para visualizar datos en tiempo real de la bolsa de valores, utilizando la API gratuita de Alpha Vantage. Muestra datos en tiempo real para acciones populares como Apple, Microsoft, Google, IBM.",
-  },
-];
-
 export const post = [
   {
     id: "js",

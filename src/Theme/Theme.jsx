@@ -64,6 +64,30 @@ export const getTheme = (mode) =>
     },
 
     components: {
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            "& .MuiInputBase-root": {
+              backgroundColor: "transparent",
+              borderRadius: "8px",
+              padding: "4px 8px",
+            },
+
+            "& input:-webkit-autofill": {
+              WebkitBoxShadow: "0 0 0 1000px transparent inset",
+              WebkitTextFillColor: mode === "dark" ? "#ffffff" : "#000000",
+              backgroundClip: "padding-box",
+              transition: "background-color 5000s ease-in-out 0s",
+            },
+
+            "& input::placeholder": {
+              color: mode === "dark" ? "#bbbbbb" : "#888888",
+              opacity: 1,
+            },
+          },
+        },
+      },
+
       MuiAppBar: {
         styleOverrides: {
           root: {

@@ -1,10 +1,10 @@
 import React from "react";
+import App from "./App.jsx";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import App from "./App.jsx";
 import { Provider } from "react-redux";
-import store from "./Store/Store.js";
 import ThemeProviderWrapper from "./Theme/ThemeContext.jsx";
+import store from "./Store/Store.js";
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -19,9 +19,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <Provider store={store}>
       <ThemeProviderWrapper>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
       </ThemeProviderWrapper>
     </Provider>
   </React.StrictMode>

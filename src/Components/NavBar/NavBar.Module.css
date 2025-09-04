@@ -148,3 +148,17 @@
 .active::after {
   transform: scaleX(1);
 }
+
+.navlogin {
+  color: #e7562e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+}
+
+.navlogin:hover {
+  color: #e7762e;
+  transform: scale(1.1);
+  transition: transform 0.2s;
+}
