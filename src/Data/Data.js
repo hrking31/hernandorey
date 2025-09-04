@@ -16,7 +16,7 @@ export const YoSoy = [
   { text: "Vivo en Barranquilla", mostrarEn: "ambos" },
   { text: "Padre de dos Princesas 👑✨💖", mostrarEn: "ambos" },
   { text: "hrking31@gmail.com", mostrarEn: "solo-imprimir" },
-  { text: "302 8446805", mostrarEn: "solo-imprimir" },
+  { text: "302 844 6805", mostrarEn: "solo-imprimir" },
   { text: "https://hernandorey-31.web.app/", mostrarEn: "solo-imprimir" },
   { text: "CV", mostrarEn: "solo-pantalla" },
 ];

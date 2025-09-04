@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../Components/Firebase/Firebase";
 import {
   Divider,
   Typography,
@@ -21,6 +24,16 @@ export default function AboutMe() {
     "👋 Hola Soy tu amigo y colega en el mundo del código... Hernando rey 🦁"
   );
   const theme = useTheme();
+    const [proyectos, setProyectos] = useState([]);
+
+    
+  useEffect(() => {
+    const fetchData = async () => {
+      const snap = await getDocs(collection(db, "proyectos"));
+      setProyectos(snap.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    };
+    fetchData();
+  }, []);
 
   return (
     <Box
@@ -333,17 +346,18 @@ export default function AboutMe() {
             width: { xs: "90%", sm: "90%", md: "88%" },
           }}
         >
-          {links.map((link, index) => (
+          {proyectos.map((link, index) => (
             <LinkItem
               key={index}
               href={link.href}
               text={link.text}
               subtext={link.subtext}
-              logo={link.logo}
+              logo={link.logoUrl}
             />
           ))}
         </Box>
       </Box>
+      
       <Box sx={{ "@media print": { display: "none" } }}>
         <SocialMedia />
       </Box>

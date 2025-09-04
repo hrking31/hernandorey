@@ -1,9 +1,11 @@
+import { useState, useEffect } from "react";
+import { db } from "../../Components/Firebase/Firebase";
+import { doc, getDoc } from "firebase/firestore";
 import { List, ListItem, Typography, Tooltip } from "@mui/material";
 import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { styled } from "@mui/material/styles";
 import ReYaz from "../../assets/ReYaz.jpg";
 import { YoSoy } from "../../Data/Data";
-import PDF from "../../../public/Hernando Rey.pdf";
 import { useTheme } from "@mui/material/styles";
 
 const ProfileContainer = styled("div")(({ theme }) => ({
@@ -93,7 +95,30 @@ const ProfileList = styled(List)(({ theme }) => ({
 }));
 
 export default function Profile() {
+  const [cvUrl, setCvUrl] = useState("");
   const theme = useTheme();
+
+  useEffect(() => {
+    const fetchCV = async () => {
+      const docRef = doc(db, "config", "cv");
+      const snapshot = await getDoc(docRef);
+      if (snapshot.exists()) {
+        setCvUrl(snapshot.data().url);
+      }
+    };
+    fetchCV();
+  }, []);
+
+
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    link.href = cvUrl;
+    link.setAttribute("download", "CV-HernandoRey.pdf");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
 
   return (
     <ProfileContainer>
@@ -133,7 +158,7 @@ export default function Profile() {
                 <Typography
                   variant="body2"
                   component="a"
-                  href={PDF}
+                  href={cvUrl}
                   download="CV-HernandoRey.pdf"
                   sx={{
                     textDecoration: "underline",

@@ -12,8 +12,8 @@ const SocialMedia = () => {
 
       const handleCopy = () => {
         navigator.clipboard.writeText(email);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000); 
+        setCopi(true);
+        setTimeout(() => setCopi(false), 2000); 
       };
 
   return (
