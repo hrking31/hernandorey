@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../Components/Firebase/Firebase";
 import { Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
-import { post } from "../../Data/Data";
 import CardsPost from "../../Components/CardsPost/CardsPost";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 
@@ -9,6 +11,15 @@ export default function Blog() {
     "👋 Hola Soy tu amigo y colega en el mundo del código... Hernando rey 🦁"
   );
   const theme = useTheme();
+  const [post, setPost] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const snap = await getDocs(collection(db, "post"));
+      setPost(snap.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    };
+    fetchData();
+  }, []);
 
   return (
     <Box
@@ -61,8 +72,7 @@ export default function Blog() {
           En este espacio comparto mi viaje en el mundo tech a través de
           artículos, tutoriales, teoría aplicada y fragmentos de código. Exploro
           el desarrollo web, la automatización con Home Assistant, el teclado
-          ergonómico Corne y proyectos que combinan programación con
-          hardware.
+          ergonómico Corne y post que combinan programación con hardware.
         </Typography>
       </Box>
       <Box

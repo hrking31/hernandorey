@@ -1,12 +1,3 @@
-import {
-  AlarmaITXLogo,
-  BlogLogo,
-  MiNegocio,
-  FerrequiposLogo,
-  HR,
-} from "../assets/LogosProyectos/LogosIndex";
-import { Js, Git, VsCode } from "../assets/LogosPost/LogosIndex";
-
 export const MenuNavBar = ["Blog", "Hola"];
 
 export const YoSoy = [
@@ -27,23 +18,6 @@ export const Estudios = [
   "Ingeniero Electrónico (2005) PCA.",
 ];
 
-export const post = [
-  {
-    id: "js",
-    logo: Js,
-    text: "JavaScript",
-  },
-  {
-    id: "git",
-    logo: Git,
-    text: "Git",
-  },
-  {
-    id: "vsc",
-    logo: VsCode,
-    text: "Visual Studio Code",
-  },
-];
 
 export const tecnologias = [
   { name: "React", color: "45b8d8", logo: "react" },

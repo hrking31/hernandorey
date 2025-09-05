@@ -1,7 +1,8 @@
 import { CardContent, Typography, Box, Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
 
-export default function CardPost({ logo, text, id }) {
+export default function CardPost({ logo, text, id}) {
+
   return (
     <Box
       sx={{
