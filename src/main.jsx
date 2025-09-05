@@ -2,9 +2,7 @@ import React from "react";
 import App from "./App.jsx";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
 import ThemeProviderWrapper from "./Theme/ThemeContext.jsx";
-import store from "./Store/Store.js";
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -17,12 +15,10 @@ if ("serviceWorker" in navigator) {
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProviderWrapper>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-      </ThemeProviderWrapper>
-    </Provider>
+    <ThemeProviderWrapper>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ThemeProviderWrapper>
   </React.StrictMode>
 );
