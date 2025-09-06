@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { storage, db } from "../Firebase/Firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  deleteObject,
+} from "firebase/storage";
 import {
   collection,
   addDoc,
@@ -28,8 +34,8 @@ export default function Post() {
   const [logoFile, setLogoFile] = useState(null);
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [logoURL, setLogoURL] = useState("");
-
-  const [post, setPost] = useState([]);
+  const [logos, setLogos] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [nuevo, setNuevo] = useState({
     text: "",
     inputId: "",
@@ -38,29 +44,29 @@ export default function Post() {
 
   // Obtener post desde Firestore
   useEffect(() => {
-    const fetchPost = async () => {
+    const fetchPosts = async () => {
       try {
-        const querySnapshot = await getDocs(collection(db, "post"));
-        const postData = querySnapshot.docs.map((doc) => ({
+        const querySnapshot = await getDocs(collection(db, "posts"));
+        const postsData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
         // Ordenar por el campo 'order'
-        setPost(postData.sort((a, b) => (a.order || 0) - (b.order || 0)));
+        setPosts(postsData.sort((a, b) => (a.order || 0) - (b.order || 0)));
       } catch (error) {
-        console.error("Error al obtener post:", error);
-        alert("Error al cargar proyectos ❌");
+        console.error("Error al obtener posts:", error);
+        alert("Error al cargar posts ❌");
       }
     };
-    fetchPost();
+    fetchPosts();
   }, []);
 
   // Agregar post
   const handleAdd = async () => {
     try {
-      const newPost = { ...nuevo, order: post.length };
-      const docRef = await addDoc(collection(db, "post"), newPost);
-      setPost([...post, { id: docRef.id, ...newPost }]);
+      const newProject = { ...nuevo, order: posts.length };
+      const docRef = await addDoc(collection(db, "posts"), newProject);
+      setPosts([...posts, { id: docRef.id, ...newProject }]);
       setNuevo({ text: "", inputId: "", logoUrl: "", order: 0 });
       alert("Post agregado correctamente ✅");
     } catch (error) {
@@ -71,7 +77,7 @@ export default function Post() {
 
   // Actualizar estado local
   const handleLocalUpdate = (id, field, value) => {
-    setPost((prev) =>
+    setPosts((prev) =>
       prev.map((p) => (p.id === id ? { ...p, [field]: value } : p))
     );
   };
@@ -79,24 +85,24 @@ export default function Post() {
   // Mover post hacia arriba o abajo
   const handleMovePost = async (index, direction) => {
     const newIndex = direction === "up" ? index - 1 : index + 1;
-    if (newIndex < 0 || newIndex >= post.length) return;
+    if (newIndex < 0 || newIndex >= posts.length) return;
 
-    const newPost = [...post];
+    const newPosts = [...posts];
 
     // Intercambiar posiciones
-    const temp = newPost[index];
-    newPost[index] = { ...newPost[newIndex], order: index };
-    newPost[newIndex] = { ...temp, order: newIndex };
+    const temp = newPosts[index];
+    newPosts[index] = { ...newPosts[newIndex], order: index };
+    newPosts[newIndex] = { ...temp, order: newIndex };
 
-    setPost(newPost);
+    setPosts(newPosts);
 
     try {
-      const currentRef = doc(db, "post", newPost[index].id);
-      const swappedRef = doc(db, "post", newPost[newIndex].id);
+      const currentRef = doc(db, "posts", newPosts[index].id);
+      const swappedRef = doc(db, "posts", newPosts[newIndex].id);
 
       await Promise.all([
-        updateDoc(currentRef, { order: newPost[index].order }),
-        updateDoc(swappedRef, { order: newPost[newIndex].order }),
+        updateDoc(currentRef, { order: newPosts[index].order }),
+        updateDoc(swappedRef, { order: newPosts[newIndex].order }),
       ]);
     } catch (error) {
       console.error("Error al actualizar orden:", error);
@@ -106,11 +112,16 @@ export default function Post() {
 
   // Eliminar post
   const handleDelete = async (id) => {
-    if (!window.confirm("¿Seguro que deseas eliminar este post?")) return;
+    if (
+      !window.confirm(
+        "¿Seguro que deseas eliminar este post?\nRecuerda eliminar el logo si ya no lo vas a usar"
+      )
+    )
+      return;
 
     try {
-      await deleteDoc(doc(db, "post", id));
-      setPost((prev) => prev.filter((p) => p.id !== id));
+      await deleteDoc(doc(db, "posts", id));
+      setPosts((prev) => prev.filter((p) => p.id !== id));
       alert("Post eliminado ✅");
     } catch (error) {
       console.error("Error al eliminar post:", error);
@@ -121,8 +132,8 @@ export default function Post() {
   // Sincronizar cambios con Firestore
   const handleSaveToFirestore = async (id) => {
     try {
-      const post = post.find((p) => p.id === id);
-      const postRef = doc(db, "post", id);
+      const post = posts.find((p) => p.id === id);
+      const postRef = doc(db, "posts", id);
       await updateDoc(postRef, {
         text: post.text || "",
         inputId: post.inputId || "",
@@ -136,27 +147,78 @@ export default function Post() {
     }
   };
 
+  // Manejo de subida de logos
   const handleLogoFileChange = (e) => {
     if (e.target.files[0]) {
       setLogoFile(e.target.files[0]);
     }
   };
 
+  // Subir logo a Firebase Storage
   const handleUploadLogo = async () => {
     if (!logoFile) return alert("Selecciona un archivo primero");
 
     try {
       setUploadingLogo(true);
-      const storageRef = ref(storage, `logos/${Date.now()}_${logoFile.name}`);
+      const fileName = `${Date.now()}_${logoFile.name}`;
+      const storageRef = ref(storage, `logosPost/${fileName}`);
+
       await uploadBytes(storageRef, logoFile);
       const url = await getDownloadURL(storageRef);
+
+      setLogos((prev) => [...prev, { name: fileName, url }]);
+
       setLogoURL(url);
-      alert(`Logo subido ✅ URL: ${url}`);
+      alert(`Logo subido ✅`);
     } catch (error) {
       console.error("Error al subir logo:", error);
       alert("Error al subir logo ❌");
     } finally {
       setUploadingLogo(false);
+    }
+  };
+
+  //obtener logos de firebase storage
+  useEffect(() => {
+    const fetchLogos = async () => {
+      try {
+        const logosRef = ref(storage, "logosPost");
+        const res = await listAll(logosRef);
+
+        // Para cada archivo obtener su URL de descarga
+        const urls = await Promise.all(
+          res.items.map(async (itemRef) => {
+            const url = await getDownloadURL(itemRef);
+            return {
+              name: itemRef.name,
+              url,
+            };
+          })
+        );
+
+        setLogos(urls);
+      } catch (error) {
+        console.error("Error al obtener logos:", error);
+      }
+    };
+
+    fetchLogos();
+  }, []);
+
+  // Eliminar logo
+  const handleDeleteLogo = async (logoName) => {
+    if (!window.confirm("¿Seguro que deseas eliminar este logo?")) return;
+
+    try {
+      const logoRef = ref(storage, `logosPost/${logoName}`);
+      await deleteObject(logoRef);
+
+      setLogos((prev) => prev.filter((logo) => logo.name !== logoName));
+
+      alert("Logo eliminado ✅");
+    } catch (error) {
+      console.error("Error al eliminar logo:", error);
+      alert("Error al eliminar logo ❌");
     }
   };
 
@@ -222,6 +284,19 @@ export default function Post() {
                 </Box>
               </Box>
             )}
+          </Box>
+
+          <Box sx={{ display: "flex", mt: 4, gap: 2 }}>
+            {logos.map((logo) => (
+              <Box key={logo.name}>
+                <img
+                  src={logo.url}
+                  alt={logo.name}
+                  width={40}
+                  onClick={() => handleDeleteLogo(logo.name)}
+                />
+              </Box>
+            ))}
           </Box>
         </CardContent>
       </Card>
@@ -298,7 +373,7 @@ export default function Post() {
         // border="2px solid red"
       >
         {/* {post.map((p) => ( */}
-        {post.map((p, index) => (
+        {posts.map((p, index) => (
           <Grid size={{ xs: 12, sm: 6 }} key={p.id}>
             <Card
               sx={{
@@ -331,7 +406,7 @@ export default function Post() {
                     </IconButton>
                     <IconButton
                       onClick={() => handleMovePost(index, "down")}
-                      disabled={index === post.length - 1}
+                      disabled={index === posts.length - 1}
                       color="primary"
                     >
                       <ArrowDownwardIcon />

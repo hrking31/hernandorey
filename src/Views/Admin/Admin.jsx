@@ -131,7 +131,7 @@ export default function Admin() {
         </Tabs>
 
         {/* Contenido de la pestaña Proyectos */}
-        {tabValue === 0 && (
+        <Box hidden={tabValue !== 0} sx={{ width: "100%" }}>
           <Box
             sx={{
               display: "flex",
@@ -145,10 +145,10 @@ export default function Admin() {
 
             <Proyectos />
           </Box>
-        )}
+        </Box>
 
         {/* Contenido de la pestaña Post */}
-        {tabValue === 1 && (
+        <Box hidden={tabValue !== 1} sx={{ width: "100%" }}>
           <Box
             sx={{
               display: "flex",
@@ -162,10 +162,10 @@ export default function Admin() {
 
             <Post />
           </Box>
-        )}
+        </Box>
 
         {/* Contenido de la pestaña Articulos */}
-        {tabValue === 2 && (
+        <Box hidden={tabValue !== 2} sx={{ width: "100%" }}>
           <Box
             sx={{
               display: "flex",
@@ -177,7 +177,7 @@ export default function Admin() {
               Crea tus Articulos
             </Typography>
           </Box>
-        )}
+        </Box>
       </Box>
     </Box>
   );

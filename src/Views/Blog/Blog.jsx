@@ -15,7 +15,7 @@ export default function Blog() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const snap = await getDocs(collection(db, "post"));
+      const snap = await getDocs(collection(db, "posts"));
       setPost(snap.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     };
     fetchData();

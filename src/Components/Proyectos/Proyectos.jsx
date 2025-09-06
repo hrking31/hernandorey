@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { storage, db } from "../Firebase/Firebase";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  deleteObject,
+} from "firebase/storage";
 import {
   collection,
   addDoc,
@@ -28,7 +34,7 @@ export default function Proyectos() {
   const [logoFile, setLogoFile] = useState(null);
   const [uploadingLogo, setUploadingLogo] = useState(false);
   const [logoURL, setLogoURL] = useState("");
-
+  const [logos, setLogos] = useState([]);
   const [proyectos, setProyectos] = useState([]);
   const [nuevo, setNuevo] = useState({
     text: "",
@@ -109,7 +115,12 @@ export default function Proyectos() {
 
   // Eliminar proyecto
   const handleDelete = async (id) => {
-    if (!window.confirm("¿Seguro que deseas eliminar este proyecto?")) return;
+    if (
+      !window.confirm(
+        "¿Seguro que deseas eliminar este proyecto?\nRecuerda eliminar el logo si ya no lo vas a usar"
+      )
+    )
+      return;
 
     try {
       await deleteDoc(doc(db, "proyectos", id));
@@ -140,27 +151,78 @@ export default function Proyectos() {
     }
   };
 
+  // Manejo de subida de logos
   const handleLogoFileChange = (e) => {
     if (e.target.files[0]) {
       setLogoFile(e.target.files[0]);
     }
   };
 
+  // Subir logo a Firebase Storage
   const handleUploadLogo = async () => {
     if (!logoFile) return alert("Selecciona un archivo primero");
 
     try {
       setUploadingLogo(true);
-      const storageRef = ref(storage, `logos/${Date.now()}_${logoFile.name}`);
+      const fileName = `${Date.now()}_${logoFile.name}`;
+      const storageRef = ref(storage, `logos/${fileName}`);
+
       await uploadBytes(storageRef, logoFile);
       const url = await getDownloadURL(storageRef);
+
+      setLogos((prev) => [...prev, { name: fileName, url }]);
+
       setLogoURL(url);
-      alert(`Logo subido ✅ URL: ${url}`);
+      alert(`Logo subido ✅`);
     } catch (error) {
       console.error("Error al subir logo:", error);
       alert("Error al subir logo ❌");
     } finally {
       setUploadingLogo(false);
+    }
+  };
+
+  //obtener logos de firebase storage
+  useEffect(() => {
+    const fetchLogos = async () => {
+      try {
+        const logosRef = ref(storage, "logos"); 
+        const res = await listAll(logosRef);
+
+        // Para cada archivo obtener su URL de descarga
+        const urls = await Promise.all(
+          res.items.map(async (itemRef) => {
+            const url = await getDownloadURL(itemRef);
+            return {
+              name: itemRef.name, 
+              url, 
+            };
+          })
+        );
+
+        setLogos(urls);
+      } catch (error) {
+        console.error("Error al obtener logos:", error);
+      }
+    };
+
+    fetchLogos();
+  }, []);
+
+  // Eliminar logo
+  const handleDeleteLogo = async (logoName) => {
+    if (!window.confirm("¿Seguro que deseas eliminar este logo?")) return;
+
+    try {
+      const logoRef = ref(storage, `logos/${logoName}`);
+      await deleteObject(logoRef);
+
+      setLogos((prev) => prev.filter((logo) => logo.name !== logoName));
+
+      alert("Logo eliminado ✅");
+    } catch (error) {
+      console.error("Error al eliminar logo:", error);
+      alert("Error al eliminar logo ❌");
     }
   };
 
@@ -227,7 +289,20 @@ export default function Proyectos() {
               </Box>
             )}
           </Box>
-        </CardContent>
+
+          <Box sx={{ display: "flex", mt: 4, gap: 2 }}>
+            {logos.map((logo) => (
+              <Box key={logo.name}>
+                <img
+                  src={logo.url}
+                  alt={logo.name}
+                  width={40}
+                  onClick={() => handleDeleteLogo(logo.name)}
+                />
+              </Box>
+            ))}
+          </Box>
+       </CardContent>
       </Card>
 
       {/* Sección para agregar proyectos */}
@@ -337,22 +412,21 @@ export default function Proyectos() {
                   </Typography>
 
                   <Box>
-
-                  <IconButton
-                    onClick={() => handleMoveProject(index, "up")}
-                    disabled={index === 0}
-                    color="primary"
+                    <IconButton
+                      onClick={() => handleMoveProject(index, "up")}
+                      disabled={index === 0}
+                      color="primary"
                     >
-                    <ArrowUpwardIcon />
-                  </IconButton>
-                  <IconButton
-                    onClick={() => handleMoveProject(index, "down")}
-                    disabled={index === proyectos.length - 1}
-                    color="primary"
+                      <ArrowUpwardIcon />
+                    </IconButton>
+                    <IconButton
+                      onClick={() => handleMoveProject(index, "down")}
+                      disabled={index === proyectos.length - 1}
+                      color="primary"
                     >
-                    <ArrowDownwardIcon />
-                  </IconButton>
-                    </Box>
+                      <ArrowDownwardIcon />
+                    </IconButton>
+                  </Box>
                 </Box>
 
                 <TextField
