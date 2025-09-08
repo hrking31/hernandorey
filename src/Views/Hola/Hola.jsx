@@ -18,6 +18,7 @@ import AnimacionImg from "../../Components/AnimacionImg/AnimacionImg";
 import LinkItem from "../../Components/LinkItem/LinkItem";
 import { tecnologias } from "../../Data/Data";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
+import TechCarousel from "../../Components/TechCarousel/TechCarousel";
 
 export default function AboutMe() {
   console.log(
@@ -270,19 +271,24 @@ export default function AboutMe() {
           // border: "2px solid #000",
         }}
       >
-        {tecnologias.map((tech, index) => (
-          <Box
-            key={index}
-            component="img"
-            alt={tech.name}
-            src={`https://img.shields.io/badge/-${tech.name}-${tech.color}?style=flat-square&logo=${tech.logo}&logoColor=white`}
-            sx={{
-              margin: "4px",
-              maxWidth: "100px",
-              height: { xs: "auto", md: "25px" },
-            }}
-          />
-        ))}
+        <Box sx={{ display: "none", "@media print": { display: "block" } }}>
+          {tecnologias.map((tech, index) => (
+            <Box
+              key={index}
+              component="img"
+              alt={tech.name}
+              src={`https://img.shields.io/badge/-${tech.name}-${tech.color}?style=flat-square&logo=${tech.logo}&logoColor=white`}
+              sx={{
+                margin: "4px",
+                maxWidth: "100px",
+                height: { xs: "auto", md: "25px" },
+              }}
+            />
+          ))}
+        </Box>
+        <Box sx={{ "@media print": { display: "none" } }}>
+          <TechCarousel />
+        </Box>
       </Box>
       <Divider
         sx={{
