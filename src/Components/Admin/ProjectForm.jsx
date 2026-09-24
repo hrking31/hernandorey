@@ -31,6 +31,7 @@ export default function ProjectForm({ values, onChange }) {
       <ImageField
         label="Logo"
         folder="logos"
+        maxWidth={256}
         round
         value={values.logoUrl ?? ""}
         onChange={(url) => onChange("logoUrl", url)}
