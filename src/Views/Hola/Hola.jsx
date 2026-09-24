@@ -21,9 +21,6 @@ import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 import TechCarousel from "../../Components/TechCarousel/TechCarousel";
 
 export default function AboutMe() {
-  console.log(
-    "👋 Hola Soy tu amigo y colega en el mundo del código... Hernando rey 🦁"
-  );
   const theme = useTheme();
   const [proyectos, setProyectos] = useState([]);
 

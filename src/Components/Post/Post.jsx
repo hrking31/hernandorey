@@ -427,7 +427,7 @@ export default function Post() {
                   label="Id"
                   value={p.inputId || ""}
                   onChange={(e) =>
-                    handleLocalUpdate(p.id, "id", e.target.value)
+                    handleLocalUpdate(p.id, "inputId", e.target.value)
                   }
                   fullWidth
                   margin="dense"

@@ -13,9 +13,7 @@ export default function App() {
 
   useEffect(() => {
     if (prevPath.current === "/admin" && location.pathname !== "/admin") {
-      signOut(auth).then(() => {
-        console.log("Sesión cerrada automáticamente");
-      });
+      signOut(auth);
     }
     prevPath.current = location.pathname; 
   }, [location.pathname]);

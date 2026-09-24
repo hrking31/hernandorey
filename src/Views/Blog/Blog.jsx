@@ -7,9 +7,6 @@ import CardsPost from "../../Components/CardsPost/CardsPost";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 
 export default function Blog() {
-  console.log(
-    "👋 Hola Soy tu amigo y colega en el mundo del código... Hernando rey 🦁"
-  );
   const theme = useTheme();
   const [post, setPost] = useState([]);
 

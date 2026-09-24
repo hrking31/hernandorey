@@ -53,9 +53,6 @@ const LandingText = styled(Box)(({ theme }) => ({
 }));
 
 export default function Landing() {
-  console.log(
-    "👋 Hola Soy tu amigo y colega en el mundo del código... Hernando Rey 🦁"
-  );
   const theme = useTheme();
 
   return (

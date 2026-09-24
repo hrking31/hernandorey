@@ -6,9 +6,6 @@
 import { Box, Typography } from "@mui/material";
 
 export default function Post() {
-  console.log(
-    "👋 Hola Soy tu amigo y colega en el mundo del código... Hernando rey 🦁"
-  );
   //     const dispatch = useDispatch();
   //     useEffect(() => {
   //       dispatch(setLoading(true));
