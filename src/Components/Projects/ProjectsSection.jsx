@@ -18,6 +18,7 @@ function toProject(doc) {
     image: data.imageUrl ?? "",
     demoUrl: data.href ?? "",
     repoUrl: data.repoUrl ?? "",
+    blogUrl: data.blogUrl ?? "",
     category: data.category ?? "",
     techs: toList(data.techs),
     highlights: toList(data.highlights, "\n"),

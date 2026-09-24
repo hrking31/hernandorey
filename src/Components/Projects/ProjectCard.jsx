@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { FaGithub } from "react-icons/fa6";
-import { LuExternalLink } from "react-icons/lu";
+import { LuBookOpen, LuExternalLink } from "react-icons/lu";
 import { buttonPrimary, buttonSecondary } from "../Layout/Layout";
 
 function hostOf(url) {
@@ -70,7 +70,7 @@ function Preview({ project, featured }) {
 }
 
 function Actions({ project, featured }) {
-  if (!project.demoUrl && !project.repoUrl) return null;
+  if (!project.demoUrl && !project.repoUrl && !project.blogUrl) return null;
   return (
     <div className="mt-auto flex flex-wrap gap-3 pt-2 print:hidden">
       {project.demoUrl && (
@@ -85,6 +85,13 @@ function Actions({ project, featured }) {
           <FaGithub className="size-4" aria-hidden="true" />
           Código
           <span className="sr-only"> de {project.title}</span>
+        </SmartLink>
+      )}
+      {project.blogUrl && (
+        <SmartLink href={project.blogUrl} className={buttonSecondary}>
+          <LuBookOpen className="size-4" aria-hidden="true" />
+          Leer en el blog
+          <span className="sr-only">: {project.title}</span>
         </SmartLink>
       )}
     </div>

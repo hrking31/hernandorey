@@ -5,8 +5,9 @@ import {
   MenuItem,
   TextField,
 } from "@mui/material";
+import { posts } from "../../content/blog";
 
-const CATEGORIAS =["Web", "IoT y Hardware", "Herramientas"];
+const CATEGORIAS = ["Web", "IoT y Hardware", "Herramientas"];
 
 // Muestra listas guardadas como arreglo en un campo de texto editable.
 const asText = (value, separator) =>
@@ -39,6 +40,14 @@ export default function ProjectExtraFields({ values, onChange, dense = false }) 
         rows={3}
       />
       <TextField label="Repositorio en GitHub" {...field("repoUrl")} />
+      <TextField select label="Artículo del blog" {...field("blogUrl")}>
+        <MenuItem value="">Ninguno</MenuItem>
+        {posts.map((post) => (
+          <MenuItem key={post.slug} value={`/blog/${post.slug}`}>
+            {post.title}
+          </MenuItem>
+        ))}
+      </TextField>
       <TextField select label="Categoría" {...field("category")}>
         <MenuItem value="">Sin categoría</MenuItem>
         {CATEGORIAS.map((categoria) => (
