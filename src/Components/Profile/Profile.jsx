@@ -1,195 +1,66 @@
-import { useState, useEffect } from "react";
-import { db } from "../../Components/Firebase/Firebase";
-import { doc, getDoc } from "firebase/firestore";
-import { List, ListItem, Typography, Tooltip } from "@mui/material";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
-import { styled } from "@mui/material/styles";
-import ReYaz from "../../assets/ReYaz.jpg";
+import ReyPerfil from "../../assets/ReyPerfil.jpg";
 import { YoSoy } from "../../Data/Data";
-import { useTheme } from "@mui/material/styles";
+import useCvUrl from "../../hooks/useCvUrl";
 
-const ProfileContainer = styled("div")(({ theme }) => ({
-  width: "100%",
-  display: "flex",
-  flexWrap: "wrap",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  gap: theme.spacing(3),
-  paddingLeft: 0,
-  [theme.breakpoints.up("991")]: { paddingLeft: "8.5vw" },
-  [theme.breakpoints.up("lg")]: { paddingLeft: "5.5vw" },
-  // border: "2px solid #000",
+// Qué se ve en pantalla y qué solo al imprimir el CV.
+const visibility = {
+  ambos: "flex",
+  "solo-pantalla": "flex print:hidden",
+  "solo-imprimir": "hidden print:flex",
+};
 
-  [theme.breakpoints.up(763)]: {
-    flexWrap: "nowrap",
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-
-  [theme.breakpoints.up("md")]: {
-    justifyContent: "flex-start",
-  },
-
-  "@media print": {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: "0.5rem",
-    paddingBottom: "2rem",
-  },
-}));
-
-const ProfileImage = styled("img")(({ theme }) => ({
-  width: "100%",
-  maxWidth: "none",
-  borderRadius: "1rem",
-  display: "block",
-  margin: "auto",
-  order: 2,
-  // border: "2px solid #000",
-
-  [theme.breakpoints.up(763)]: {
-    flexShrink: 0,
-    width: "45%",
-    maxWidth: 300,
-    order: -1,
-  },
-
-  [theme.breakpoints.up("md")]: {
-    width: "40%",
-    maxWidth: 380,
-  },
-
-  [theme.breakpoints.up("lg")]: {
-    width: "60%",
-    maxWidth: 370,
-  },
-
-  "@media print": {
-    width: "40%",
-    maxWidth: 200,
-  },
-}));
-
-const ProfileList = styled(List)(({ theme }) => ({
-  width: "100%",
-  maxWidth: "none",
-  margin: "auto",
-  // border: "2px solid #000",
-  order: 1,
-
-  [theme.breakpoints.up(763)]: {
-    flexGrow: 1,
-    width: "55%",
-    maxWidth: "none",
-  },
-
-  "@media print": {
-    width: "60%",
-    maxWidth: "none",
-    lineHeight: "1",
-    padding: "0",
-    margin: "0",
-    fontSize: "0.7rem",
-  },
-}));
+function ItemContent({ text, cvUrl }) {
+  if (text === "CV") {
+    return (
+      <a
+        href={cvUrl || undefined}
+        target="_blank"
+        rel="noopener noreferrer"
+        download="CV-HernandoRey.pdf"
+        title="¡Aquí tienes mi CV!"
+        className="font-bold text-brand-strong underline underline-offset-4 hover:text-brand dark:text-brand"
+      >
+        Descargar CV
+      </a>
+    );
+  }
+  if (text.startsWith("http")) {
+    return (
+      <a href={text} className="underline underline-offset-4">
+        {text}
+      </a>
+    );
+  }
+  return <span>{text}</span>;
+}
 
 export default function Profile() {
-  const [cvUrl, setCvUrl] = useState("");
-  const theme = useTheme();
-
-  useEffect(() => {
-    const fetchCV = async () => {
-      const docRef = doc(db, "config", "cv");
-      const snapshot = await getDoc(docRef);
-      if (snapshot.exists()) {
-        setCvUrl(snapshot.data().url);
-      }
-    };
-    fetchCV();
-  }, []);
-
-
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = cvUrl;
-    link.setAttribute("download", "CV-HernandoRey.pdf");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
+  const cvUrl = useCvUrl();
 
   return (
-    <ProfileContainer>
-      <ProfileImage src={ReYaz} alt="Hernando Rey" />
-      <ProfileList>
-        {YoSoy.map((item, index) => (
-          <ListItem
-            key={index}
-            sx={{
-              ...(item.mostrarEn === "solo-pantalla"
-                ? { "@media print": { display: "none" } }
-                : {}),
-              ...(item.mostrarEn === "solo-imprimir"
-                ? {
-                    visibility: "hidden",
-                    position: "absolute",
-                    "@media print": {
-                      visibility: "visible",
-                      position: "static",
-                    },
-                  }
-                : {}),
-              display: "flex",
-              alignItems: "center",
-              gap: 1.2,
-              minHeight: "unset",
-            }}
+    <div className="flex flex-col items-center gap-8 md:flex-row md:gap-12 print:flex-row print:items-start print:gap-4">
+      <img
+        src={ReyPerfil}
+        alt="Hernando Rey"
+        width="800"
+        height="800"
+        loading="lazy"
+        className="order-2 aspect-square w-full max-w-xs rounded-2xl object-cover md:order-none md:w-72 print:w-36"
+      />
+      <ul className="order-1 flex w-full flex-col gap-3 text-[clamp(0.95rem,0.9rem+0.3vw,1.15rem)] font-medium md:order-none print:gap-1 print:text-xs">
+        {YoSoy.map((item) => (
+          <li
+            key={item.text}
+            className={`${visibility[item.mostrarEn]} items-center gap-3`}
           >
-            <FiberManualRecordIcon
-              sx={{
-                fontSize: 11,
-                color: theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
-              }}
+            <span
+              aria-hidden="true"
+              className="size-2 shrink-0 rounded-full bg-ink dark:bg-ink-dark"
             />
-            {item.text === "CV" ? (
-              <Tooltip title="¡Aquí tienes mi CV!" arrow>
-                <Typography
-                  variant="body2"
-                  component="a"
-                  href={cvUrl}
-                  download="CV-HernandoRey.pdf"
-                  sx={{
-                    textDecoration: "underline",
-                    color: "#08c",
-                    "&:hover": {
-                      color: "#e7762e",
-                    },
-                  }}
-                >
-                  {item.text}
-                </Typography>
-              </Tooltip>
-            ) : item.text.startsWith("http") ? (
-              <Typography
-                variant="body2"
-                component="a"
-                href={item.text}
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{ textDecoration: "underline", color: "blue" }}
-              >
-                {item.text}
-              </Typography>
-            ) : (
-              <Typography variant="body2" sx={{ lineHeight: 0.8 }}>
-                {item.text}
-              </Typography>
-            )}
-          </ListItem>
+            <ItemContent text={item.text} cvUrl={cvUrl} />
+          </li>
         ))}
-      </ProfileList>
-    </ProfileContainer>
+      </ul>
+    </div>
   );
 }

@@ -1,9 +1,31 @@
+import {
+  SiCss,
+  SiDocker,
+  SiEspressif,
+  SiEsphome,
+  SiExpress,
+  SiFirebase,
+  SiGit,
+  SiHomeassistant,
+  SiJavascript,
+  SiMongodb,
+  SiMui,
+  SiMysql,
+  SiNodedotjs,
+  SiPostgresql,
+  SiReact,
+  SiRedux,
+  SiSequelize,
+  SiTailwindcss,
+  SiVite,
+} from "react-icons/si";
+
 export const MenuNavBar = ["Blog", "Hola"];
 
 export const YoSoy = [
   { text: "Hernando Alberto Rey Jimenez", mostrarEn: "ambos" },
   { text: "a.k.a. Hrking31", mostrarEn: "ambos" },
-  { text: "Nací en Colombia. Marzo 31, 1982", mostrarEn: "ambos" },
+  { text: "Nací en Colombia", mostrarEn: "ambos" },
   { text: "Vivo en Barranquilla", mostrarEn: "ambos" },
   { text: "Padre de dos Princesas 👑✨💖", mostrarEn: "ambos" },
   { text: "hrking31@gmail.com", mostrarEn: "solo-imprimir" },
@@ -18,29 +40,37 @@ export const Estudios = [
   "Ingeniero Electrónico (2005) PCA.",
 ];
 
+// color: null usa el color del texto (para logos negros como Express).
 export const tecnologias = [
   // --- Frontend ---
-  { name: "React", color: "45b8d8", logo: "react" },
-  { name: "JavaScript", color: "F7DF1E", logo: "javascript" },
-  { name: "CSS", color: "1572B6", logo: "css3" },
-  { name: "Tailwind CSS", color: "06B6D4", logo: "tailwindcss" },
-  { name: "Material UI", color: "007FFF", logo: "mui" },
+  { name: "React", icon: SiReact, color: "#58c4dc" },
+  { name: "JavaScript", icon: SiJavascript, color: "#e8c500" },
+  { name: "CSS", icon: SiCss, color: "#1572b6" },
+  { name: "Tailwind CSS", icon: SiTailwindcss, color: "#06b6d4" },
+  { name: "Material UI", icon: SiMui, color: "#007fff" },
+  { name: "Vite", icon: SiVite, color: "#9467fe" },
 
-  // --- State Management ---
-  { name: "Redux", color: "764ABC", logo: "redux" },
-  { name: "Redux Toolkit", color: "764ABC", logo: "redux" },
+  // --- Estado ---
+  { name: "Redux", icon: SiRedux, color: "#764abc" },
+  { name: "Redux Toolkit", icon: SiRedux, color: "#764abc" },
 
   // --- Backend ---
-  { name: "Node.js", color: "43853d", logo: "Node.js" },
-  { name: "Express", color: "000000", logo: "express" },
+  { name: "Node.js", icon: SiNodedotjs, color: "#5fa04e" },
+  { name: "Express", icon: SiExpress, color: null },
+  { name: "Firebase", icon: SiFirebase, color: "#ffa000" },
 
-  // --- Bases de Datos ---
-  { name: "MySQL", color: "4479A1", logo: "mysql" },
-  { name: "PostgreSQL", color: "336791", logo: "postgresql" },
-  { name: "MongoDB", color: "47A248", logo: "mongodb" },
-  { name: "Sequelize", color: "52B0E7", logo: "sequelize" },
+  // --- Bases de datos ---
+  { name: "MySQL", icon: SiMysql, color: "#4479a1" },
+  { name: "PostgreSQL", icon: SiPostgresql, color: "#4169e1" },
+  { name: "MongoDB", icon: SiMongodb, color: "#47a248" },
+  { name: "Sequelize", icon: SiSequelize, color: "#52b0e7" },
 
-  // --- Herramientas y DevOps ---
-  { name: "Git", color: "F05032", logo: "git" },
-  { name: "Docker", color: "46a2f1", logo: "docker" },
+  // --- IoT y domótica ---
+  { name: "ESP32", icon: SiEspressif, color: "#e7352c" },
+  { name: "ESPHome", icon: SiEsphome, color: "#18bcf2" },
+  { name: "Home Assistant", icon: SiHomeassistant, color: "#18bcf2" },
+
+  // --- Herramientas ---
+  { name: "Git", icon: SiGit, color: "#f05032" },
+  { name: "Docker", icon: SiDocker, color: "#2496ed" },
 ];

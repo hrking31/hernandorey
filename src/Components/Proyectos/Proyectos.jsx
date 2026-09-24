@@ -29,6 +29,37 @@ import Grid from "@mui/material/Grid2";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ProjectExtraFields from "./ProjectExtraFields";
+import { toList } from "../../utils/lists";
+
+const PROYECTO_VACIO = {
+  text: "",
+  href: "",
+  subtext: "",
+  logoUrl: "",
+  imageUrl: "",
+  techs: "",
+  highlights: "",
+  repoUrl: "",
+  category: "",
+  featured: false,
+  client: false,
+};
+
+// Campos que se guardan en Firestore (las listas se guardan como arreglos).
+const paraFirestore = (p) => ({
+  text: p.text || "",
+  href: p.href || "",
+  subtext: p.subtext || "",
+  logoUrl: p.logoUrl || "",
+  imageUrl: p.imageUrl || "",
+  techs: toList(p.techs),
+  highlights: toList(p.highlights, "\n"),
+  repoUrl: p.repoUrl || "",
+  category: p.category || "",
+  featured: Boolean(p.featured),
+  client: Boolean(p.client),
+});
 
 export default function Proyectos() {
   const [logoFile, setLogoFile] = useState(null);
@@ -36,12 +67,7 @@ export default function Proyectos() {
   const [logoURL, setLogoURL] = useState("");
   const [logos, setLogos] = useState([]);
   const [proyectos, setProyectos] = useState([]);
-  const [nuevo, setNuevo] = useState({
-    text: "",
-    href: "",
-    subtext: "",
-    logoUrl: "",
-  });
+  const [nuevo, setNuevo] = useState(PROYECTO_VACIO);
 
   // Obtener proyectos desde Firestore
   useEffect(() => {
@@ -67,10 +93,10 @@ export default function Proyectos() {
   // Agregar proyecto
   const handleAdd = async () => {
     try {
-      const newProject = { ...nuevo, order: proyectos.length };
+      const newProject = { ...paraFirestore(nuevo), order: proyectos.length };
       const docRef = await addDoc(collection(db, "proyectos"), newProject);
       setProyectos([...proyectos, { id: docRef.id, ...newProject }]);
-      setNuevo({ text: "", href: "", subtext: "", logoUrl: "", order: 0 });
+      setNuevo(PROYECTO_VACIO);
       alert("Proyecto agregado correctamente ✅");
     } catch (error) {
       console.error("Error al agregar proyecto:", error);
@@ -138,10 +164,7 @@ export default function Proyectos() {
       const proyecto = proyectos.find((p) => p.id === id);
       const proyectoRef = doc(db, "proyectos", id);
       await updateDoc(proyectoRef, {
-        text: proyecto.text || "",
-        href: proyecto.href || "",
-        subtext: proyecto.subtext || "",
-        logoUrl: proyecto.logoUrl || "",
+        ...paraFirestore(proyecto),
         order: proyecto.order || 0,
       });
       alert("Proyecto actualizado en Firestore ✅");
@@ -331,7 +354,7 @@ export default function Proyectos() {
               }}
             />
             <TextField
-              label="Enlace"
+              label="Enlace (demo o sitio en vivo)"
               value={nuevo.href}
               onChange={(e) => setNuevo({ ...nuevo, href: e.target.value })}
               fullWidth
@@ -365,11 +388,17 @@ export default function Proyectos() {
                 },
               }}
             />
+            <ProjectExtraFields
+              values={nuevo}
+              onChange={(field, value) =>
+                setNuevo((prev) => ({ ...prev, [field]: value }))
+              }
+            />
             <Button
               variant="contained"
               color="primary"
               onClick={handleAdd}
-              disabled={!nuevo.text || !nuevo.href}
+              disabled={!nuevo.text}
             >
               Agregar Proyecto
             </Button>
@@ -439,7 +468,7 @@ export default function Proyectos() {
                   margin="dense"
                 />
                 <TextField
-                  label="Enlace"
+                  label="Enlace (demo o sitio en vivo)"
                   value={p.href || ""}
                   onChange={(e) =>
                     handleLocalUpdate(p.id, "href", e.target.value)
@@ -466,6 +495,13 @@ export default function Proyectos() {
                   }
                   fullWidth
                   margin="dense"
+                />
+                <ProjectExtraFields
+                  dense
+                  values={p}
+                  onChange={(field, value) =>
+                    handleLocalUpdate(p.id, field, value)
+                  }
                 />
 
                 <Box display={"flex"} justifyContent={"space-between"}>

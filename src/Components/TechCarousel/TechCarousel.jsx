@@ -1,25 +1,42 @@
-import { Box } from "@mui/material";
 import { tecnologias } from "../../Data/Data";
-import "./TechCarousel.css";
+
+function TechChip({ tech }) {
+  const Icon = tech.icon;
+  return (
+    <span className="flex h-9 items-center gap-2 rounded-lg border border-line bg-card px-3 text-sm font-bold whitespace-nowrap dark:border-line-dark dark:bg-card-dark print:h-7 print:px-2 print:text-xs">
+      <Icon
+        aria-hidden="true"
+        className="size-4 shrink-0"
+        style={tech.color ? { color: tech.color } : undefined}
+      />
+      {tech.name}
+    </span>
+  );
+}
 
 export default function TechCarousel() {
   return (
-    <div className="carousel-container">
-      <div className="carousel-track">
-        {[...tecnologias, ...tecnologias].map((tech, index) => (
-          <Box
-            key={index}
-            component="img"
-            alt={tech.name}
-            src={`https://img.shields.io/badge/-${tech.name}-${tech.color}?style=flat-square&logo=${tech.logo}&logoColor=white`}
-            sx={{
-              margin: "4px",
-              maxWidth: "120px",
-              height: { xs: "auto", md: "25px" },
-            }}
-          />
-        ))}
+    <>
+      {/* En pantalla: cinta en movimiento que se detiene al pasar el mouse. */}
+      <div className="group overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_6%,black_94%,transparent)] motion-reduce:hidden print:hidden">
+        <ul className="flex w-max animate-marquee gap-3 py-1 group-hover:[animation-play-state:paused]">
+          {[...tecnologias, ...tecnologias].map((tech, index) => (
+            // La segunda copia solo existe para que la cinta no tenga cortes.
+            <li key={index} aria-hidden={index >= tecnologias.length}>
+              <TechChip tech={tech} />
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+
+      {/* Sin animación (preferencia del sistema) y al imprimir: lista fija. */}
+      <ul className="hidden flex-wrap gap-2 motion-reduce:flex print:flex">
+        {tecnologias.map((tech) => (
+          <li key={tech.name}>
+            <TechChip tech={tech} />
+          </li>
+        ))}
+      </ul>
+    </>
   );
 }
