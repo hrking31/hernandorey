@@ -97,3 +97,73 @@
     max-width: 100%;
   }
 }
+
+/* Recuadros de Obsidian en los artículos (ver utils/remarkCallouts.js). */
+@layer components {
+  .callout {
+    --callout: 29 78 216;
+    margin: 1.75em 0;
+    padding: 1rem 1.25rem;
+    border: 1px solid rgb(var(--callout) / 0.35);
+    border-radius: 0.75rem;
+    background: rgb(var(--callout) / 0.07);
+  }
+  .callout > :last-child {
+    margin-bottom: 0;
+  }
+  .callout > .callout-title {
+    margin: 0 0 0.5em;
+    font-weight: 800;
+    color: rgb(var(--callout));
+  }
+  .callout-tip,
+  .callout-hint,
+  .callout-important,
+  .callout-success,
+  .callout-check,
+  .callout-done {
+    --callout: 21 128 61;
+  }
+  .callout-warning,
+  .callout-caution,
+  .callout-attention,
+  .callout-question,
+  .callout-help,
+  .callout-faq {
+    --callout: 180 83 9;
+  }
+  .callout-danger,
+  .callout-error,
+  .callout-failure,
+  .callout-fail,
+  .callout-missing,
+  .callout-bug {
+    --callout: 185 28 28;
+  }
+  .callout-example {
+    --callout: 109 40 217;
+  }
+  .callout-quote,
+  .callout-cite {
+    --callout: 75 85 99;
+  }
+
+  .dark .callout {
+    --callout: 96 165 250;
+  }
+  .dark :is(.callout-tip, .callout-hint, .callout-important, .callout-success, .callout-check, .callout-done) {
+    --callout: 74 222 128;
+  }
+  .dark :is(.callout-warning, .callout-caution, .callout-attention, .callout-question, .callout-help, .callout-faq) {
+    --callout: 251 191 36;
+  }
+  .dark :is(.callout-danger, .callout-error, .callout-failure, .callout-fail, .callout-missing, .callout-bug) {
+    --callout: 248 113 113;
+  }
+  .dark .callout-example {
+    --callout: 167 139 250;
+  }
+  .dark :is(.callout-quote, .callout-cite) {
+    --callout: 156 163 175;
+  }
+}

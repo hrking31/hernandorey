@@ -1,8 +1,9 @@
 import Landing from "./Landing/Landing";
 import Hola from "./Hola/Hola";
 import Blog from "./Blog/Blog";
-import Post from "./Post/Post";
 import Admin from "./Admin/Admin";
 import SignIn from "./SignIn/SignIn";
 
-export { Landing, Hola, Blog, Post, Admin, SignIn };
+// Post se carga aparte (React.lazy en App.jsx) para no sumar el procesador de
+// Markdown a la carga inicial.
+export { Landing, Hola, Blog, Admin, SignIn };
