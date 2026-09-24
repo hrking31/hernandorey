@@ -96,6 +96,11 @@
     display: block;
     max-width: 100%;
   }
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
 }
 
 /* Recuadros de Obsidian en los artículos (ver utils/remarkCallouts.js). */

@@ -42,15 +42,17 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
   },
-    build: {
+  build: {
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes("node_modules") && id.includes("firebase")) {
+          // Storage queda fuera: solo lo usa el panel, que se carga aparte.
+          if (
+            id.includes("node_modules") &&
+            id.includes("firebase") &&
+            !id.includes("storage")
+          ) {
             return "firebase";
-          }
-          if (id.includes("node_modules") && id.includes("jspdf")) {
-            return "jspdf";
           }
         },
       },

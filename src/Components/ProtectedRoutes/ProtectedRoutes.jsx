@@ -1,25 +1,20 @@
 import { Navigate } from "react-router-dom";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../Components/Firebase/Firebase";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
+import { LuLoaderCircle } from "react-icons/lu";
+import useAuthUser from "../../hooks/useAuthUser";
 
 export function ProtectedRoutes({ children }) {
-  const [user, loading] = useAuthState(auth);
+  const { user, loading } = useAuthUser();
 
   if (loading) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-        <CircularProgress />
-      </Box>
+      <div role="status" className="flex justify-center pt-24 lg:pt-40">
+        <LuLoaderCircle aria-hidden="true" className="size-8 animate-spin text-brand" />
+        <span className="sr-only">Cargando…</span>
+      </div>
     );
   }
 
-  if (!user) {
-    return <Navigate to="/signin" replace />;
-  }
+  if (!user) return <Navigate to="/signin" replace />;
 
   return children;
 }
-
-

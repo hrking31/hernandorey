@@ -1,18 +1,12 @@
 import Login from "../../Components/Login/Login";
-import { Box } from "@mui/material";
+import { Page, Section } from "../../Components/Layout/Layout";
 
 export default function SignIn() {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        px: { xs: 2, md: 3 },
-        mt: { xs: 6, md: 8 },
-      }}
-    >
-      <Login />
-    </Box>
+    <Page>
+      <Section className="pb-28 lg:pb-16">
+        <Login />
+      </Section>
+    </Page>
   );
 }

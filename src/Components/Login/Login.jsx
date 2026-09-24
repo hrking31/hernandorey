@@ -1,125 +1,95 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  TextField,
-  Typography,
-  IconButton,
-  Alert,
-} from "@mui/material";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import InputAdornment from "@mui/material/InputAdornment";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../Components/Firebase/Firebase";
+import { LuEye, LuEyeOff } from "react-icons/lu";
+import { auth } from "../Firebase/Firebase";
+import { Button, Card, Field, Input } from "../Admin/ui";
+
+// Firebase ya no distingue "usuario no existe" de "contraseña incorrecta"
+// (protección contra enumeración de correos), así que se informa junto.
+const MENSAJES = {
+  "auth/invalid-credential": "Correo o contraseña incorrectos.",
+  "auth/wrong-password": "Correo o contraseña incorrectos.",
+  "auth/user-not-found": "Correo o contraseña incorrectos.",
+  "auth/invalid-email": "El correo no tiene un formato válido.",
+  "auth/too-many-requests": "Demasiados intentos. Espera unos minutos y vuelve a intentarlo.",
+  "auth/network-request-failed": "Sin conexión. Revisa tu internet.",
+};
 
 export default function Login() {
-  const [user, setUser] = useState({ email: "", password: "" });
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [passwordVisible, setPasswordVisible] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const passwordType = passwordVisible ? "text" : "password";
 
-  const handleChange = ({ target: { name, value } }) => {
-    setUser((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleChange = ({ target: { name, value } }) =>
+    setForm((prev) => ({ ...prev, [name]: value }));
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setError("");
-
+    setLoading(true);
     try {
-      await signInWithEmailAndPassword(auth, user.email, user.password);
-
+      await signInWithEmailAndPassword(auth, form.email, form.password);
       navigate("/admin");
-    } catch (error) {
-      if (error.code === "auth/wrong-password") {
-        setError("Contraseña incorrecta");
-      } else if (error.code === "auth/user-not-found") {
-        setError("Usuario no registrado");
-      } else {
-        setError("Error al iniciar sesión");
-      }
+    } catch (err) {
+      setError(MENSAJES[err.code] ?? "No se pudo iniciar sesión. Intenta de nuevo.");
+      setLoading(false);
     }
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: "100%",
-        maxWidth: { xs: 400, sm: 450, md: 500, lg: 600 },
-        mx: "auto",
-        px: { xs: 2, md: 3 },
-        mt: { xs: 6, md: 8 },
-      }}
-    >
-      <Card sx={{ width: "100%", p: 2 }}>
-        <CardContent>
-          <Typography variant="h5" fontWeight="bold" gutterBottom>
-            Iniciar Sesión
-          </Typography>
-
-          {error && (
-            <Alert severity="error" sx={{ mt: 2, mb: 2 }}>
-              {error}
-            </Alert>
-          )}
-          <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{ display: "grid", gap: 2 }}
-          >
-            <TextField
-              type="email"
-              name="email"
-              label="Correo Electrónico"
-              value={user.email}
-              onChange={handleChange}
-              fullWidth
-              required
-            />
-            <TextField
-              type={passwordType}
+    <Card className="mx-auto w-full max-w-md">
+      <h1 className="mb-6 text-2xl font-black">Iniciar sesión</h1>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <Field label="Correo electrónico">
+          <Input
+            type="email"
+            name="email"
+            autoComplete="username"
+            value={form.email}
+            onChange={handleChange}
+            required
+          />
+        </Field>
+        <Field label="Contraseña">
+          <span className="relative block">
+            <Input
+              type={showPassword ? "text" : "password"}
               name="password"
-              label="Contraseña"
-              value={user.password}
+              autoComplete="current-password"
+              value={form.password}
               onChange={handleChange}
-              fullWidth
               required
-              slotProps={{
-                input: {
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={() => setPasswordVisible((prev) => !prev)}
-                        edge="end"
-                        color="primary"
-                      >
-                        {passwordVisible ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                },
-              }}
+              className="pr-12"
             />
-            <Button
-              type="submit"
-              variant="contained"
-              color="primary"
-              sx={{ mt: 2 }}
+            <button
+              type="button"
+              onClick={() => setShowPassword((v) => !v)}
+              aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+              aria-pressed={showPassword}
+              className="absolute top-0 right-0 flex size-11 items-center justify-center text-muted hover:text-brand-strong dark:text-muted-dark dark:hover:text-brand"
             >
-              Iniciar Sesión
-            </Button>
-          </Box>
-        </CardContent>
-      </Card>
-    </Box>
+              {showPassword ? (
+                <LuEyeOff aria-hidden="true" className="size-5" />
+              ) : (
+                <LuEye aria-hidden="true" className="size-5" />
+              )}
+            </button>
+          </span>
+        </Field>
+
+        {error && (
+          <p role="alert" className="rounded-lg bg-red-700/10 px-3 py-2 text-sm font-bold text-red-800 dark:text-red-300">
+            {error}
+          </p>
+        )}
+
+        <Button type="submit" disabled={loading} className="mt-2 h-11">
+          {loading ? "Entrando…" : "Iniciar sesión"}
+        </Button>
+      </form>
+    </Card>
   );
 }
