@@ -128,13 +128,25 @@ export default function ProjectCard({ project, featured = false, reverse = false
           </div>
         )}
 
-        <h4
-          className={`leading-tight font-black ${
-            featured ? "text-2xl lg:text-[2rem]" : "text-xl"
-          } print:text-base`}
-        >
-          {project.title}
-        </h4>
+        <div className="flex items-center gap-3">
+          {project.logo && (
+            <img
+              src={project.logo}
+              alt=""
+              loading="lazy"
+              className={`${
+                featured ? "size-11 lg:size-12" : "size-9"
+              } shrink-0 rounded-full object-cover ring-1 ring-line dark:ring-line-dark print:size-6`}
+            />
+          )}
+          <h4
+            className={`leading-tight font-black ${
+              featured ? "text-2xl lg:text-[2rem]" : "text-xl"
+            } print:text-base`}
+          >
+            {project.title}
+          </h4>
+        </div>
 
         {project.description && (
           <p className="text-[15px] leading-relaxed font-medium text-muted dark:text-muted-dark print:text-xs">
