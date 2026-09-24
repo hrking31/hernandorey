@@ -3,9 +3,11 @@ import { FaGithub } from "react-icons/fa6";
 import { LuBookOpen, LuExternalLink } from "react-icons/lu";
 import { buttonPrimary, buttonSecondary } from "../Layout/Layout";
 
+// Dominio que se muestra en la barra; los enlaces internos (/blog) son de este sitio.
 function hostOf(url) {
+  if (!url) return "";
   try {
-    return new URL(url).host;
+    return new URL(url, "https://hernandorey-31.web.app").host;
   } catch {
     return "";
   }
@@ -27,42 +29,68 @@ function SmartLink({ href, className, children }) {
   );
 }
 
-// Captura del proyecto con barra de navegador; sin captura, muestra el logo.
+function BrowserBar({ host }) {
+  return (
+    <div className="flex h-7 shrink-0 items-center gap-1.5 border-b border-line bg-card px-3 dark:border-line-dark dark:bg-surface-dark">
+      <span className="size-2.5 rounded-full bg-line dark:bg-line-dark" />
+      <span className="size-2.5 rounded-full bg-line dark:bg-line-dark" />
+      <span className="size-2.5 rounded-full bg-line dark:bg-line-dark" />
+      <span className="ml-2 truncate text-xs font-semibold text-muted dark:text-muted-dark">
+        {host}
+      </span>
+    </div>
+  );
+}
+
+// Captura del proyecto dentro de una barra de navegador, siempre completa
+// (nunca se recorta, sea cual sea su proporción). Sin captura, muestra el logo.
 function Preview({ project, featured }) {
   const host = hostOf(project.demoUrl);
+  const logo = project.logo && (
+    <img
+      src={project.logo}
+      alt=""
+      loading="lazy"
+      className="size-20 rounded-full object-cover shadow-lg sm:size-24"
+    />
+  );
+
+  // Destacado: ventana flotante en su proporción real, centrada en su columna.
+  if (featured) {
+    return (
+      <div className="flex items-center justify-center bg-chip p-5 sm:p-8 lg:w-[52%] lg:shrink-0 dark:bg-chip-dark print:hidden">
+        <figure className="m-0 w-full overflow-hidden rounded-xl border border-line bg-card shadow-xl shadow-black/15 dark:border-line-dark dark:bg-surface-dark">
+          {host && <BrowserBar host={host} />}
+          {project.image ? (
+            <img
+              src={project.image}
+              alt={`Captura de ${project.title}`}
+              loading="lazy"
+              className="h-auto w-full"
+            />
+          ) : (
+            <div className="flex aspect-[16/10] items-center justify-center">{logo}</div>
+          )}
+        </figure>
+      </div>
+    );
+  }
+
+  // Tarjeta normal: espacio fijo 16:10 para que las tarjetas de una fila
+  // queden parejas; la captura se ajusta dentro sin recortarse.
   return (
-    <div
-      className={`flex flex-col bg-chip dark:bg-chip-dark print:hidden ${
-        featured ? "min-h-64 lg:w-[52%] lg:shrink-0" : "h-56 sm:h-64"
-      }`}
-    >
-      {host && (
-        <div className="flex h-7 shrink-0 items-center gap-1.5 border-b border-line bg-card px-3 dark:border-line-dark dark:bg-surface-dark">
-          <span className="size-2.5 rounded-full bg-line dark:bg-line-dark" />
-          <span className="size-2.5 rounded-full bg-line dark:bg-line-dark" />
-          <span className="size-2.5 rounded-full bg-line dark:bg-line-dark" />
-          <span className="ml-2 truncate text-xs font-semibold text-muted dark:text-muted-dark">
-            {host}
-          </span>
-        </div>
-      )}
-      <div className="relative min-h-0 flex-1 overflow-hidden">
+    <div className="flex flex-col bg-chip dark:bg-chip-dark print:hidden">
+      {host && <BrowserBar host={host} />}
+      <div className="flex aspect-[16/10] items-center justify-center">
         {project.image ? (
           <img
             src={project.image}
             alt={`Captura de ${project.title}`}
             loading="lazy"
-            className="absolute inset-0 size-full object-cover object-top"
+            className="size-full object-contain"
           />
         ) : (
-          project.logo && (
-            <img
-              src={project.logo}
-              alt=""
-              loading="lazy"
-              className="absolute top-1/2 left-1/2 size-24 -translate-x-1/2 -translate-y-1/2 rounded-full object-cover shadow-lg"
-            />
-          )
+          logo
         )}
       </div>
     </div>
