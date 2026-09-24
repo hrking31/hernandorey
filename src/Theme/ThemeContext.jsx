@@ -12,6 +12,7 @@ export default function ThemeProviderWrapper({ children }) {
 
   useEffect(() => {
     localStorage.setItem("theme", mode);
+    document.documentElement.classList.toggle("dark", mode === "dark");
   }, [mode]);
 
   const toggleTheme = () => {

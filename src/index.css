@@ -1,0 +1,33 @@
+/*
+ * Mientras MUI y Tailwind conviven se omite el preflight (reset) de Tailwind
+ * para no alterar los componentes de MUI. Al quitar MUI se reemplaza todo por:
+ * @import "tailwindcss";
+ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Modo oscuro controlado por la clase "dark" en <html> (ver ThemeContext) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Raleway", sans-serif;
+
+  /* Marca */
+  --color-brand: #e7562e;
+  --color-brand-strong: #c2410c;
+
+  /* Superficies y texto, modo claro */
+  --color-surface: #fcfcfc;
+  --color-card: #ffffff;
+  --color-ink: #1d2025;
+  --color-muted: #5a6069;
+  --color-line: #e7e4de;
+
+  /* Superficies y texto, modo oscuro */
+  --color-surface-dark: #20252c;
+  --color-card-dark: #272d35;
+  --color-ink-dark: #f2f2f0;
+  --color-muted-dark: #aab1ba;
+  --color-line-dark: #363d47;
+}

@@ -3,6 +3,7 @@ import App from "./App.jsx";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import ThemeProviderWrapper from "./Theme/ThemeContext.jsx";
+import "./index.css";
 
 console.log(
   "👋 Hola Soy tu amigo y colega en el mundo del código... Hernando Rey 🦁"
