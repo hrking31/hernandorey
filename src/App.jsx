@@ -5,6 +5,7 @@ import { ProtectedRoutes } from "./Components/ProtectedRoutes/ProtectedRoutes.js
 import { auth } from "./Components/Firebase/Firebase";
 import { signOut } from "firebase/auth";
 import NavBar from "./Components/NavBar/NavBar";
+import ScrollManager from "./Components/ScrollManager/ScrollManager";
 
 export default function App() {
   const location = useLocation();
@@ -19,6 +20,7 @@ export default function App() {
 
   return (
     <div>
+      <ScrollManager />
       <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />

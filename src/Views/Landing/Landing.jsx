@@ -1,210 +1,82 @@
-import { Typography, Box, Divider } from "@mui/material";
-import { styled } from "@mui/material/styles";
-import { useTheme } from "@mui/material/styles";
-import SocialMedia from "../../Components/SocialMedia/SocialMedia";
+import { Link } from "react-router-dom";
+import { LuArrowRight, LuDownload } from "react-icons/lu";
 import AnimatedLogo from "../../Components/AnimatedLogo/AnimatedLogo";
-
-const LandingContainer = styled(Box)(({ theme }) => ({
-  width: "90%",
-  [theme.breakpoints.up("md")]: { width: "90%" },
-  [theme.breakpoints.up("lg")]: { width: "70%" },
-  maxWidth: "90%",
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  gap: theme.spacing(1),
-  // border: "2px solid #000",
-
-  [theme.breakpoints.up(992)]: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-}));
-
-const LandingImage = styled(Box)(({ theme }) => ({
-  display: "flex",
-  flexDirection: "column",
-  alignItems: "center",
-  justifyContent: "center",
-  order: -1,
-  width: "100%",
-  alignSelf: "flex-start",
-  paddingBottom: "10px",
-  // border: "2px solid #000",
-
-  [theme.breakpoints.up(992)]: {
-    order: 1,
-    width: "30%",
-  },
-}));
-
-const LandingText = styled(Box)(({ theme }) => ({
-  width: "100%",
-  textAlign: "center",
-  // border: "2px solid #000",
-
-  [theme.breakpoints.up(992)]: {
-    width: "70%",
-    textAlign: "left",
-    paddingRight: "10px",
-  },
-}));
+import SocialMedia from "../../Components/SocialMedia/SocialMedia";
+import {
+  Page,
+  Section,
+  Divider,
+  buttonPrimary,
+  buttonSecondary,
+} from "../../Components/Layout/Layout";
+import useCvUrl from "../../hooks/useCvUrl";
 
 export default function Landing() {
-  const theme = useTheme();
+  const cvUrl = useCvUrl();
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-        textAlign: "center",
-        px: { xs: 1, md: 2.8 },
-        mt: { xs: 6.4, md: 18 },
-        // border: "2px solid #000",
-      }}
-    >
-      <Box
-        sx={{
-          width: "90%",
-          [theme.breakpoints.up("md")]: { width: "90%" },
-          [theme.breakpoints.up("lg")]: { width: "70%" },
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          mb: { xs: 4, md: 5.5 },
-          // border: "2px solid #000",
-        }}
+    <Page>
+      <Section
+        as="header"
+        className="mb-10 flex flex-col items-center text-center lg:mb-14"
       >
-        <Typography
-          sx={{ fontWeight: 700, fontSize: "1.5rem", fontStyle: "normal" }}
-        >
-          Hola, Soy
-        </Typography>
-        <Typography
-          variant="h4"
-          sx={{
-            color: "#e7562e",
-            fontWeight: 900,
-            position: "relative",
-            textAlign: "center",
-            "&::after": {
-              content: '""',
-              position: "absolute",
-              left: "50%",
-              bottom: "-4px",
-              width: "30%",
-              height: "2px",
-              backgroundColor: "#e7762e",
-              transform: "translateX(-50%)",
-            },
-          }}
-        >
+        <p className="text-2xl font-bold">Hola, soy</p>
+        <h1 className="relative pb-2 text-[2.4rem] leading-tight font-black text-brand-strong after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-1/3 after:-translate-x-1/2 after:bg-brand sm:text-5xl dark:text-brand">
           Hernando Rey
-        </Typography>
-      </Box>
+        </h1>
+      </Section>
 
-      <LandingContainer>
-        <LandingImage>
+      <Section className="grid items-center gap-8 lg:grid-cols-[1fr_18rem] lg:gap-12">
+        <div className="flex flex-col items-center text-center lg:order-2">
           <AnimatedLogo />
-          <Typography sx={{ fontSize: "1.5rem", fontWeight: 700 }}>
-            Software Engineer & UX
-          </Typography>
-        </LandingImage>
+          <p className="text-2xl font-bold">Desarrollador Full Stack</p>
+          <p className="mt-2 max-w-xs text-[15px] leading-snug font-semibold text-muted dark:text-muted-dark">
+            Ingeniero electrónico · React, Node.js y Firebase · IoT con ESP32
+          </p>
+        </div>
 
-        <LandingText>
-          <Box display="flex" flexDirection="column" gap={2}>
-            <Typography
-              variant="body2"
-              sx={{
-                lineHeight: 1.6,
-                textAlign: "justify",
-                textJustify: "inter-word",
-                wordBreak: "break-word",
-                hyphens: "auto",
-              }}
-            >
-              <strong
-                sx={{
-                  color: theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
-                  fontWeight: "900",
-                }}
+        <div className="flex flex-col gap-4 text-justify text-[clamp(0.95rem,0.9rem+0.3vw,1.15rem)] leading-relaxed font-medium hyphens-auto lg:order-1">
+          <p>
+            <strong className="font-black">Como desarrollador,</strong> me
+            gusta crear soluciones que unen diseño, tecnología y funcionalidad.
+          </p>
+          <p>
+            <strong className="font-black">Resolver problemas,</strong>{" "}
+            optimizar procesos y crear soluciones, ya sea a través de sistemas
+            automatizados o experiencias digitales.
+          </p>
+          <p>
+            Disfruto todo el proceso de creación, desde la concepción de una
+            idea hasta su materialización en un producto real.
+          </p>
+          <p>
+            Adicto al café ☕, amante del ejercicio 🏋🏻💪, cinéfilo empedernido
+            🎬🍿 y entusiasta de la domótica 🏠.
+          </p>
+
+          <div className="mt-4 flex flex-wrap justify-center gap-3 lg:justify-start">
+            <Link to="/hola#proyectos" className={buttonPrimary}>
+              Ver proyectos
+              <LuArrowRight className="size-4" aria-hidden="true" />
+            </Link>
+            {cvUrl && (
+              <a
+                href={cvUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download="CV-HernandoRey.pdf"
+                className={buttonSecondary}
               >
-                Como Developer,
-              </strong>
-              &nbsp;me gusta crear soluciones que unen diseño, tecnología y
-              funcionalidad.
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                lineHeight: 1.6,
-                textAlign: "justify",
-                textJustify: "inter-word",
-                wordBreak: "break-word",
-                hyphens: "auto",
-              }}
-            >
-              <strong
-                sx={{
-                  color: theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
-                  fontWeight: "900",
-                }}
-              >
-                Resolver problemas,
-              </strong>
-              &nbsp;optimizar procesos y crear soluciones, ya sea a través de
-              sistemas automatizados o experiencias digitales.
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                lineHeight: 1.6,
-                textAlign: "justify",
-                textJustify: "inter-word",
-                wordBreak: "break-word",
-                hyphens: "auto",
-              }}
-            >
-              Disfruto todo el proceso de creación, desde la concepción de una
-              idea hasta su materialización en un producto real.
-            </Typography>
-            <Typography
-              variant="body2"
-              sx={{
-                lineHeight: 1.6,
-                textAlign: "justify",
-                textJustify: "inter-word",
-                wordBreak: "break-word",
-                hyphens: "auto",
-              }}
-            >
-              Adicto al café ☕, amante del ejercicio 🏋🏻💪, cinéfilo empedernido
-              🎬🍿, y entusiasta de la domótica 🏠..
-            </Typography>
-          </Box>
-        </LandingText>
-      </LandingContainer>
-      <Divider
-        sx={{
-          width: "90%",
-          [theme.breakpoints.up("md")]: { width: "90%" },
-          [theme.breakpoints.up("lg")]: { width: "70%" },
-          maxWidth: "90%",
-          mt: 6,
-          mb: { xs: 5.5, md: 7.5 },
-          borderBottomWidth: "2.5px",
-        }}
-      />
-      <Box>
-        <SocialMedia />
-      </Box>
-    </Box>
+                <LuDownload className="size-4" aria-hidden="true" />
+                Descargar CV
+              </a>
+            )}
+          </div>
+        </div>
+      </Section>
+
+      <Divider className="my-12 lg:mt-14 lg:mb-16" />
+      <SocialMedia />
+    </Page>
   );
 }
