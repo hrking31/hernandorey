@@ -5,7 +5,6 @@ import { ProtectedRoutes } from "./Components/ProtectedRoutes/ProtectedRoutes.js
 import { auth } from "./Components/Firebase/Firebase";
 import { signOut } from "firebase/auth";
 import NavBar from "./Components/NavBar/NavBar";
-import { Box } from "@mui/material";
 
 export default function App() {
   const location = useLocation();
@@ -20,9 +19,7 @@ export default function App() {
 
   return (
     <div>
-      <Box sx={{ "@media print": { display: "none" } }}>
-        <NavBar />
-      </Box>
+      <NavBar />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/hola" element={<Hola />} />

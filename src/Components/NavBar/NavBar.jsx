@@ -1,95 +1,50 @@
-import { NavLink, useLocation } from "react-router-dom";
-import { AppBar, Toolbar, Box } from "@mui/material";
+import { NavLink } from "react-router-dom";
 import LogoRey from "../../assets/Rey.svg";
-import styles from "../NavBar/NavBar.module.css";
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
-import { useTheme } from "@mui/material/styles";
 import { MenuNavBar } from "../../Data/Data";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+
+const linkClass = ({ isActive }) =>
+  [
+    "relative block py-1 text-xl font-black text-brand-strong dark:text-brand",
+    "after:absolute after:inset-x-0 after:-bottom-0.5 after:h-0.5 after:origin-center after:bg-brand",
+    "after:transition-transform after:duration-300 hover:after:scale-x-100",
+    isActive ? "after:scale-x-100" : "after:scale-x-0",
+  ].join(" ");
 
 export default function NavBar() {
-  const location = useLocation();
-  const theme = useTheme();
-
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar
-        className={styles.appbar}
-        sx={{
-          boxShadow: "none",
-          height: "65px",
-          width: "100%",
-          zIndex: 1000,
-        }}
-      >
-        <Toolbar
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            // minHeight: "56px",
-            height: "100%",
-            padding: "0px 12px",
-          }}
+    // En móvil la barra va abajo, al alcance del pulgar; en escritorio, arriba.
+    <header className="fixed inset-x-0 bottom-0 z-[1000] not-italic border-t border-line bg-surface/90 backdrop-blur dark:border-line-dark dark:bg-surface-dark/90 lg:top-0 lg:bottom-auto lg:border-t-0 lg:border-b print:hidden">
+      <div className="relative flex h-16 items-center justify-between px-3">
+        <NavLink
+          to="/"
+          aria-label="Hernando Rey, ir al inicio"
+          className="group flex items-center gap-1"
         >
-          <NavLink to="/" className={styles.navlogo}>
-            <Box
-              className={styles.logocontainer}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                cursor: "pointer",
-              }}
-            >
-              <img src={LogoRey} className={styles.logoimg} />
-              <span
-                className={`${styles.logotext} ${styles.hiddenOnMobile}`}
-                style={{
-                  color: theme.palette.mode === "dark" ? "#fcfcfc" : "#282c34",
-                  transition: "color 0.3s ease",
-                }}
-              >
-                HernandoRey
-              </span>
-            </Box>
-          </NavLink>
-          <nav className={styles.navbar}>
-            <Box className={styles.navContainer}>
-              {MenuNavBar.map((text, index) => {
-                const path = `/${text.toLowerCase()}`;
-                const isActive = location.pathname === path;
+          <img
+            src={LogoRey}
+            alt=""
+            className="h-10 w-auto lg:h-12 [@media(hover:hover)]:group-hover:animate-pulse-scale"
+          />
+          <span className="hidden text-4xl font-black text-ink dark:text-ink-dark lg:inline">
+            HernandoRey
+          </span>
+        </NavLink>
 
-                return (
-                  <NavLink
-                    key={index}
-                    to={path}
-                    className={`${styles.navlink} ${
-                      isActive ? styles.active : ""
-                    }`}
-                  >
-                    {text}
-                  </NavLink>
-                );
-              })}
-            </Box>
-          </nav>
+        <nav aria-label="Principal" className="absolute left-1/2 -translate-x-1/2">
+          <ul className="flex items-center gap-8">
+            {MenuNavBar.map((text) => (
+              <li key={text}>
+                <NavLink to={`/${text.toLowerCase()}`} className={linkClass}>
+                  {text}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-          <NavLink to="/signin" className={styles.navlogin}>
-            <AccountCircle
-              sx={{
-                fontSize: 30,
-                m: 1.5,
-                "@media (max-width: 400px)": {
-                  fontSize: 26,
-                  m: 2,
-                },
-              }}
-            />
-          </NavLink>
-
-          <ThemeSwitcher />
-        </Toolbar>
-      </AppBar>
-    </Box>
+        <ThemeSwitcher />
+      </div>
+    </header>
   );
 }
