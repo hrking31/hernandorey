@@ -12,6 +12,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import YAML from "yaml";
+import sharp from "sharp";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const envFile = path.join(root, ".env.local");
@@ -27,7 +28,7 @@ if (!vault || !fs.existsSync(vault)) {
 
 const outDir = path.join(root, "src", "content", "blog");
 const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---\r?\n?/;
-const IMAGE = /\.(png|jpe?g|gif|webp|svg|avif)$/i;
+const OPTIMIZABLE = /\.(png|jpe?g|webp)$/i;
 
 function walk(dir) {
   return fs.readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
@@ -67,22 +68,37 @@ function canvasImage(ref, noteDir) {
   return null;
 }
 
-function processNote(file, frontmatter, body) {
+async function processNote(file, frontmatter, body) {
   const noteDir = path.dirname(file);
   const title = frontmatter.title ?? path.basename(file, ".md");
   const slug = slugify(frontmatter.slug ?? title);
   const target = path.join(outDir, slug);
   const warnings = [];
   const copied = new Map();
+  const jobs = [];
 
+  // Se regeneran las imágenes en cada ejecución para no dejar restos.
+  fs.rmSync(path.join(target, "img"), { recursive: true, force: true });
   fs.mkdirSync(path.join(target, "img"), { recursive: true });
 
   // Copia una imagen a img/ con un nombre seguro y devuelve la ruta relativa.
+  // Las fotos se reducen a 1600 px de ancho y se convierten a WebP.
   const copyImage = (source) => {
     if (!copied.has(source)) {
       const ext = path.extname(source).toLowerCase();
-      const name = `${slugify(path.basename(source, ext))}${ext}`;
-      fs.copyFileSync(source, path.join(target, "img", name));
+      const base = slugify(path.basename(source, ext));
+      const optimize = OPTIMIZABLE.test(ext);
+      const name = optimize ? `${base}.webp` : `${base}${ext}`;
+      const dest = path.join(target, "img", name);
+      jobs.push(
+        optimize
+          ? sharp(source)
+              .rotate()
+              .resize({ width: 1600, withoutEnlargement: true })
+              .webp({ quality: 80 })
+              .toFile(dest)
+          : fs.promises.copyFile(source, dest)
+      );
       copied.set(source, `img/${name}`);
     }
     return copied.get(source);
@@ -123,6 +139,7 @@ function processNote(file, frontmatter, body) {
     .replace(/^\s*[*_][^*_\n]+[*_]\s*\n+/, "");
 
   fs.writeFileSync(path.join(target, "index.md"), content.trim() + "\n");
+  await Promise.all(jobs);
 
   const words = content.split(/\s+/).filter(Boolean).length;
   return {
@@ -151,7 +168,7 @@ for (const file of vaultFiles.filter((f) => f.endsWith(".md"))) {
   const frontmatter = YAML.parse(match[1]) ?? {};
   if (frontmatter.publicar !== true) continue;
 
-  const result = processNote(file, frontmatter, raw.slice(match[0].length));
+  const result = await processNote(file, frontmatter, raw.slice(match[0].length));
   published.push(result.meta);
   console.log(`✔ ${result.meta.title}  →  ${result.meta.slug}  (${result.images} imágenes)`);
   for (const warning of result.warnings) console.warn(`  ⚠ ${warning}`);

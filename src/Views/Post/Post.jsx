@@ -3,12 +3,29 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
+import bash from "highlight.js/lib/languages/bash";
+import c from "highlight.js/lib/languages/c";
+import cpp from "highlight.js/lib/languages/cpp";
+import css from "highlight.js/lib/languages/css";
+import javascript from "highlight.js/lib/languages/javascript";
+import json from "highlight.js/lib/languages/json";
+import powershell from "highlight.js/lib/languages/powershell";
+import python from "highlight.js/lib/languages/python";
+import xml from "highlight.js/lib/languages/xml";
+import yaml from "highlight.js/lib/languages/yaml";
 import "highlight.js/styles/github-dark.css";
 import { LuArrowLeft, LuCalendar, LuClock } from "react-icons/lu";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 import { Page, Section } from "../../Components/Layout/Layout";
 import remarkCallouts from "../../utils/remarkCallouts";
 import { getPost, loadContent, imageUrl, formatDate } from "../../content/blog";
+
+// Solo los lenguajes que aparecen en los artículos: el paquete completo pesa
+// más del doble. Para uno nuevo, se importa y se agrega aquí.
+const highlight = [
+  rehypeHighlight,
+  { languages: { bash, c, cpp, css, javascript, json, powershell, python, xml, yaml } },
+];
 
 export default function Post() {
   const { slug } = useParams();
@@ -124,7 +141,7 @@ export default function Post() {
           <div className="prose max-w-none prose-neutral lg:prose-lg dark:prose-invert prose-headings:font-black prose-a:text-brand-strong dark:prose-a:text-brand prose-code:before:content-none prose-code:after:content-none prose-pre:p-0 prose-pre:bg-[#0d1117]">
             <ReactMarkdown
               remarkPlugins={[remarkGfm, remarkCallouts]}
-              rehypePlugins={[rehypeHighlight]}
+              rehypePlugins={[highlight]}
               components={components}
             >
               {content}
