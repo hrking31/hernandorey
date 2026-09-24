@@ -13,6 +13,10 @@ dist
 dist-ssr
 *.local
 
+# Archivos generados (caché de Firebase Hosting y service worker de desarrollo)
+.firebase/
+dev-dist/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

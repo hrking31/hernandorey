@@ -14,7 +14,7 @@ const linkClass = ({ isActive }) =>
 export default function NavBar() {
   return (
     // En móvil la barra va abajo, al alcance del pulgar; en escritorio, arriba.
-    <header className="fixed inset-x-0 bottom-0 z-[1000] not-italic border-t border-line bg-surface/90 backdrop-blur dark:border-line-dark dark:bg-surface-dark/90 lg:top-0 lg:bottom-auto lg:border-t-0 lg:border-b print:hidden">
+    <header className="fixed inset-x-0 bottom-0 z-[1000] border-t border-line bg-surface/90 backdrop-blur dark:border-line-dark dark:bg-surface-dark/90 lg:top-0 lg:bottom-auto lg:border-t-0 lg:border-b print:hidden">
       <div className="relative flex h-16 items-center justify-between px-3">
         <NavLink
           to="/"

@@ -4,6 +4,15 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/png" href="./src/assets/Rey.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      // Aplica el tema antes de pintar para evitar un destello (ver ThemeContext.jsx).
+      try {
+        var t = localStorage.getItem("theme");
+        if (t !== "light" && t !== "dark")
+          t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.classList.toggle("dark", t === "dark");
+      } catch (e) {}
+    </script>
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>Hernando Rey · Desarrollador Full Stack</title>
     <meta

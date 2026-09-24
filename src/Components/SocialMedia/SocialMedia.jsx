@@ -18,7 +18,7 @@ export default function SocialMedia() {
 
   return (
     // El margen inferior deja libre la barra de navegación, que en móvil va abajo.
-    <div className="flex justify-center gap-6 pb-28 not-italic lg:pb-14 print:hidden">
+    <div className="flex justify-center gap-6 pb-28 lg:pb-14 print:hidden">
       <a
         href="https://github.com/hrking31"
         target="_blank"

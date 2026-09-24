@@ -1,21 +1,13 @@
-import React, { useState, useEffect } from "react";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
 import Logo from "../../assets/Rey.png";
 import "./AnimatedLogo.css";
 
-const AnimatedLogo = () => {
-  const [key, setKey] = useState(0);
-
-  useEffect(() => {
-    setKey((prevKey) => prevKey + 1);
-  }, []);
-
+// El logo se desvanece y aparece la foto (animación en AnimatedLogo.css).
+export default function AnimatedLogo() {
   return (
-    <div className="image-container" key={key}>
-      <img src={Logo} alt="Logo Inicial" className="image image1" />
-      <img src={ReyPerfil} alt="Logo Final" className="image image2" />
+    <div className="image-container">
+      <img src={Logo} alt="" className="image image1" />
+      <img src={ReyPerfil} alt="Hernando Rey" className="image image2" />
     </div>
   );
-};
-
-export default AnimatedLogo;
+}

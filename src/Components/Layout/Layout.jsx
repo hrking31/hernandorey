@@ -4,7 +4,7 @@
 export function Page({ className = "", children }) {
   return (
     <div
-      className={`text-ink not-italic dark:text-ink-dark pt-12 lg:pt-36 print:pt-0 ${className}`}
+      className={`text-ink dark:text-ink-dark pt-12 lg:pt-36 print:pt-0 ${className}`}
     >
       {children}
     </div>

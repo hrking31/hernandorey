@@ -1,11 +1,4 @@
-/*
- * Mientras MUI y Tailwind conviven se omite el preflight (reset) de Tailwind
- * para no alterar los componentes de MUI. Al quitar MUI se reemplaza todo por:
- * @import "tailwindcss";
- */
-@layer theme, base, components, utilities;
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/utilities.css" layer(utilities);
+@import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 /* Modo oscuro controlado por la clase "dark" en <html> (ver ThemeContext) */
@@ -57,49 +50,27 @@
   }
 }
 
-/*
- * Reset mínimo para los elementos hechos con Tailwind. Al estar en una capa,
- * los estilos de MUI (que no usan capas) siempre tienen prioridad sobre esto.
- */
 @layer base {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  ul,
-  ol,
-  figure,
-  blockquote {
-    margin: 0;
+  :root {
+    color-scheme: light;
   }
-  ul,
-  ol {
-    padding: 0;
-    list-style: none;
+  .dark {
+    color-scheme: dark;
   }
-  a {
-    color: inherit;
-    text-decoration: none;
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  button {
-    font: inherit;
-    color: inherit;
-    background: none;
-    border: 0;
-    padding: 0;
+  .dark body {
+    background-color: var(--color-surface-dark);
+    color: var(--color-ink-dark);
+  }
+  /* Tailwind v4 deja el cursor normal en los botones; aquí vuelve la manito. */
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
     cursor: pointer;
-  }
-  img {
-    display: block;
-    max-width: 100%;
-  }
-  input,
-  textarea,
-  select {
-    font: inherit;
   }
 }
 

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ThemeContext } from "../../Theme/ThemeContext";
+import { ThemeContext } from "../../Theme/context";
 import { LuMoon, LuSun } from "react-icons/lu";
 
 export default function ThemeSwitcher() {
