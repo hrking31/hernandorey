@@ -11,19 +11,19 @@ import {
   BigTitle,
   SubTitle,
   Divider,
+  bodyText,
+  leadText,
+  pageTitleText,
 } from "../../Components/Layout/Layout";
-
-const bodyText =
-  "text-[clamp(0.95rem,0.9rem+0.3vw,1.2rem)] leading-relaxed font-medium";
 
 export default function Hola() {
   return (
     <Page>
       <Section
         as="header"
-        className="mb-8 flex items-center justify-end gap-3 lg:mb-11"
+        className="mb-8 flex items-center justify-end gap-2 min-[900px]:mb-11"
       >
-        <h1 className="text-[2.4rem] leading-none font-black lg:text-[3.9rem]">
+        <h1 className={pageTitleText}>
           <RevealText>Hola 👋🏻</RevealText>
         </h1>
         <img
@@ -31,11 +31,11 @@ export default function Hola() {
           alt=""
           width="64"
           height="64"
-          className="size-16 rounded-full object-cover"
+          className="size-[62px] rounded-full object-cover min-[600px]:size-[60px] min-[900px]:size-[65px]"
         />
       </Section>
 
-      <Section className="mb-10 flex flex-col gap-6 text-justify hyphens-auto lg:mb-14">
+      <Section className="mb-9 flex flex-col gap-6 text-justify hyphens-auto min-[900px]:gap-10">
         <p className={bodyText}>
           Soy tu amigo y colega en el mundo del código...{" "}
           <strong className="font-black text-brand-strong dark:text-brand">
@@ -43,7 +43,7 @@ export default function Hola() {
           </strong>
           .
         </p>
-        <p className="text-[clamp(1rem,0.95rem+0.3vw,1.3rem)] leading-snug font-semibold italic">
+        <p className={leadText}>
           Ingeniero electrónico y desarrollador web, combinando hardware y
           software para crear soluciones únicas.
         </p>
@@ -63,20 +63,20 @@ export default function Hola() {
         </p>
       </Section>
 
-      <Divider className="mb-10 lg:mb-14" />
+      <Divider className="mt-2 mb-6 min-[900px]:mb-11" />
 
       <Section className="flex flex-col">
         <BigTitle>
           <RevealText>Yo soy</RevealText>
         </BigTitle>
-        <div className="mt-8 mb-12 lg:mt-10 lg:mb-16 print:mt-4 print:mb-6">
+        <div className="mt-4 mb-8 min-[900px]:mt-8 min-[900px]:mb-12 print:mt-4 print:mb-6">
           <Profile />
         </div>
 
-        <SubTitle className="mb-4">
+        <SubTitle className="mb-4 min-[900px]:mb-6">
           <RevealText>Educación</RevealText>
         </SubTitle>
-        <ol className="mb-12 flex flex-col gap-3 lg:mb-16">
+        <ol className="mb-6 flex flex-col gap-2 pl-4 min-[900px]:mb-8">
           {Estudios.map((estudio, index) => (
             <li key={estudio} className={`flex gap-2 ${bodyText}`}>
               <span className="font-bold">{Estudios.length - index}.</span>
@@ -85,25 +85,27 @@ export default function Hola() {
           ))}
         </ol>
 
-        <SubTitle className="mb-6 print:pt-8">
+        <SubTitle className="mb-4 min-[900px]:mb-6 print:pt-8">
           <RevealText>Tecnologías</RevealText>
         </SubTitle>
-        <TechCarousel />
+        <div className="mt-5 mb-4 min-[900px]:mb-6">
+          <TechCarousel />
+        </div>
       </Section>
 
-      <Divider className="my-12 lg:my-16" />
+      <Divider className="mt-4 mb-10" />
 
       <Section id="proyectos" className="scroll-mt-24 print:pt-8">
         <BigTitle>
           <RevealText>¿Qué he hecho?</RevealText>
         </BigTitle>
-        <SubTitle className="mt-6 mb-8 lg:mt-8 lg:mb-10">
+        <SubTitle className="mt-6 mb-5 min-[900px]:mt-8 min-[900px]:mb-10">
           <RevealText delay={2}>Proyectos</RevealText>
         </SubTitle>
         <ProjectsSection />
       </Section>
 
-      <div className="mt-16 lg:mt-20">
+      <div className="mt-12 min-[900px]:mt-14">
         <SocialMedia />
       </div>
     </Page>

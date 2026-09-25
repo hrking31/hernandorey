@@ -6,6 +6,8 @@ import {
   Page,
   Section,
   Divider,
+  bodyText,
+  subTitleText,
   buttonPrimary,
   buttonSecondary,
 } from "../../Components/Layout/Layout";
@@ -19,18 +21,19 @@ export default function Landing() {
     <Page>
       <Section
         as="header"
-        className="mb-10 flex flex-col items-center text-center lg:mb-14"
+        className="mb-8 flex flex-col items-center text-center min-[900px]:mb-11"
       >
         <p className="text-2xl font-bold">
           <RevealText>Hola, soy</RevealText>
         </p>
-        <h1 className="relative pb-2 text-[2.4rem] leading-tight font-black text-brand-strong after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-1/3 after:-translate-x-1/2 after:bg-brand sm:text-5xl dark:text-brand">
+        <h1 className={`relative ${subTitleText} font-black text-brand-strong after:absolute after:-bottom-1 after:left-1/2 after:h-0.5 after:w-[30%] after:-translate-x-1/2 after:bg-brand dark:text-brand`}>
           <RevealText delay={2}>Hernando Rey</RevealText>
         </h1>
       </Section>
 
-      <Section className="grid items-center gap-8 lg:grid-cols-[1fr_18rem] lg:gap-12">
-        <div className="flex flex-col items-center text-center lg:order-2">
+      {/* Como antes: en columna con el logo arriba; desde 992 px, texto 70% y logo 30%. */}
+      <Section className="flex flex-col items-center gap-2 min-[992px]:flex-row min-[992px]:justify-between">
+        <div className="order-first flex w-full flex-col items-center self-start pb-2.5 text-center min-[992px]:order-last min-[992px]:w-[30%]">
           <AnimatedLogo />
           <p className="text-2xl font-bold">
             <RevealText delay={4}>Desarrollador Full Stack</RevealText>
@@ -40,7 +43,7 @@ export default function Landing() {
           </p>
         </div>
 
-        <div className="flex flex-col gap-4 text-justify text-[clamp(0.95rem,0.9rem+0.3vw,1.15rem)] leading-relaxed font-medium hyphens-auto lg:order-1">
+        <div className={`flex w-full flex-col gap-4 text-justify hyphens-auto min-[992px]:w-[70%] min-[992px]:pr-2.5 ${bodyText}`}>
           <p>
             <strong className="font-black">Como desarrollador,</strong> me
             gusta crear soluciones que unen diseño, tecnología y funcionalidad.
@@ -59,7 +62,7 @@ export default function Landing() {
             🎬🍿 y entusiasta de la domótica 🏠.
           </p>
 
-          <div className="mt-4 flex flex-wrap justify-center gap-3 lg:justify-start">
+          <div className="mt-4 flex flex-wrap justify-center gap-3 min-[992px]:justify-start">
             <Link to="/hola#proyectos" className={buttonPrimary}>
               Ver proyectos
               <LuArrowRight className="size-4" aria-hidden="true" />
@@ -80,7 +83,7 @@ export default function Landing() {
         </div>
       </Section>
 
-      <Divider className="my-12 lg:mt-14 lg:mb-16" />
+      <Divider className="mt-12 mb-11 min-[900px]:mb-15" />
       <SocialMedia />
     </Page>
   );

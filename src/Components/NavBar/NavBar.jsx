@@ -14,7 +14,7 @@ const linkClass = ({ isActive }) =>
 export default function NavBar() {
   return (
     // En móvil la barra va abajo, al alcance del pulgar; en escritorio, arriba.
-    <header className="fixed inset-x-0 bottom-0 z-[1000] border-t border-line bg-surface/90 backdrop-blur dark:border-line-dark dark:bg-surface-dark/90 lg:top-0 lg:bottom-auto lg:border-t-0 lg:border-b print:hidden">
+    <header className="fixed inset-x-0 bottom-0 z-[1000] border-t border-line bg-surface/90 backdrop-blur dark:border-line-dark dark:bg-surface-dark/90 min-[993px]:top-0 min-[993px]:bottom-auto min-[993px]:border-t-0 min-[993px]:border-b print:hidden">
       <div className="relative flex h-16 items-center justify-between px-3">
         <NavLink
           to="/"
@@ -24,9 +24,9 @@ export default function NavBar() {
           <img
             src={LogoRey}
             alt=""
-            className="h-10 w-auto lg:h-12 [@media(hover:hover)]:group-hover:animate-pulse-scale"
+            className="h-10 w-auto min-[993px]:h-12 [@media(hover:hover)]:group-hover:animate-pulse-scale"
           />
-          <span className="hidden text-4xl font-black text-ink dark:text-ink-dark lg:inline">
+          <span className="hidden text-4xl font-black text-ink dark:text-ink-dark min-[993px]:inline">
             HernandoRey
           </span>
         </NavLink>

@@ -2,7 +2,13 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { LuCalendar, LuClock } from "react-icons/lu";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
-import { Page, Section } from "../../Components/Layout/Layout";
+import {
+  Page,
+  Section,
+  bodyText,
+  pageTitleText,
+  subTitleText,
+} from "../../Components/Layout/Layout";
 import { posts, formatDate } from "../../content/blog";
 import RevealText from "../../Components/RevealText/RevealText";
 import useScrollReveal from "../../hooks/useScrollReveal";
@@ -78,13 +84,13 @@ export default function Blog() {
   return (
     <Page>
       <Section as="header" className="mb-8">
-        <h1 className="text-[2.4rem] leading-none font-black lg:text-[3.9rem]">
+        <h1 className={pageTitleText}>
           <RevealText>Blog</RevealText>
         </h1>
       </Section>
 
-      <Section className="mb-12">
-        <p className="text-justify text-[clamp(0.95rem,0.9rem+0.3vw,1.2rem)] leading-relaxed font-medium hyphens-auto">
+      <Section className="mb-6 min-[900px]:mb-8">
+        <p className={`text-justify hyphens-auto ${bodyText}`}>
           En este espacio comparto mi viaje en el mundo tech a través de
           artículos, tutoriales, teoría aplicada y fragmentos de código. Exploro
           el desarrollo web, la automatización con Home Assistant, el teclado
@@ -92,8 +98,8 @@ export default function Blog() {
         </p>
       </Section>
 
-      <Section className="mb-16 lg:mb-20">
-        <h2 className="relative mx-auto mb-10 w-fit pb-2 text-center text-[1.8rem] font-black after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-1/3 after:-translate-x-1/2 after:bg-brand lg:text-[2.6rem]">
+      <Section className="mb-12 min-[900px]:mb-14">
+        <h2 className={`relative mx-auto mb-8 w-fit text-center ${subTitleText} font-black after:absolute after:-bottom-1 after:left-1/2 after:h-0.5 after:w-[30%] after:-translate-x-1/2 after:bg-brand`}>
           <RevealText>Artículos</RevealText>
         </h2>
 
