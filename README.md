@@ -133,7 +133,7 @@ En el repositorio de GitHub, *Settings → Secrets and variables → Actions*, s
 
 | Secreto | Valor |
 |---|---|
-| `FIREBASE_SERVICE_ACCOUNT` | El JSON de una cuenta de servicio con el rol *Firebase Hosting Admin* (Consola de Firebase → Configuración del proyecto → Cuentas de servicio) |
+| `FIREBASE_SERVICE_ACCOUNT_HERNANDOREY_31` | Lo crea solo `firebase init hosting:github`: una cuenta de servicio con permiso únicamente sobre Hosting |
 | `VITE_FIREBASE_API_KEY` … `VITE_FIREBASE_APP_ID` | Los mismos seis valores de `.env.local` |
 
 ### Variables de entorno

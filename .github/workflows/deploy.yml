@@ -8,7 +8,8 @@
 # se ejecuta en el PC, donde está la bóveda de Obsidian): aquí solo se compila.
 #
 # Secretos necesarios en GitHub (Settings → Secrets and variables → Actions):
-#   FIREBASE_SERVICE_ACCOUNT   JSON de la cuenta de servicio con permiso de Hosting
+#   FIREBASE_SERVICE_ACCOUNT_HERNANDOREY_31 (lo crea `firebase init hosting:github`)
+#   o FIREBASE_SERVICE_ACCOUNT  JSON de la cuenta de servicio con permiso de Hosting
 #   VITE_FIREBASE_*            los mismos valores de .env.local (ver .env.example)
 
 name: Desplegar en Firebase Hosting
@@ -62,7 +63,8 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          # Acepta el nombre que crea `firebase init hosting:github` o uno puesto a mano.
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_HERNANDOREY_31 || secrets.FIREBASE_SERVICE_ACCOUNT }}
           projectId: hernandorey-31
           # "live" es el sitio real; vacío crea una vista previa por pull request.
           channelId: ${{ github.event_name == 'push' && 'live' || '' }}
