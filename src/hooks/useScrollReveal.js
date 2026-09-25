@@ -1,18 +1,20 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 
 const PROGRESS_STEPS = Array.from({ length: 41 }, (_, i) => i / 40);
 
 // Anima los elementos [data-reveal] (el contenedor o sus descendientes) cada
 // vez que entran en pantalla, al bajar y al subir. El estado va en data-rv:
-//   wait → fuera de pantalla, listo para animarse
+//   wait → listo para animarse (oculto)
 //   in   → animándose
 //   done → animación terminada (desde aquí responde al mouse sin retraso)
-// Lo que ya se ve al cargar queda en "done": la página se ve completa de entrada.
+// Lo que ya se ve al cargar queda en "done" (la página se ve completa de
+// entrada), salvo con { onLoad: true }, que también lo anima al abrir la página.
+// Se prepara antes de pintar (useLayoutEffect) para que nada parpadee.
 //
 // Además, en los [data-progress] escribe --p (0 al entrar, 1 bien visible)
 // para efectos que siguen al scroll.
-export default function useScrollReveal(ref, deps) {
-  useEffect(() => {
+export default function useScrollReveal(ref, deps, { onLoad = false } = {}) {
+  useLayoutEffect(() => {
     const root = ref.current;
     if (!root || !("IntersectionObserver" in window)) return;
     if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
@@ -22,7 +24,7 @@ export default function useScrollReveal(ref, deps) {
       ...root.querySelectorAll("[data-reveal]"),
     ];
     const tracked = [...root.querySelectorAll("[data-progress]")];
-    const seen = new WeakSet();
+    const frames = [];
 
     const show = (el) => {
       el.dataset.rv = "in";
@@ -38,20 +40,38 @@ export default function useScrollReveal(ref, deps) {
     const hide = (el) => {
       el.dataset.rvInstant = "";
       el.dataset.rv = "wait";
-      requestAnimationFrame(() =>
-        requestAnimationFrame(() => delete el.dataset.rvInstant)
-      );
+      frames.push(requestAnimationFrame(() =>
+        frames.push(requestAnimationFrame(() => delete el.dataset.rvInstant))
+      ));
     };
+
+    // Estado inicial, antes de que el navegador pinte. Medir con
+    // getBoundingClientRect ya calcula los estilos, así que "wait" se aplica
+    // sin transición (data-rv-instant); si no, el ocultarse también se animaría.
+    const onLoadItems = [];
+    items.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      const visible = r.top < innerHeight && r.bottom > 0;
+      if (visible && !onLoad) {
+        el.dataset.rv = "done";
+        return;
+      }
+      el.dataset.rvInstant = "";
+      el.dataset.rv = "wait";
+      if (visible) onLoadItems.push(el);
+    });
+    root.getBoundingClientRect(); // fija el estado "wait" sin animarlo
+    items.forEach((el) => delete el.dataset.rvInstant);
+    frames.push(
+      requestAnimationFrame(() =>
+        frames.push(requestAnimationFrame(() => onLoadItems.forEach(show)))
+      )
+    );
 
     const reveal = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           const el = entry.target;
-          if (!seen.has(el)) {
-            seen.add(el);
-            el.dataset.rv = entry.isIntersecting ? "done" : "wait";
-            continue;
-          }
           if (entry.intersectionRatio >= 0.12 && el.dataset.rv === "wait") show(el);
           else if (!entry.isIntersecting && el.dataset.rv !== "wait") hide(el);
         }
@@ -74,6 +94,7 @@ export default function useScrollReveal(ref, deps) {
     tracked.forEach((el) => progress.observe(el));
 
     return () => {
+      frames.forEach(cancelAnimationFrame);
       reveal.disconnect();
       progress.disconnect();
       items.forEach((el) => {

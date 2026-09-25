@@ -250,7 +250,9 @@
     display: inline-block;
     overflow: clip;
     vertical-align: bottom;
-    padding-bottom: 0.08em;
+    /* Espacio extra para tildes y letras como g, y, p, sin mover el diseño. */
+    padding-block: 0.12em 0.2em;
+    margin-block: -0.12em -0.2em;
   }
   .rv-word > span {
     display: inline-block;

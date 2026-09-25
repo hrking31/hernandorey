@@ -4,6 +4,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
 import { toList } from "../../utils/lists";
 import useScrollReveal from "../../hooks/useScrollReveal";
+import { tilt, untilt } from "../../utils/tilt";
 import ProjectCard from "./ProjectCard";
 
 const ALL = "Todos";
@@ -40,28 +41,6 @@ function Skeleton() {
       ))}
     </div>
   );
-}
-
-// Las tarjetas se inclinan hacia el cursor (solo con mouse). El brillo sigue
-// al cursor con --mx/--my. Ver .reveal-card en index.css.
-function tilt(event) {
-  if (event.pointerType !== "mouse") return;
-  const card = event.target.closest(".reveal-card");
-  if (!card) return;
-  const r = card.getBoundingClientRect();
-  const x = (event.clientX - r.left) / r.width;
-  const y = (event.clientY - r.top) / r.height;
-  card.style.setProperty("--ry", `${((x - 0.5) * 8).toFixed(2)}deg`);
-  card.style.setProperty("--rx", `${((0.5 - y) * 8).toFixed(2)}deg`);
-  card.style.setProperty("--mx", `${(x * 100).toFixed(1)}%`);
-  card.style.setProperty("--my", `${(y * 100).toFixed(1)}%`);
-}
-
-function untilt(event) {
-  const card = event.target.closest(".reveal-card");
-  if (!card || card.contains(event.relatedTarget)) return;
-  card.style.removeProperty("--rx");
-  card.style.removeProperty("--ry");
 }
 
 export default function ProjectsSection() {

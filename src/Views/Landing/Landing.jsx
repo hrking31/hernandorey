@@ -10,6 +10,7 @@ import {
   buttonSecondary,
 } from "../../Components/Layout/Layout";
 import useCvUrl from "../../hooks/useCvUrl";
+import RevealText from "../../Components/RevealText/RevealText";
 
 export default function Landing() {
   const cvUrl = useCvUrl();
@@ -20,16 +21,20 @@ export default function Landing() {
         as="header"
         className="mb-10 flex flex-col items-center text-center lg:mb-14"
       >
-        <p className="text-2xl font-bold">Hola, soy</p>
+        <p className="text-2xl font-bold">
+          <RevealText>Hola, soy</RevealText>
+        </p>
         <h1 className="relative pb-2 text-[2.4rem] leading-tight font-black text-brand-strong after:absolute after:bottom-0 after:left-1/2 after:h-0.5 after:w-1/3 after:-translate-x-1/2 after:bg-brand sm:text-5xl dark:text-brand">
-          Hernando Rey
+          <RevealText delay={2}>Hernando Rey</RevealText>
         </h1>
       </Section>
 
       <Section className="grid items-center gap-8 lg:grid-cols-[1fr_18rem] lg:gap-12">
         <div className="flex flex-col items-center text-center lg:order-2">
           <AnimatedLogo />
-          <p className="text-2xl font-bold">Desarrollador Full Stack</p>
+          <p className="text-2xl font-bold">
+            <RevealText delay={4}>Desarrollador Full Stack</RevealText>
+          </p>
           <p className="mt-2 max-w-xs text-[15px] leading-snug font-semibold text-muted dark:text-muted-dark">
             Ingeniero electrónico · React, Node.js y Firebase · IoT con ESP32
           </p>
