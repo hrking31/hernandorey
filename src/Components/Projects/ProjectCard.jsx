@@ -3,6 +3,9 @@ import { FaGithub } from "react-icons/fa6";
 import { LuBookOpen, LuExternalLink } from "react-icons/lu";
 import { buttonPrimary, buttonSecondary } from "../Layout/Layout";
 
+// Las clases rv-* y data-reveal / data-progress conectan con las animaciones
+// de index.css y con el hook useScrollReveal (ver ProjectsSection).
+
 // Dominio que se muestra en la barra; los enlaces internos (/blog) son de este sitio.
 function hostOf(url) {
   if (!url) return "";
@@ -29,78 +32,110 @@ function SmartLink({ href, className, children }) {
   );
 }
 
-function BrowserBar({ host }) {
-  return (
-    <div className="flex h-7 shrink-0 items-center gap-1.5 border-b border-line bg-card px-3 dark:border-line-dark dark:bg-surface-dark">
-      <span className="size-2.5 rounded-full bg-line dark:bg-line-dark" />
-      <span className="size-2.5 rounded-full bg-line dark:bg-line-dark" />
-      <span className="size-2.5 rounded-full bg-line dark:bg-line-dark" />
-      <span className="ml-2 truncate text-xs font-semibold text-muted dark:text-muted-dark">
-        {host}
-      </span>
-    </div>
-  );
-}
-
-// Captura del proyecto dentro de una barra de navegador, siempre completa
-// (nunca se recorta, sea cual sea su proporción). Sin captura, muestra el logo.
-function Preview({ project, featured }) {
-  const host = hostOf(project.demoUrl);
+// Captura dentro de una ventana de navegador, siempre completa. Los tres
+// puntos se "encienden" cuando la tarjeta termina de aparecer.
+function Screenshot({ project, framed }) {
+  const host = hostOf(project.demoUrl || project.repoUrl);
   const logo = project.logo && (
+    <img src={project.logo} alt="" loading="lazy" className="size-20 rounded-full object-cover shadow-lg sm:size-24" />
+  );
+  const image = project.image && (
     <img
-      src={project.logo}
-      alt=""
+      src={project.image}
+      alt={`Captura de ${project.title}`}
       loading="lazy"
-      className="size-20 rounded-full object-cover shadow-lg sm:size-24"
+      className={`rv-img ${framed ? "size-full object-contain" : "h-auto w-full"}`}
     />
   );
 
-  // Destacado: ventana flotante en su proporción real, centrada en su columna.
-  if (featured) {
-    return (
-      <div className="flex items-center justify-center bg-chip p-5 sm:p-8 lg:w-[52%] lg:shrink-0 dark:bg-chip-dark print:hidden">
-        <figure className="m-0 w-full overflow-hidden rounded-xl border border-line bg-card shadow-xl shadow-black/15 dark:border-line-dark dark:bg-surface-dark">
-          {host && <BrowserBar host={host} />}
-          {project.image ? (
-            <img
-              src={project.image}
-              alt={`Captura de ${project.title}`}
-              loading="lazy"
-              className="h-auto w-full"
-            />
-          ) : (
-            <div className="flex aspect-[16/10] items-center justify-center">{logo}</div>
-          )}
-        </figure>
-      </div>
-    );
-  }
-
-  // Tarjeta normal: espacio fijo 16:10 para que las tarjetas de una fila
-  // queden parejas; la captura se ajusta dentro sin recortarse.
   return (
-    <div className="flex flex-col bg-chip dark:bg-chip-dark print:hidden">
-      {host && <BrowserBar host={host} />}
-      <div className="flex aspect-[16/10] items-center justify-center">
-        {project.image ? (
-          <img
-            src={project.image}
-            alt={`Captura de ${project.title}`}
-            loading="lazy"
-            className="size-full object-contain"
-          />
-        ) : (
-          logo
-        )}
+    <>
+      <div className="flex h-7 shrink-0 items-center gap-1.5 border-b border-line bg-card px-3 dark:border-line-dark dark:bg-surface-dark">
+        <span className="rv-dot" />
+        <span className="rv-dot" />
+        <span className="rv-dot" />
+        <span className="ml-2 truncate text-xs font-semibold text-muted dark:text-muted-dark">
+          {host}
+        </span>
       </div>
+      {framed || !image ? (
+        <div className="flex aspect-[16/10] items-center justify-center bg-stage">{image || logo}</div>
+      ) : (
+        image
+      )}
+    </>
+  );
+}
+
+function Badges({ project }) {
+  if (!project.client && !project.category) return null;
+  return (
+    <div className="rv flex flex-wrap items-center gap-2 print:hidden" style={{ "--k": 0 }}>
+      {project.client && (
+        <>
+          <span className="flex h-6 items-center gap-1.5 rounded-full bg-brand/10 px-3 text-xs font-extrabold tracking-wide text-brand-strong dark:bg-brand/15 dark:text-brand">
+            <span className="size-1.5 rounded-full bg-green-600 dark:bg-green-400" />
+            EN PRODUCCIÓN
+          </span>
+          <span className="flex h-6 items-center rounded-full border border-line px-3 text-xs font-extrabold dark:border-line-dark">
+            Cliente real
+          </span>
+        </>
+      )}
+      {project.category && (
+        <span className="text-xs font-bold text-muted dark:text-muted-dark">
+          {project.category}
+        </span>
+      )}
     </div>
   );
 }
 
-function Actions({ project, featured }) {
+function Title({ project, featured }) {
+  return (
+    <div className="rv flex items-center gap-3" style={{ "--k": 1 }}>
+      {project.logo && (
+        <img
+          src={project.logo}
+          alt=""
+          loading="lazy"
+          className={`${
+            featured ? "size-11 lg:size-12" : "size-9"
+          } shrink-0 rounded-full object-cover ring-1 ring-line dark:ring-line-dark print:size-6`}
+        />
+      )}
+      <h4
+        className={`leading-tight font-black text-balance ${
+          featured ? "text-2xl lg:text-[2rem]" : "text-xl"
+        } print:text-base`}
+      >
+        {project.title}
+      </h4>
+    </div>
+  );
+}
+
+function Techs({ techs }) {
+  if (techs.length === 0) return null;
+  return (
+    <ul aria-label="Tecnologías" className="flex flex-wrap gap-2 print:gap-1">
+      {techs.map((tech, j) => (
+        <li
+          key={tech}
+          style={{ "--j": j }}
+          className="rv-chip flex h-7 items-center rounded-lg bg-chip px-2.5 text-[13px] font-bold dark:bg-chip-dark print:h-auto print:bg-transparent print:px-0 print:text-[10px] print:after:content-['·']"
+        >
+          {tech}
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Actions({ project, featured, k }) {
   if (!project.demoUrl && !project.repoUrl && !project.blogUrl) return null;
   return (
-    <div className="mt-auto flex flex-wrap gap-3 pt-2 print:hidden">
+    <div className="rv mt-auto flex flex-wrap gap-3 pt-2 print:hidden" style={{ "--k": k }}>
       {project.demoUrl && (
         <SmartLink href={project.demoUrl} className={buttonPrimary}>
           <LuExternalLink className="size-4" aria-hidden="true" />
@@ -126,73 +161,48 @@ function Actions({ project, featured }) {
   );
 }
 
-export default function ProjectCard({ project, featured = false, reverse = false }) {
+// Al imprimir los botones no sirven: se muestra la dirección.
+function PrintUrl({ url }) {
+  if (!url || url.startsWith("/")) return null;
+  return <p className="hidden text-[10px] print:block">{url}</p>;
+}
+
+// Destacado. En celular (diseño D): la captura arriba y un panel con el texto
+// que se monta encima y sube al hacer scroll. En PC (diseño C): texto a un
+// lado y la captura en 3D al otro, que se endereza mientras bajas.
+function FeaturedCard({ project, reverse }) {
+  const h = project.highlights.length;
   return (
     <article
-      className={`flex overflow-hidden rounded-2xl border border-line bg-card transition duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10 dark:border-line-dark dark:bg-card-dark print:break-inside-avoid print:border-0 print:shadow-none ${
-        featured
-          ? `flex-col ${reverse ? "lg:flex-row-reverse" : "lg:flex-row"}`
-          : "flex-col"
+      data-reveal
+      data-progress
+      style={{ viewTransitionName: `p-${project.id}` }}
+      className={`reveal-feat flex flex-col lg:grid lg:items-center lg:gap-12 lg:rounded-3xl lg:border lg:border-line lg:bg-card lg:p-10 dark:lg:border-line-dark dark:lg:bg-card-dark print:block print:break-inside-avoid print:border-0 print:p-0 ${
+        reverse ? "feat-reverse lg:grid-cols-[1.25fr_1fr]" : "lg:grid-cols-[1fr_1.25fr]"
       }`}
     >
-      <Preview project={project} featured={featured} />
+      <div className={`feat-media print:hidden ${reverse ? "lg:order-1" : "lg:order-2"}`}>
+        <figure className="rv-shot feat-shot m-0 overflow-hidden rounded-2xl border border-line bg-card shadow-2xl shadow-black/25 lg:rounded-xl dark:border-line-dark dark:bg-card-dark">
+          <Screenshot project={project} />
+        </figure>
+      </div>
 
       <div
-        className={`flex flex-1 flex-col gap-4 ${
-          featured ? "p-6 lg:p-10" : "p-6"
-        } print:p-0 print:py-2`}
+        className={`feat-panel relative z-10 mx-3 -mt-12 flex flex-col gap-4 rounded-2xl border border-line bg-card p-5 shadow-xl shadow-black/15 sm:mx-6 sm:p-7 lg:m-0 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none dark:border-line-dark dark:bg-card-dark dark:lg:bg-transparent print:m-0 print:border-0 print:p-0 print:shadow-none ${
+          reverse ? "lg:order-2" : "lg:order-1"
+        }`}
       >
-        {(featured || project.category) && (
-          <div className="flex flex-wrap items-center gap-2 print:hidden">
-            {project.client && (
-              <span className="flex h-6 items-center gap-1.5 rounded-full bg-brand/10 px-3 text-xs font-extrabold tracking-wide text-brand-strong dark:bg-brand/15 dark:text-brand">
-                <span className="size-1.5 rounded-full bg-green-600 dark:bg-green-400" />
-                EN PRODUCCIÓN
-              </span>
-            )}
-            {project.client && (
-              <span className="flex h-6 items-center rounded-full border border-line px-3 text-xs font-extrabold dark:border-line-dark">
-                Cliente real
-              </span>
-            )}
-            {project.category && (
-              <span className="text-xs font-bold text-muted dark:text-muted-dark">
-                {project.category}
-              </span>
-            )}
-          </div>
-        )}
-
-        <div className="flex items-center gap-3">
-          {project.logo && (
-            <img
-              src={project.logo}
-              alt=""
-              loading="lazy"
-              className={`${
-                featured ? "size-11 lg:size-12" : "size-9"
-              } shrink-0 rounded-full object-cover ring-1 ring-line dark:ring-line-dark print:size-6`}
-            />
-          )}
-          <h4
-            className={`leading-tight font-black ${
-              featured ? "text-2xl lg:text-[2rem]" : "text-xl"
-            } print:text-base`}
-          >
-            {project.title}
-          </h4>
-        </div>
-
+        <Badges project={project} />
+        <Title project={project} featured />
         {project.description && (
-          <p className="text-[15px] leading-relaxed font-medium text-muted dark:text-muted-dark print:text-xs">
+          <p className="rv text-[15px] leading-relaxed font-medium text-muted dark:text-muted-dark print:text-xs" style={{ "--k": 2 }}>
             {project.description}
           </p>
         )}
-
-        {featured && project.highlights.length > 0 && (
+        {h > 0 && (
           <ul className="flex flex-col gap-2.5 print:hidden">
-            {project.highlights.map((item) => (
-              <li key={item} className="flex gap-2.5 text-[15px] leading-snug font-semibold">
+            {project.highlights.map((item, j) => (
+              <li key={item} className="rv flex gap-2.5 text-[15px] leading-snug font-semibold" style={{ "--k": 3 + j }}>
                 <span aria-hidden="true" className="mt-0.5 font-black text-brand-strong dark:text-brand">
                   ✓
                 </span>
@@ -201,27 +211,45 @@ export default function ProjectCard({ project, featured = false, reverse = false
             ))}
           </ul>
         )}
-
-        {project.techs.length > 0 && (
-          <ul aria-label="Tecnologías" className="flex flex-wrap gap-2 print:gap-1">
-            {project.techs.map((tech) => (
-              <li
-                key={tech}
-                className="flex h-7 items-center rounded-lg bg-chip px-2.5 text-[13px] font-bold dark:bg-chip-dark print:h-auto print:bg-transparent print:px-0 print:text-[10px] print:after:content-['·']"
-              >
-                {tech}
-              </li>
-            ))}
-          </ul>
-        )}
-
-        {/* Al imprimir los botones no sirven: se muestra la dirección. */}
-        {project.demoUrl && !project.demoUrl.startsWith("/") && (
-          <p className="hidden text-[10px] print:block">{project.demoUrl}</p>
-        )}
-
-        <Actions project={project} featured={featured} />
+        <Techs techs={project.techs} />
+        <PrintUrl url={project.demoUrl} />
+        <Actions project={project} featured k={4 + h} />
       </div>
     </article>
+  );
+}
+
+// Tarjeta normal (diseño 1): captura en un marco 16:10 y texto debajo.
+function Card({ project, index }) {
+  return (
+    <article
+      data-reveal
+      style={{ viewTransitionName: `p-${project.id}`, "--i": index % 2 }}
+      className="reveal-card relative flex flex-col overflow-hidden rounded-2xl border border-line bg-card hover:shadow-xl hover:shadow-black/10 dark:border-line-dark dark:bg-card-dark print:break-inside-avoid print:border-0 print:shadow-none"
+    >
+      <figure className="rv-shot m-0 flex flex-col print:hidden">
+        <Screenshot project={project} framed />
+      </figure>
+      <div className="flex flex-1 flex-col gap-4 p-6 print:p-0 print:py-2">
+        <Badges project={project} />
+        <Title project={project} />
+        {project.description && (
+          <p className="rv text-[15px] leading-relaxed font-medium text-muted dark:text-muted-dark print:text-xs" style={{ "--k": 2 }}>
+            {project.description}
+          </p>
+        )}
+        <Techs techs={project.techs} />
+        <PrintUrl url={project.demoUrl} />
+        <Actions project={project} k={4} />
+      </div>
+    </article>
+  );
+}
+
+export default function ProjectCard({ project, featured = false, reverse = false, index = 0 }) {
+  return featured ? (
+    <FeaturedCard project={project} reverse={reverse} />
+  ) : (
+    <Card project={project} index={index} />
   );
 }

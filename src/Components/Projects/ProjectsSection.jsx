@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../Firebase/Firebase";
 import { toList } from "../../utils/lists";
+import useScrollReveal from "../../hooks/useScrollReveal";
 import ProjectCard from "./ProjectCard";
 
 const ALL = "Todos";
@@ -40,10 +42,43 @@ function Skeleton() {
   );
 }
 
+// Las tarjetas se inclinan hacia el cursor (solo con mouse). El brillo sigue
+// al cursor con --mx/--my. Ver .reveal-card en index.css.
+function tilt(event) {
+  if (event.pointerType !== "mouse") return;
+  const card = event.target.closest(".reveal-card");
+  if (!card) return;
+  const r = card.getBoundingClientRect();
+  const x = (event.clientX - r.left) / r.width;
+  const y = (event.clientY - r.top) / r.height;
+  card.style.setProperty("--ry", `${((x - 0.5) * 8).toFixed(2)}deg`);
+  card.style.setProperty("--rx", `${((0.5 - y) * 8).toFixed(2)}deg`);
+  card.style.setProperty("--mx", `${(x * 100).toFixed(1)}%`);
+  card.style.setProperty("--my", `${(y * 100).toFixed(1)}%`);
+}
+
+function untilt(event) {
+  const card = event.target.closest(".reveal-card");
+  if (!card || card.contains(event.relatedTarget)) return;
+  card.style.removeProperty("--rx");
+  card.style.removeProperty("--ry");
+}
+
 export default function ProjectsSection() {
   const [projects, setProjects] = useState([]);
   const [status, setStatus] = useState("loading");
   const [filter, setFilter] = useState(ALL);
+  const rootRef = useRef(null);
+
+  // Se vuelve a preparar cada vez que cambian las tarjetas visibles.
+  useScrollReveal(rootRef, [status, filter]);
+
+  // Al filtrar, cada tarjeta se desliza a su nueva posición (View Transitions).
+  const changeFilter = (category) => {
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!document.startViewTransition || reduce) return setFilter(category);
+    document.startViewTransition(() => flushSync(() => setFilter(category)));
+  };
 
   useEffect(() => {
     getDocs(collection(db, "proyectos"))
@@ -72,7 +107,7 @@ export default function ProjectsSection() {
   const rest = visible.filter((p) => !p.featured);
 
   return (
-    <div className="flex flex-col gap-10 lg:gap-14">
+    <div ref={rootRef} className="flex flex-col gap-12 lg:gap-16">
       {categories.length > 1 && (
         <div
           role="group"
@@ -90,7 +125,7 @@ export default function ProjectsSection() {
                 key={category}
                 type="button"
                 aria-pressed={active}
-                onClick={() => setFilter(category)}
+                onClick={() => changeFilter(category)}
                 className={`flex h-11 items-center gap-2 rounded-full border-[1.5px] px-4 text-[15px] font-bold transition ${
                   active
                     ? "border-ink bg-ink text-surface dark:border-ink-dark dark:bg-ink-dark dark:text-surface-dark"
@@ -115,9 +150,13 @@ export default function ProjectsSection() {
       ))}
 
       {rest.length > 0 && (
-        <div className="grid gap-8 md:grid-cols-2 print:grid-cols-1 print:gap-2">
-          {rest.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+        <div
+          onPointerMove={tilt}
+          onPointerOut={untilt}
+          className="grid gap-8 md:grid-cols-2 print:grid-cols-1 print:gap-2"
+        >
+          {rest.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
           ))}
         </div>
       )}

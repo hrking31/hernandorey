@@ -1,4 +1,6 @@
+import { Fragment, useRef } from "react";
 import ReyPerfil from "../../assets/ReyPerfil.jpg";
+import useScrollReveal from "../../hooks/useScrollReveal";
 import { Estudios } from "../../Data/Data";
 import Profile from "../../Components/Profile/Profile";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
@@ -16,6 +18,9 @@ const bodyText =
   "text-[clamp(0.95rem,0.9rem+0.3vw,1.2rem)] leading-relaxed font-medium";
 
 export default function Hola() {
+  const titleRef = useRef(null);
+  useScrollReveal(titleRef, []);
+
   return (
     <Page>
       <Section
@@ -87,7 +92,19 @@ export default function Hola() {
       <Divider className="my-12 lg:my-16" />
 
       <Section id="proyectos" className="scroll-mt-24 print:pt-8">
-        <BigTitle>¿Qué he hecho?</BigTitle>
+        {/* Cada palabra sube desde una ranura al entrar en pantalla. */}
+        <div ref={titleRef} data-reveal>
+          <BigTitle>
+            {"¿Qué he hecho?".split(" ").map((word, k) => (
+              <Fragment key={word}>
+                {k > 0 && " "}
+                <span className="rv-word">
+                  <span style={{ "--k": k }}>{word}</span>
+                </span>
+              </Fragment>
+            ))}
+          </BigTitle>
+        </div>
         <SubTitle className="mt-6 mb-8 lg:mt-8 lg:mb-10">Proyectos</SubTitle>
         <ProjectsSection />
       </Section>

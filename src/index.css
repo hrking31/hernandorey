@@ -27,6 +27,9 @@
   --color-line-dark: #363d47;
   --color-chip-dark: #323944;
 
+  /* Fondo detrás de las capturas (la mayoría de los proyectos son oscuros) */
+  --color-stage: #0d111a;
+
   --animate-pulse-scale: pulse-scale 2s ease-in-out infinite;
   --animate-marquee: marquee 30s linear infinite;
 
@@ -141,5 +144,183 @@
   }
   .dark :is(.callout-quote, .callout-cite) {
     --callout: 156 163 175;
+  }
+}
+
+/* ==========================================================================
+   Animaciones de la sección de proyectos (ver useScrollReveal y ProjectCard)
+   data-rv: wait = fuera de pantalla · in = animándose · done = terminada.
+   Sin JavaScript o con "reducir movimiento" todo se ve quieto y completo.
+   ========================================================================== */
+:root {
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --glare: rgb(231 86 46 / 0.09);
+}
+.dark {
+  --glare: rgb(255 255 255 / 0.07);
+}
+
+/* Semáforo de la ventana del navegador en cada captura. */
+.rv-dot {
+  width: 0.625rem;
+  height: 0.625rem;
+  border-radius: 9999px;
+  transition: background-color 0.4s var(--ease-out);
+}
+.rv-dot:nth-child(1) { background: #ff5f57; transition-delay: 0.55s; }
+.rv-dot:nth-child(2) { background: #febc2e; transition-delay: 0.65s; }
+.rv-dot:nth-child(3) { background: #28c840; transition-delay: 0.75s; }
+
+/* Brillo que sigue al cursor en las tarjetas normales. */
+.reveal-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 0%), var(--glare), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Contenedor de cada tarjeta */
+  [data-reveal] {
+    transition: opacity 0.8s var(--ease-out), transform 1s var(--ease-out), box-shadow 0.3s var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 110ms), calc(var(--i, 0) * 110ms), 0s;
+  }
+  .reveal-feat[data-rv="wait"] {
+    opacity: 0;
+    transform: translateY(70px);
+  }
+  .reveal-card[data-rv="wait"] {
+    opacity: 0;
+    transform-origin: 50% 0;
+    transform: perspective(900px) rotateX(20deg) translateY(80px) scale(0.95);
+  }
+
+  /* Contenido en cascada: de borroso a nítido, uno tras otro (--k). */
+  .rv {
+    transition: opacity 0.7s var(--ease-out), transform 0.85s var(--ease-out), filter 0.85s var(--ease-out);
+    transition-delay: calc(0.25s + var(--k, 0) * 75ms);
+  }
+  [data-rv="wait"] .rv {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(8px);
+  }
+
+  /* Tecnologías: saltan una a una (--j). */
+  .rv-chip {
+    transition: opacity 0.45s var(--ease-out), transform 0.6s var(--spring);
+    transition-delay: calc(0.6s + var(--j, 0) * 55ms);
+  }
+  [data-rv="wait"] .rv-chip {
+    opacity: 0;
+    transform: translateY(12px) scale(0.6);
+  }
+
+  /* Captura: en los destacados se descubre como una cortina; la imagen se
+     asienta y recupera el color. Al terminar queda completa. */
+  .rv-shot {
+    clip-path: inset(-120px);
+    transition: clip-path 1.25s var(--ease-out);
+  }
+  .reveal-feat[data-rv="wait"] .rv-shot {
+    clip-path: inset(0 0 100% 0);
+  }
+  .rv-img {
+    transition: transform 1.7s var(--ease-out), filter 1.3s var(--ease-out);
+  }
+  [data-rv="wait"] .rv-img {
+    transform: scale(1.18);
+    filter: saturate(0.15) brightness(0.65);
+  }
+  [data-rv="wait"] .rv-dot {
+    background: var(--color-line);
+    transition-delay: 0s;
+  }
+  .dark [data-rv="wait"] .rv-dot {
+    background: var(--color-line-dark);
+  }
+
+  /* Título que sube palabra por palabra desde una ranura. */
+  .rv-word {
+    display: inline-block;
+    overflow: clip;
+    vertical-align: bottom;
+    padding-bottom: 0.08em;
+  }
+  .rv-word > span {
+    display: inline-block;
+    transition: transform 0.95s var(--ease-out);
+    transition-delay: calc(var(--k, 0) * 90ms);
+  }
+  [data-rv="wait"] .rv-word > span {
+    transform: translateY(110%);
+  }
+
+  /* PC (diseño C): la captura en 3D se endereza según el scroll (--p). */
+  @media (min-width: 1024px) {
+    .feat-media {
+      perspective: 1400px;
+    }
+    .feat-shot {
+      --t: calc(1 - var(--p, 1));
+      transform: rotateY(calc(var(--t) * -28deg)) rotateX(calc(var(--t) * 16deg))
+        scale(calc(0.88 + var(--p, 1) * 0.12));
+      transition: transform 0.25s linear, clip-path 1.25s var(--ease-out);
+    }
+    .feat-reverse .feat-shot {
+      transform: rotateY(calc(var(--t) * 28deg)) rotateX(calc(var(--t) * 16deg))
+        scale(calc(0.88 + var(--p, 1) * 0.12));
+    }
+  }
+
+  /* Celular (diseño D): el panel de texto sube sobre la captura. */
+  @media (max-width: 1023.98px) {
+    .feat-panel {
+      translate: 0 calc((1 - var(--p, 1)) * 110px - var(--p, 1) * 14px);
+      transition: translate 0.25s linear;
+    }
+  }
+
+  /* Al terminar de aparecer, la tarjeta responde al mouse sin retraso. */
+  .reveal-card[data-rv="done"] {
+    transition: transform 0.35s var(--ease-out), box-shadow 0.3s var(--ease-out);
+    transition-delay: 0s;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .reveal-card[data-rv="done"]:hover {
+      transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateY(-6px);
+    }
+    .reveal-card[data-rv="done"]:hover::after {
+      opacity: 1;
+    }
+  }
+
+  /* Al salir de la pantalla vuelve al inicio sin animarse (nadie lo ve). */
+  [data-rv-instant],
+  [data-rv-instant] * {
+    transition: none !important;
+  }
+
+  /* Filtros: las tarjetas se deslizan a su nueva posición. */
+  ::view-transition-group(*) {
+    animation-duration: 0.6s;
+    animation-timing-function: var(--ease-out);
+  }
+}
+
+/* Al imprimir el CV todo se ve quieto y completo. */
+@media print {
+  [data-rv],
+  [data-rv] * {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+    translate: none !important;
   }
 }
