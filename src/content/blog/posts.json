@@ -1,1 +1,20 @@
-[]
+[
+  {
+    "slug": "un-panel-tactil-para-que-dos-ninas-enciendan-su-ventilador",
+    "title": "Un panel táctil para que dos niñas enciendan su ventilador",
+    "subtitle": "Cuando automatizar un aparato se lo quita a quien lo usaba, y cómo se devuelve",
+    "description": "Convertí el ventilador de pared del cuarto de mis hijas en un dispositivo inteligente y, sin querer, se lo quité: se quedó sin botones y ellas sin teléfono. Este es el panel táctil con el que se lo devolví.",
+    "date": "2026-08-21",
+    "tags": [
+      "esphome",
+      "home-assistant",
+      "lvgl",
+      "esp32-s3",
+      "domotica",
+      "pantalla-tactil",
+      "accesibilidad"
+    ],
+    "cover": "img/portada-panel-tactil.webp",
+    "readingMinutes": 23
+  }
+]
