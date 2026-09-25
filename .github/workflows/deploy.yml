@@ -1,0 +1,68 @@
+# Integración y despliegue continuo del sitio.
+#
+# - Push a main: revisa el código, compila y publica en https://hernandorey-31.web.app
+# - Pull request a main: lo mismo, pero en un canal de vista previa temporal de
+#   Firebase; el enlace aparece como comentario en el pull request.
+#
+# Los artículos del blog ya vienen generados en src/content/blog (npm run blog
+# se ejecuta en el PC, donde está la bóveda de Obsidian): aquí solo se compila.
+#
+# Secretos necesarios en GitHub (Settings → Secrets and variables → Actions):
+#   FIREBASE_SERVICE_ACCOUNT   JSON de la cuenta de servicio con permiso de Hosting
+#   VITE_FIREBASE_*            los mismos valores de .env.local (ver .env.example)
+
+name: Desplegar en Firebase Hosting
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
+# Si llegan dos push seguidos, el segundo cancela al primero.
+concurrency:
+  group: despliegue-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  compilar-y-publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Revisar el código (ESLint)
+        run: npm run lint
+
+      - name: Compilar
+        run: npm run build
+        env:
+          VITE_FIREBASE_API_KEY: ${{ secrets.VITE_FIREBASE_API_KEY }}
+          VITE_FIREBASE_AUTH_DOMAIN: ${{ secrets.VITE_FIREBASE_AUTH_DOMAIN }}
+          VITE_FIREBASE_PROJECT_ID: ${{ secrets.VITE_FIREBASE_PROJECT_ID }}
+          VITE_FIREBASE_STORAGE_BUCKET: ${{ secrets.VITE_FIREBASE_STORAGE_BUCKET }}
+          VITE_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.VITE_FIREBASE_MESSAGING_SENDER_ID }}
+          VITE_FIREBASE_APP_ID: ${{ secrets.VITE_FIREBASE_APP_ID }}
+
+      - name: Publicar (main) o vista previa (pull request)
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: hernandorey-31
+          # "live" es el sitio real; vacío crea una vista previa por pull request.
+          channelId: ${{ github.event_name == 'push' && 'live' || '' }}

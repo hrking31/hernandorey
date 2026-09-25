@@ -1,5 +1,7 @@
 # Hernando Rey · Portafolio y blog
 
+[![Desplegar en Firebase Hosting](https://github.com/hrking31/hernandorey/actions/workflows/deploy.yml/badge.svg)](https://github.com/hrking31/hernandorey/actions/workflows/deploy.yml)
+
 Mi sitio personal: portafolio de proyectos, CV y un blog que escribo en **Obsidian** y publico con un script propio, sin CMS.
 
 **🌐 En vivo:** [hernandorey-31.web.app](https://hernandorey-31.web.app/)
@@ -16,6 +18,8 @@ Mi sitio personal: portafolio de proyectos, CV y un blog que escribo en **Obsidi
 - **CV imprimible:** la página *Hola* tiene estilos de impresión propios.
 - **PWA** instalable, modo claro y oscuro (respeta la preferencia del sistema) y diseño adaptable.
 - **Vista previa al compartir** en LinkedIn y WhatsApp (Open Graph).
+- **Animaciones al hacer scroll** sin librerías: IntersectionObserver, View Transitions y CSS, respetando *reducir movimiento*.
+- **Despliegue continuo:** cada push a `main` se revisa, compila y publica solo con GitHub Actions; cada pull request recibe su propia vista previa.
 
 ## Tecnologías
 
@@ -25,6 +29,7 @@ Mi sitio personal: portafolio de proyectos, CV y un blog que escribo en **Obsidi
 | Backend como servicio | Firebase: Firestore, Auth, Storage y Hosting |
 | Blog | Obsidian, Markdown, react-markdown, remark-gfm, highlight.js |
 | Herramientas | Node.js (script de publicación), sharp (optimización de imágenes), vite-plugin-pwa, ESLint |
+| CI/CD | GitHub Actions, Firebase Hosting (producción y canales de vista previa) |
 
 ## Blog: de Obsidian a la web
 
@@ -53,9 +58,39 @@ El script ([`scripts/sync-blog.mjs`](scripts/sync-blog.mjs)) resuelve lo que un 
 
 La bóveda solo se **lee**: el script nunca escribe en ella, y solo se publican las notas marcadas.
 
+### Que el blog no pese aunque crezca
+
+Cada artículo se compila en su propio archivo (`articulo-[hash].js`) y se descarga solo al abrirlo. La PWA **no los precarga**: los guarda en caché recién cuando alguien los lee, igual que las imágenes. Así la app pesa lo mismo con 2 artículos que con 500 (ver `workbox` en [`vite.config.js`](vite.config.js)).
+
+## Publicación: de la nota al sitio en vivo
+
+Publicar un artículo no requiere desplegar a mano: basta con subir los cambios a GitHub.
+
+```mermaid
+flowchart LR
+  A[Obsidian<br/>publicar: true] --> B[npm run blog]
+  B --> C[git commit + push<br/>a main]
+  C --> D[GitHub Actions]
+  D --> E[ESLint]
+  E --> F[vite build]
+  F --> G[Firebase Hosting<br/>hernandorey-31.web.app]
+  C -. pull request .-> H[Vista previa temporal<br/>enlace en el PR]
+```
+
+El flujo está en [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml):
+
+| Evento | Qué pasa |
+|---|---|
+| Push a `main` | Lint → build → publicación en el sitio real |
+| Pull request a `main` | Lint → build → canal de vista previa de Firebase, con el enlace comentado en el PR |
+| Dos push seguidos | El segundo cancela al primero, para no publicar una versión vieja |
+
+Corregir o retirar un artículo es igual: se edita (o se quita `publicar: true`) en Obsidian, `npm run blog` y push.
+
 ## Estructura
 
 ```
+.github/workflows/deploy.yml Lint, build y despliegue en Firebase Hosting
 scripts/sync-blog.mjs        Publicación de artículos desde Obsidian
 src/
   Components/
@@ -63,8 +98,8 @@ src/
     Projects/                Tarjetas y sección pública de proyectos
     Layout/                  Piezas de maquetación compartidas
   content/blog/              Artículos generados (no se editan a mano)
-  hooks/                     useAuthUser, useCvUrl
-  utils/                     remarkCallouts, listas, rutas de Storage
+  hooks/                     useAuthUser, useCvUrl, useScrollReveal
+  utils/                     remarkCallouts, inclinación de tarjetas, listas, rutas de Storage
   Views/                     Inicio, Hola, Blog, Artículo, Login, Panel
 ```
 
@@ -90,7 +125,16 @@ npm run dev
 | `npm run preview` | Sirve la versión compilada |
 | `npm run lint` | Revisa el código con ESLint |
 
-Despliegue: `npm run build && firebase deploy`.
+Despliegue: automático con GitHub Actions al hacer push a `main` (ver [Publicación](#publicación-de-la-nota-al-sitio-en-vivo)). A mano sigue funcionando `npm run build && firebase deploy`.
+
+### Configurar el despliegue automático (una sola vez)
+
+En el repositorio de GitHub, *Settings → Secrets and variables → Actions*, se crean estos secretos:
+
+| Secreto | Valor |
+|---|---|
+| `FIREBASE_SERVICE_ACCOUNT` | El JSON de una cuenta de servicio con el rol *Firebase Hosting Admin* (Consola de Firebase → Configuración del proyecto → Cuentas de servicio) |
+| `VITE_FIREBASE_API_KEY` … `VITE_FIREBASE_APP_ID` | Los mismos seis valores de `.env.local` |
 
 ### Variables de entorno
 
