@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../Components/Firebase/Firebase";
+import { safeUrl } from "../utils/safeUrl";
 
 // URL pública del CV, guardada desde el panel de administración en config/cv.
 export default function useCvUrl() {
@@ -10,7 +11,7 @@ export default function useCvUrl() {
     let active = true;
     getDoc(doc(db, "config", "cv"))
       .then((snapshot) => {
-        if (active && snapshot.exists()) setCvUrl(snapshot.data().url);
+        if (active && snapshot.exists()) setCvUrl(safeUrl(snapshot.data().url));
       })
       .catch((error) => console.error("Error al obtener el CV:", error));
     return () => {

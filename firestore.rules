@@ -1,0 +1,29 @@
+rules_version = '2';
+
+// Reglas de Firestore. Todos pueden leer lo que muestra el sitio; solo el
+// administrador escribe. Lo que no aparece aquí queda cerrado para todos.
+//
+// Se publican pegándolas en la consola de Firebase (Firestore > Reglas) o con
+// `firebase deploy --only firestore:rules`. El flujo de GitHub Actions solo
+// publica Hosting: no las toca.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Cuenta de hernandorey (Authentication > Usuarios > UID de usuario).
+    function esAdmin() {
+      return request.auth != null && request.auth.uid == "vzvpmGaQbdPIfndbPHOxxsN58tw2";
+    }
+
+    // Proyectos de la página Hola.
+    match /proyectos/{id} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+
+    // config/cv: enlace del PDF que se descarga desde Inicio y Hola.
+    match /config/{id} {
+      allow read: if true;
+      allow write: if esAdmin();
+    }
+  }
+}

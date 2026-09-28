@@ -1,0 +1,48 @@
+rules_version = '2';
+
+// Reglas de Storage. Todos pueden ver las imágenes y el CV; solo el
+// administrador sube, cambia o borra, y solo archivos del tipo y tamaño
+// esperados. Las URL de descarga ya publicadas (con token) siguen funcionando.
+//
+// Se publican pegándolas en la consola de Firebase (Storage > Reglas) o con
+// `firebase deploy --only storage`.
+service firebase.storage {
+  match /b/{bucket}/o {
+
+    // Cuenta de hernandorey (Authentication > Usuarios > UID de usuario).
+    function esAdmin() {
+      return request.auth != null && request.auth.uid == "vzvpmGaQbdPIfndbPHOxxsN58tw2";
+    }
+
+    function imagen() {
+      return request.resource.size < 5 * 1024 * 1024
+        && request.resource.contentType.matches('image/.*');
+    }
+
+    // El administrador puede ver y listar todo (la galería del panel usa listAll).
+    match /{todo=**} {
+      allow read: if esAdmin();
+    }
+
+    // Logos y capturas de los proyectos.
+    match /logos/{archivo} {
+      allow get: if true;
+      allow create, update: if esAdmin() && imagen();
+      allow delete: if esAdmin();
+    }
+    match /capturas/{archivo} {
+      allow get: if true;
+      allow create, update: if esAdmin() && imagen();
+      allow delete: if esAdmin();
+    }
+
+    // El CV que se sube desde el panel.
+    match /CV-HernandoRey.pdf {
+      allow get: if true;
+      allow create, update: if esAdmin()
+        && request.resource.size < 10 * 1024 * 1024
+        && request.resource.contentType == 'application/pdf';
+      allow delete: if esAdmin();
+    }
+  }
+}
