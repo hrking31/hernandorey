@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { ThemeContext } from "./context";
 
-// Sin elección guardada se usa la preferencia del sistema. index.html aplica
-// la misma lógica antes de pintar, para que no haya un destello de color.
+// Sin elección guardada se usa la preferencia del sistema. public/theme-init.js
+// aplica la misma lógica antes de pintar, para que no haya un destello de color.
 function initialMode() {
   try {
     const saved = localStorage.getItem("theme");
