@@ -3,10 +3,10 @@ import { tecnologias } from "../../Data/Data";
 function TechChip({ tech }) {
   const Icon = tech.icon;
   return (
-    <span className="flex h-9 items-center gap-2 rounded-lg border border-line bg-card px-3 text-sm font-bold whitespace-nowrap dark:border-line-dark dark:bg-card-dark print:h-7 print:px-2 print:text-xs">
+    <span className="flex h-9 items-center gap-2 rounded-lg border border-line bg-card px-3 text-sm font-bold whitespace-nowrap dark:border-line-dark dark:bg-card-dark print:h-6 print:gap-1.5 print:rounded-md print:px-2 print:text-[11px]">
       <Icon
         aria-hidden="true"
-        className="size-4 shrink-0"
+        className="size-4 shrink-0 print:size-3"
         style={tech.color ? { color: tech.color } : undefined}
       />
       {tech.name}
@@ -30,7 +30,7 @@ export default function TechCarousel() {
       </div>
 
       {/* Sin animación (preferencia del sistema) y al imprimir: lista fija. */}
-      <ul className="hidden flex-wrap gap-2 motion-reduce:flex print:flex">
+      <ul className="hidden flex-wrap gap-2 motion-reduce:flex print:flex print:justify-center">
         {tecnologias.map((tech) => (
           <li key={tech.name}>
             <TechChip tech={tech} />

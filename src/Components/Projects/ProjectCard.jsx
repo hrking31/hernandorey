@@ -70,7 +70,7 @@ function Screenshot({ project, framed }) {
 function Badges({ project }) {
   if (!project.client && !project.category) return null;
   return (
-    <div className="rv flex flex-wrap items-center gap-2 print:hidden" style={{ "--k": 0 }}>
+    <div className="rv flex flex-wrap items-center gap-2" style={{ "--k": 0 }}>
       {project.client && (
         <>
           <span className="flex h-6 items-center gap-1.5 rounded-full bg-brand/10 px-3 text-xs font-extrabold tracking-wide text-brand-strong dark:bg-brand/15 dark:text-brand">
@@ -101,13 +101,13 @@ function Title({ project, featured }) {
           loading="lazy"
           className={`${
             featured ? "size-11 lg:size-12" : "size-9"
-          } shrink-0 rounded-full object-cover ring-1 ring-line dark:ring-line-dark print:size-6`}
+          } shrink-0 rounded-full object-cover ring-1 ring-line dark:ring-line-dark`}
         />
       )}
       <h4
         className={`leading-tight font-black text-balance ${
           featured ? "text-2xl lg:text-[2rem]" : "text-xl"
-        } print:text-base`}
+        }`}
       >
         {project.title}
       </h4>
@@ -118,12 +118,12 @@ function Title({ project, featured }) {
 function Techs({ techs }) {
   if (techs.length === 0) return null;
   return (
-    <ul aria-label="Tecnologías" className="flex flex-wrap gap-2 print:gap-1">
+    <ul aria-label="Tecnologías" className="flex flex-wrap gap-2">
       {techs.map((tech, j) => (
         <li
           key={tech}
           style={{ "--j": j }}
-          className="rv-chip flex h-7 items-center rounded-lg bg-chip px-2.5 text-[13px] font-bold dark:bg-chip-dark print:h-auto print:bg-transparent print:px-0 print:text-[10px] print:after:content-['·']"
+          className="rv-chip flex h-7 items-center rounded-lg bg-chip px-2.5 text-[13px] font-bold dark:bg-chip-dark"
         >
           {tech}
         </li>
@@ -135,7 +135,7 @@ function Techs({ techs }) {
 function Actions({ project, featured, k }) {
   if (!project.demoUrl && !project.repoUrl && !project.blogUrl) return null;
   return (
-    <div className="rv mt-auto flex flex-wrap gap-3 pt-2 print:hidden" style={{ "--k": k }}>
+    <div className="rv mt-auto flex flex-wrap gap-3 pt-2" style={{ "--k": k }}>
       {project.demoUrl && (
         <SmartLink href={project.demoUrl} className={buttonPrimary}>
           <LuExternalLink className="size-4" aria-hidden="true" />
@@ -161,12 +161,6 @@ function Actions({ project, featured, k }) {
   );
 }
 
-// Al imprimir los botones no sirven: se muestra la dirección.
-function PrintUrl({ url }) {
-  if (!url || url.startsWith("/")) return null;
-  return <p className="hidden text-[10px] print:block">{url}</p>;
-}
-
 // Destacado. En celular (diseño D): la captura arriba y un panel con el texto
 // que se monta encima y sube al hacer scroll. En PC (diseño C): texto a un
 // lado y la captura en 3D al otro, que se endereza mientras bajas.
@@ -177,30 +171,30 @@ function FeaturedCard({ project, reverse }) {
       data-reveal
       data-progress
       style={{ viewTransitionName: `p-${project.id}` }}
-      className={`reveal-feat flex flex-col lg:grid lg:items-center lg:gap-12 lg:rounded-3xl lg:border lg:border-line lg:bg-card lg:p-10 dark:lg:border-line-dark dark:lg:bg-card-dark print:block print:break-inside-avoid print:border-0 print:p-0 ${
+      className={`reveal-feat flex flex-col lg:grid lg:items-center lg:gap-12 lg:rounded-3xl lg:border lg:border-line lg:bg-card lg:p-10 dark:lg:border-line-dark dark:lg:bg-card-dark ${
         reverse ? "feat-reverse lg:grid-cols-[1.25fr_1fr]" : "lg:grid-cols-[1fr_1.25fr]"
       }`}
     >
-      <div className={`feat-media print:hidden ${reverse ? "lg:order-1" : "lg:order-2"}`}>
+      <div className={`feat-media ${reverse ? "lg:order-1" : "lg:order-2"}`}>
         <figure className="rv-shot feat-shot m-0 overflow-hidden rounded-2xl border border-line bg-card shadow-2xl shadow-black/25 lg:rounded-xl dark:border-line-dark dark:bg-card-dark">
           <Screenshot project={project} />
         </figure>
       </div>
 
       <div
-        className={`feat-panel relative z-10 mx-3 -mt-12 flex flex-col gap-4 rounded-2xl border border-line bg-card p-5 shadow-xl shadow-black/15 sm:mx-6 sm:p-7 lg:m-0 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none dark:border-line-dark dark:bg-card-dark dark:lg:bg-transparent print:m-0 print:border-0 print:p-0 print:shadow-none ${
+        className={`feat-panel relative z-10 mx-3 -mt-12 flex flex-col gap-4 rounded-2xl border border-line bg-card p-5 shadow-xl shadow-black/15 sm:mx-6 sm:p-7 lg:m-0 lg:rounded-none lg:border-0 lg:bg-transparent lg:p-0 lg:shadow-none dark:border-line-dark dark:bg-card-dark dark:lg:bg-transparent ${
           reverse ? "lg:order-2" : "lg:order-1"
         }`}
       >
         <Badges project={project} />
         <Title project={project} featured />
         {project.description && (
-          <p className="rv text-[15px] leading-relaxed font-medium text-muted dark:text-muted-dark print:text-xs" style={{ "--k": 2 }}>
+          <p className="rv text-[15px] leading-relaxed font-medium text-muted dark:text-muted-dark" style={{ "--k": 2 }}>
             {project.description}
           </p>
         )}
         {h > 0 && (
-          <ul className="flex flex-col gap-2.5 print:hidden">
+          <ul className="flex flex-col gap-2.5">
             {project.highlights.map((item, j) => (
               <li key={item} className="rv flex gap-2.5 text-[15px] leading-snug font-semibold" style={{ "--k": 3 + j }}>
                 <span aria-hidden="true" className="mt-0.5 font-black text-brand-strong dark:text-brand">
@@ -212,7 +206,6 @@ function FeaturedCard({ project, reverse }) {
           </ul>
         )}
         <Techs techs={project.techs} />
-        <PrintUrl url={project.demoUrl} />
         <Actions project={project} featured k={4 + h} />
       </div>
     </article>
@@ -225,21 +218,20 @@ function Card({ project, index }) {
     <article
       data-reveal
       style={{ viewTransitionName: `p-${project.id}`, "--i": index % 2 }}
-      className="reveal-card relative flex flex-col overflow-hidden rounded-2xl border border-line bg-card hover:shadow-xl hover:shadow-black/10 dark:border-line-dark dark:bg-card-dark print:break-inside-avoid print:border-0 print:shadow-none"
+      className="reveal-card relative flex flex-col overflow-hidden rounded-2xl border border-line bg-card hover:shadow-xl hover:shadow-black/10 dark:border-line-dark dark:bg-card-dark"
     >
-      <figure className="rv-shot m-0 flex flex-col print:hidden">
+      <figure className="rv-shot m-0 flex flex-col">
         <Screenshot project={project} framed />
       </figure>
-      <div className="flex flex-1 flex-col gap-4 p-6 print:p-0 print:py-2">
+      <div className="flex flex-1 flex-col gap-4 p-6">
         <Badges project={project} />
         <Title project={project} />
         {project.description && (
-          <p className="rv text-[15px] leading-relaxed font-medium text-muted dark:text-muted-dark print:text-xs" style={{ "--k": 2 }}>
+          <p className="rv text-[15px] leading-relaxed font-medium text-muted dark:text-muted-dark" style={{ "--k": 2 }}>
             {project.description}
           </p>
         )}
         <Techs techs={project.techs} />
-        <PrintUrl url={project.demoUrl} />
         <Actions project={project} k={4} />
       </div>
     </article>

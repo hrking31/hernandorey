@@ -26,7 +26,12 @@ function ItemContent({ text, cvUrl }) {
   }
   if (text.startsWith("http")) {
     return (
-      <a href={text} className="underline underline-offset-4">
+      <a
+        href={text}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[blue] underline underline-offset-2"
+      >
         {text}
       </a>
     );
@@ -40,20 +45,20 @@ export default function Profile() {
   return (
     // Medidas del diseño anterior: en columna hasta 763 px; luego foto y datos
     // lado a lado, con la sangría que tenía la versión con MUI.
-    <div className="flex flex-col items-center gap-6 min-[763px]:flex-row min-[763px]:justify-between min-[900px]:justify-start min-[991px]:pl-[8.5vw] min-[1200px]:pl-[5.5vw] print:flex-row print:items-start print:gap-2 print:pl-0">
+    <div className="flex flex-col items-center gap-6 min-[763px]:flex-row min-[763px]:justify-between min-[900px]:justify-start min-[991px]:pl-[8.5vw] min-[1200px]:pl-[5.5vw] print:flex-row print:items-start print:gap-2 print:pb-8 print:pl-0">
       <img
         src={ReyPerfil}
         alt="Hernando Rey"
         width="800"
         height="800"
         loading="lazy"
-        className="order-2 aspect-square w-full rounded-2xl object-cover min-[763px]:order-first min-[763px]:w-[45%] min-[763px]:max-w-[300px] min-[763px]:shrink-0 min-[900px]:w-[40%] min-[900px]:max-w-[380px] min-[1200px]:w-[60%] min-[1200px]:max-w-[370px] print:w-36"
+        className="order-2 aspect-square w-full rounded-2xl object-cover min-[763px]:order-first min-[763px]:w-[45%] min-[763px]:max-w-[300px] min-[763px]:shrink-0 min-[900px]:w-[40%] min-[900px]:max-w-[380px] min-[1200px]:w-[60%] min-[1200px]:max-w-[370px] print:order-2 print:w-[40%] print:max-w-[200px]"
       />
-      <ul className="order-1 flex w-full flex-col gap-1 text-[clamp(0.875rem,1rem+0.3vw,1.25rem)] font-medium min-[763px]:w-[55%] min-[763px]:grow print:gap-1 print:text-xs">
+      <ul className="order-1 flex w-full flex-col gap-1 text-[clamp(0.875rem,1rem+0.3vw,1.25rem)] font-medium min-[763px]:w-[55%] min-[763px]:grow print:w-[60%] print:gap-0 print:py-2">
         {YoSoy.map((item) => (
           <li
             key={item.text}
-            className={`${visibility[item.mostrarEn]} items-center gap-2.5 px-4 py-2 leading-tight print:p-0`}
+            className={`${visibility[item.mostrarEn]} items-center gap-2.5 px-4 py-2 leading-tight print:leading-[0.8]`}
           >
             <span
               aria-hidden="true"

@@ -18,7 +18,8 @@ import {
 
 export default function Hola() {
   return (
-    <Page>
+    // Mismo margen lateral que la página anterior con MUI (8 px y 22 px).
+    <Page className="px-2 min-[900px]:px-[1.4rem]">
       <Section
         as="header"
         className="mb-8 flex items-center justify-end gap-2 min-[900px]:mb-11"
@@ -69,7 +70,7 @@ export default function Hola() {
         <BigTitle>
           <RevealText>Yo soy</RevealText>
         </BigTitle>
-        <div className="mt-4 mb-8 min-[900px]:mt-8 min-[900px]:mb-12 print:mt-4 print:mb-6">
+        <div className="mt-4 mb-8 min-[900px]:mt-8 min-[900px]:mb-12 print:mt-4 print:mb-8">
           <Profile />
         </div>
 
@@ -85,7 +86,7 @@ export default function Hola() {
           ))}
         </ol>
 
-        <SubTitle className="mb-4 min-[900px]:mb-6 print:pt-8">
+        <SubTitle className="mb-4 min-[900px]:mb-6 print:mb-0 print:pt-16">
           <RevealText>Tecnologías</RevealText>
         </SubTitle>
         <div className="mt-5 mb-4 min-[900px]:mb-6">
@@ -95,7 +96,7 @@ export default function Hola() {
 
       <Divider className="mt-4 mb-10" />
 
-      <Section id="proyectos" className="scroll-mt-24 print:pt-8">
+      <Section id="proyectos" className="scroll-mt-24 print:pt-16">
         <BigTitle>
           <RevealText>¿Qué he hecho?</RevealText>
         </BigTitle>
@@ -105,7 +106,7 @@ export default function Hola() {
         <ProjectsSection />
       </Section>
 
-      <div className="mt-12 min-[900px]:mt-14">
+      <div className="mt-12 min-[900px]:mt-14 print:hidden">
         <SocialMedia />
       </div>
     </Page>

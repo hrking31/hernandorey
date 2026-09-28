@@ -315,8 +315,22 @@
   }
 }
 
-/* Al imprimir el CV todo se ve quieto y completo. */
+/* Al imprimir el CV todo se ve quieto y completo, en papel blanco y con los
+   colores del tema claro aunque la página esté en modo oscuro. */
 @media print {
+  .dark {
+    color-scheme: light;
+    --color-surface-dark: var(--color-surface);
+    --color-card-dark: var(--color-card);
+    --color-ink-dark: var(--color-ink);
+    --color-muted-dark: var(--color-muted);
+    --color-line-dark: var(--color-line);
+    --color-chip-dark: var(--color-chip);
+  }
+  body,
+  .dark body {
+    background-color: #fff;
+  }
   [data-rv],
   [data-rv] * {
     opacity: 1 !important;

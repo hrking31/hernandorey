@@ -14,7 +14,7 @@ export const leadText =
 export function Page({ className = "", children }) {
   return (
     <div
-      className={`overflow-x-clip text-ink dark:text-ink-dark pt-[3.2rem] min-[900px]:pt-36 print:pt-0 ${className}`}
+      className={`overflow-x-clip text-ink dark:text-ink-dark pt-[3.2rem] min-[900px]:pt-36 print:pt-16 ${className}`}
     >
       {children}
     </div>
