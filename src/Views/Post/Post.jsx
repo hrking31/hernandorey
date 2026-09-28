@@ -75,7 +75,7 @@ export default function Post() {
 
   return (
     <Page>
-      <Section as="article" className="mb-16 max-w-3xl lg:mb-20">
+      <Section as="article" className="mb-16 lg:mb-20">
         <Link
           to="/blog"
           className="mb-8 inline-flex items-center gap-2 text-sm font-bold text-muted hover:text-brand-strong dark:text-muted-dark dark:hover:text-brand"

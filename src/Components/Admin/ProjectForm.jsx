@@ -1,4 +1,5 @@
 import { posts } from "../../content/blog";
+import { duplicatesOf } from "../../utils/lists";
 import ImageField from "./ImageField";
 import { Checkbox, Field, Input, Select, TextArea } from "./ui";
 
@@ -7,6 +8,11 @@ const CATEGORIAS = ["Web", "IoT y Hardware", "Herramientas"];
 // Las listas se guardan como arreglo en Firestore y se editan como texto.
 const asText = (value, separator) =>
   Array.isArray(value) ? value.join(separator) : value ?? "";
+
+const repeatedWarning = (value, separator) => {
+  const repeated = duplicatesOf(value, separator);
+  return repeated.length > 0 ? `Repetido: ${repeated.join(", ")}` : null;
+};
 
 // Todos los campos de un proyecto. Se usa al crear y al editar.
 export default function ProjectForm({ values, onChange }) {
@@ -43,7 +49,11 @@ export default function ProjectForm({ values, onChange }) {
         onChange={(url) => onChange("imageUrl", url)}
       />
 
-      <Field label="Tecnologías" hint="Separadas por comas">
+      <Field
+        label="Tecnologías"
+        hint="Separadas por comas"
+        warning={repeatedWarning(values.techs, ",")}
+      >
         <Input
           value={asText(values.techs, ", ")}
           onChange={(e) => onChange("techs", e.target.value)}
@@ -53,7 +63,12 @@ export default function ProjectForm({ values, onChange }) {
         <Input type="url" {...bind("repoUrl")} />
       </Field>
 
-      <Field label="Logros" hint="Uno por línea. Solo se muestran en los destacados" className="md:col-span-2">
+      <Field
+        label="Logros"
+        hint="Uno por línea. Solo se muestran en los destacados"
+        warning={repeatedWarning(values.highlights, "\n")}
+        className="md:col-span-2"
+      >
         <TextArea
           rows={3}
           value={asText(values.highlights, "\n")}

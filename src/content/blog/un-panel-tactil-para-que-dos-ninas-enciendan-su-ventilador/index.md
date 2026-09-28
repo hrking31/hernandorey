@@ -12,8 +12,8 @@ Este es el registro de cómo se lo devolví: un panel táctil de 480 × 480 en l
 > - **El problema:** automatizar el ventilador del cuarto lo dejó sin botones, y sus usuarias tienen 5 y 6 años
 > - **La alternativa descartada:** interruptores Zigbee de cuatro botones, uno por velocidad
 > - **La solución:** un panel táctil de 480 × 480 con `ESP32-S3`, 16 MB de flash y 8 MB de PSRAM
-> - **El software:** ESPHome con LVGL — diez páginas, sin escribir una línea de C++ para la interfaz
-> - **El resultado:** ventilador, luces, colores, reloj, temperatura y su propia música, a un toque. Y les encantó
+> - **El software:** ESPHome con LVGL — ocho páginas, sin escribir una línea de C++ para la interfaz
+> - **El resultado:** ventilador, luces, colores, reloj y temperatura, a un toque. Y les encantó
 > - **Lo que más costó:** una variable de entorno heredada que impedía compilar, y un `light.turn_off` de más
 
 ---
@@ -32,6 +32,30 @@ Hubo un segundo motivo, más práctico: el ventilador tiene tres velocidades, os
 
 > [!tip] La regla que saqué de esto
 > **Si el usuario no puede leer el manual, el aparato tiene que ser el manual.**
+
+---
+
+## 🛒 Elegir la pantalla antes de comprarla
+
+Cuando me puse a buscar una pantalla me topé con muchísimas: de todos los tamaños, casi todas con un ESP32 detrás y a precios muy parecidos. Encontrar una no era el problema; el problema era saber **cuál me iba a servir**. Y para mí servir tenía un significado concreto: que funcionara con **ESPHome**. No quería comprar una placa y descubrir, con ella ya en la mano, que no había forma de hacerla andar.
+
+Pronto entendí que el anuncio de la tienda dice muy poco. Lo que decide si una pantalla se puede usar son cuatro datos:
+
+- **El chip que gestiona la pantalla**, que ESPHome tiene que saber controlar.
+- **El chip que gestiona la parte táctil**, si la tiene.
+- **Los pines** con los que esos dos chips se conectan al ESP32.
+- **El modelo de ESP32** que lleva la placa.
+
+Averiguarlos no es sencillo. Los vendedores casi nunca los publican completos, así que toca investigar, y puede ser una tarea bastante compleja.
+
+Lo que me desbloqueó fue este repositorio: [platformio-espressif32-sunton](https://github.com/rzeldent/platformio-espressif32-sunton). Documenta muchas de las pantallas baratas del mercado —entre ellas las famosas amarillas, las CYD (*Cheap Yellow Display*)— con justo esos datos de cada modelo. Con esa ficha delante ya podía comprobar, **antes de pagar**, si ESPHome tenía soporte para cada pieza.
+
+Después de comparar, esta fue la elegida:
+
+![La pantalla que elegí](img/pantalla-elegida.webp)
+
+> [!tip] Antes de comprar, busca la ficha
+> Si no puedes nombrar los dos chips, los pines y el ESP32 de una pantalla, todavía no sabes si la vas a poder usar. Busca primero su modelo; si no aparece documentado en ningún sitio, piénsalo dos veces.
 
 ---
 
@@ -136,9 +160,9 @@ Las dos últimas líneas son las que más se notan: mueven instrucciones y datos
 
 ---
 
-## 🎨 Diez páginas sin escribir C++
+## 🎨 Ocho páginas sin escribir C++
 
-La interfaz son **diez páginas** declaradas en YAML. LVGL es una biblioteca de C, pero ESPHome la envuelve entera: se describen los widgets y él genera el código.
+La interfaz son **ocho páginas** declaradas en YAML. LVGL es una biblioteca de C, pero ESPHome la envuelve entera: se describen los widgets y él genera el código.
 
 | Página | Para qué |
 |---|---|
@@ -150,8 +174,6 @@ La interfaz son **diez páginas** declaradas en YAML. LVGL es una biblioteca de 
 | Colores | Nueve círculos de colores |
 | Reloj | Hora, día y fecha en grande |
 | Temperatura | La lectura del sensor del cuarto |
-| Música | Qué suena, play/pausa, volumen y parar |
-| Canciones | Una lista que se rellena sola desde una carpeta |
 
 La portada es deliberadamente simple: **un botón de 470 × 424 píxeles**. Casi la pantalla entera para una sola función.
 
@@ -232,57 +254,6 @@ on_click:
 
 > [!tip] `action`, no `service`
 > Si sigues tutoriales de hace un par de años verás `homeassistant.service:` con una clave `service:` dentro. Sigue funcionando, pero está **deprecado**: ahora es `homeassistant.action:` con `action:`. Home Assistant renombró los "servicios" a "acciones" y ESPHome fue detrás.
-
----
-
-## 🎵 Una lista que se actualiza sola
-
-Las niñas querían elegir su música, no solo encenderla. Y ahí apareció el problema de fondo de cualquier panel empotrado: **el firmware es estático y el contenido no**.
-
-Poner diez botones con diez títulos escritos en el YAML habría funcionado el primer día. Al añadir una canción, tocaría recompilar y recargar la pantalla. Eso no es una solución: es una tarea recurrente disfrazada de solución.
-
-### Lo que no funcionó
-
-La música la gestiona **Music Assistant**, así que lo lógico era pedirle a él la lista. Sus acciones disponibles son seis, y ninguna sirve:
-
-- `get_queue` devuelve **solo la canción actual**, no la cola entera
-- `get_library` devuelve la biblioteca **completa** —cientos de pistas de todo tipo— sin poder filtrar por lista
-- No existe ninguna acción que devuelva las canciones de una lista concreta
-
-> [!warning] Comprueba las acciones antes de diseñar
-> Perdí un buen rato diseñando sobre una capacidad que daba por hecha. Las acciones de una integración se ven en *Herramientas de desarrollo → Acciones*, y probarlas ahí cuesta segundos. Hacerlo antes de decidir la arquitectura ahorra rehacerla.
-
-### Lo que sí funcionó
-
-La respuesta no estaba en Music Assistant sino en Home Assistant: la integración **`folder`**, que vigila una carpeta del disco y publica su contenido.
-
-```yaml
-sensor:
-  - platform: folder
-    folder: /media/Musica Princesas
-    filter: "*.mp3"
-```
-
-Eso da un sensor con `file_list`: la lista de archivos, viva. A partir de ahí, un sensor de plantilla extrae los nombres limpios —sin ruta y sin extensión— y los expone como atributos. La pantalla lee esos atributos y pinta un botón por cada uno.
-
-El resultado es que **el firmware no sabe ni un solo título**. Copias un archivo a la carpeta y el botón aparece. Lo borras y desaparece. Nunca más hay que recompilar.
-
-El botón de "poner todo" tardó un poco más en alinearse. Al principio lanzaba una lista de reproducción creada a mano en Music Assistant, así que seguía sonando lo de siempre mientras los botones ya mostraban las canciones nuevas: **dos fuentes distintas contando cosas distintas**. Ahora también él lee la carpeta —Music Assistant acepta que le pases la lista de rutas—, y ya solo manda un sitio.
-
-Y hay un efecto secundario bonito: como los botones muestran el nombre del archivo, **renombrar el MP3 cambia lo que ven las niñas**. Un archivo llamado `AUD-20221110-WA0006.mp3` no le dice nada a nadie; renombrado a `Buenos días.mp3`, sí.
-
-### Diez botones, canciones sin límite
-
-En 480 píxeles caben diez botones sin que dejen de ser cómodos para una mano pequeña. Con veinticinco canciones no llegan.
-
-La solución no fue apretarlos más ni poner una lista con desplazamiento —arrastrar sin pulsar por accidente es justo lo que peor sale a esa edad—, sino **paginar**: un ayudante numérico guarda la página, la plantilla calcula el desplazamiento y dos flechas en la barra inferior cambian de página. En el centro, un indicador tipo `2 / 3`.
-
-Los botones siguen siendo grandes, y pasar página es un gesto que una niña de cinco años ya conoce de los cuentos.
-
-Un detalle que parece menor y no lo es: **las flechas no suman y restan sin más**. Si el ayudante va de 1 a 20 y solo hay tres páginas, pulsar "siguiente" acaba llevándote a la página 7, vacía, y para volver hay que pulsar "atrás" siete veces. Dos scripts calculan cuántas páginas hacen falta de verdad y hacen ciclo: de la última se pasa a la primera.
-
-> [!tip] El límite de un contador no es el límite real
-> Un contador con un máximo fijo no sabe cuánto contenido hay. Si ese máximo no se calcula a partir de los datos, tarde o temprano alguien se queda mirando una página en blanco sin saber cómo salir.
 
 ---
 
@@ -397,76 +368,6 @@ La solución es que uno derive del otro:
 
 Siempre cinco segundos antes, sea cual sea el valor. Y de paso, que solo cuente si LVGL no está en pausa: no tiene sentido recargar páginas que nadie está viendo.
 
-### Botones invisibles: el orden importa
-
-Los botones de la lista nacen ocultos y aparecen cuando reciben su nombre. Cargué el firmware, abrí la página y no había nada. Ni un botón.
-
-No era un fallo del código: era el **orden**. Había subido el firmware **antes** de crear el sensor en Home Assistant. Cuando el panel arrancó y se suscribió, la entidad no existía, así que nunca recibió un valor y los botones se quedaron escondidos. El sensor se creó después, pero el panel ya no volvió a preguntar.
-
-Se arregla reiniciando el ESP, que vuelve a suscribirse y esta vez sí encuentra la entidad.
-
-> [!tip] La regla
-> **Primero las entidades en Home Assistant, después el firmware que las lee.** Y si cambias o añades una entidad que el panel consume, reinícialo: la suscripción se hace al arrancar.
-
-Me pasó dos veces el mismo día — la segunda al añadir el indicador de página.
-
-### Lo que no compilaste no existe
-
-Dos veces el mismo susto, con dos síntomas distintos y una sola causa.
-
-Primero fue un **icono que salía como un rectángulo vacío**. Había bajado esa etiqueta de la fuente de 48 px a la de 32 para que cupiera en un botón más bajo, sin caer en que el glifo de la nota musical solo estaba declarado en la de 48.
-
-Después fueron **las tildes**. Los nombres de las canciones empezaron a verse así:
-
-```
-Kike Pav[]n     Zen[]n     Pamp[]n     VERSI[]N
-```
-
-Al compilar una fuente, ESPHome **no mete el tipo de letra entero**: incluye solo un juego básico de caracteres, y ahí no están los acentos ni la eñe. Cada carácter ausente se dibuja como un cuadro.
-
-```yaml
-- file: "gfonts://Roboto"
-  id: roboto16
-  size: 16
-  glyphsets:
-    - GF_Latin_Core     # tildes, dieresis, ñ, ¿, ¡
-```
-
-> [!warning] En una pantalla empotrada, el alfabeto también se compila
-> No hay una fuente del sistema a la que recurrir. Si un carácter no entró en el firmware, no existe — y da igual que sea una nota musical o una `ó`. Al escribir en español, **declara el juego latino desde el principio**: cuesta unos 285 KB de flash y te ahorra descubrirlo cuando ya está montado en la pared.
-
-### El botón que reproducía otra canción
-
-Este es el fallo más interesante, porque tenía **dos causas a la vez** y cada una bastaba para romperlo.
-
-La primera: el script que reproduce recibía el número del botón —del 1 al 10— pero **no sabía en qué página estaba el usuario**. En la página 2, el botón 1 debía sonar la canción 11 y sonaba la 1. Se arregla pasándole también la página.
-
-La segunda es más sutil. El sensor devuelve los archivos **en el orden que le da el sistema de ficheros**, que no es alfabético ni estable:
-
-```
-REC_0000046.wav, AUD-20221110-WA0006.mp3, REC_0000051.wav, REC_0000044.wav, ...
-```
-
-La pantalla leía los nombres en un momento y el script resolvía la ruta en otro. Si entre medias el sensor se actualizaba y el orden cambiaba, el número 7 ya no era la misma canción para los dos. **Ordenar la lista con `| sort` en ambos sitios** hace que el índice signifique lo mismo en todas partes.
-
-> [!tip] Dos lugares que cuentan lo mismo tienen que contarlo igual
-> Cuando una parte muestra una lista y otra la resuelve, no basta con que usen la misma fuente: tienen que usar el **mismo orden**. Si la fuente no lo garantiza, ordénalo tú.
-
-### Las canciones que el filtro no veía
-
-Copié diez canciones nuevas a la carpeta y la pantalla siguió mostrando seis. El sensor tampoco las veía, ni forzando su actualización.
-
-No estaban perdidas: eran **`.wav`**, y el sensor filtraba `*.mp3`.
-
-```yaml
-sensor:
-  - platform: folder
-    folder: /media/Musica Princesas
-    filter: "*"          # antes: "*.mp3"
-```
-
-Y un detalle que se me pasó al montarlo: **los sensores declarados en `configuration.yaml` no se recargan en caliente**. Cambiar el filtro no bastaba; hubo que reiniciar Home Assistant entero.
-
 ### El que costó la tarde entera: una variable de entorno
 
 Este merece la sección más larga, porque el mensaje de error apuntaba a cualquier sitio menos al culpable.
@@ -543,9 +444,7 @@ Los quité todos. Cuando el criterio es "¿esto ayuda a una niña a encender su 
 
 Un widget que no responde una pregunta que alguien se hace de verdad es ruido.
 
-**Que salir signifique parar.** Hubo un botón rojo de PARAR durante unas horas. Sobraba: si alguien sale del reproductor con el botón de menú, es que ya no quiere música. Ahora salir la detiene y hay un botón menos en pantalla. El regreso automático por inactividad, en cambio, **no** la detiene — si ponen música y se van a jugar, la pantalla se apaga y la canción sigue.
-
-**Quitar lo que nunca se usó.** Había montado una sección con el horario de clases: seis páginas, una por día. Nunca llegué a rellenarlas, y ahí siguieron meses ocupando un botón del menú. Las borré y puse en su lugar el control de música, que sí piden a diario.
+**Quitar lo que nunca se usó.** Había montado una sección con el horario de clases: seis páginas, una por día. Nunca llegué a rellenarlas, y ahí siguieron meses ocupando un botón del menú. Las borré.
 
 Una función a medias no es una promesa de futuro: es un botón que decepciona a quien lo pulsa.
 
@@ -573,12 +472,9 @@ Les encantó, que era el único indicador que importaba. El resto —que sea loc
 1. **Comprueba el chip con `esptool flash-id` antes de nada.** Treinta segundos que te ahorran una tarde de fallos incomprensibles.
 2. **Asegúrate de que el módulo tiene PSRAM** y de declarar bien si es octal o quad. Sin ella no hay pantalla; mal declarada, no hay arranque.
 3. **Usa el framework ESP-IDF.** Para RGB paralelo y PSRAM octal, Arduino no llega.
-4. **Empieza por una sola página** y comprueba que se dibuja. Depurar una interfaz de diez páginas que no aparece es desesperante.
+4. **Empieza por una sola página** y comprueba que se dibuja. Depurar una interfaz de ocho páginas que no aparece es desesperante.
 5. **Declara solo los iconos que uses**, y recuerda añadirlos a la lista cuando metas uno nuevo.
 6. **Enlaza los estados en los dos sentidos** desde el principio. Un panel que no refleja lo que pasa fuera de él genera desconfianza y se deja de usar.
 7. **Si la compilación falla de forma absurda, lee el registro entero.** El error real suele estar cientos de líneas antes del que te muestran.
-
-8. **Declara el juego de caracteres completo de tus fuentes** si vas a escribir en español. Lo que no compilaste no se dibuja.
-9. **Ordena cualquier lista que uses por índice** en los dos extremos: el que muestra y el que resuelve.
 
 Y sobre todo: cuando algo falle y el mensaje no tenga sentido, sospecha del entorno antes que del código. Mi configuración era válida desde el primer intento; lo que estaba roto era el sitio desde donde la lanzaba.

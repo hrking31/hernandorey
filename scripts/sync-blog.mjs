@@ -132,8 +132,11 @@ async function processNote(file, frontmatter, body) {
     .replace(/\[\[([^\]]+\.canvas)\]\]/g, (_, ref) => image(ref, "Diagrama"))
     // [[Otra nota]] o [[Otra nota|alias]]: queda solo el texto.
     .replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (_, name, alias) => alias ?? name)
-    // ![texto](ruta/relativa.png)
-    .replace(/!\[([^\]]*)\]\((?!https?:)([^)\s]+)\)/g, (_, alt, ref) => image(ref, alt))
+    // ![texto](ruta/relativa.png). Las que ya convirtieron los pasos
+    // anteriores (img/…webp) se dejan igual: no existen en la bóveda.
+    .replace(/!\[([^\]]*)\]\((?!https?:)([^)\s]+)\)/g, (match, alt, ref) =>
+      [...copied.values()].includes(ref) ? match : image(ref, alt)
+    )
     // El título (# ...) y el subtítulo en cursiva del inicio ya los muestra la página.
     .replace(/^\s*#\s[^\n]*\n+/, "")
     .replace(/^\s*[*_][^*_\n]+[*_]\s*\n+/, "");

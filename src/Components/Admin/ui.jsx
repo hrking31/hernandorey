@@ -33,12 +33,15 @@ export function Card({ as: Tag = "section", className = "", children, ...props }
 }
 
 // Etiqueta + control. `hint` es un texto de ayuda bajo el campo.
-export function Field({ label, hint, className = "", children }) {
+export function Field({ label, hint, warning, className = "", children }) {
   return (
     <label className={`flex flex-col gap-1.5 ${className}`}>
       <span className="text-sm font-bold">{label}</span>
       {children}
       {hint && <span className="text-xs text-muted dark:text-muted-dark">{hint}</span>}
+      {warning && (
+        <span className="text-xs font-bold text-amber-800 dark:text-amber-300">{warning}</span>
+      )}
     </label>
   );
 }

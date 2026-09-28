@@ -82,8 +82,10 @@ export default function useScrollReveal(ref, deps, { onLoad = false } = {}) {
     const progress = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
+          // Solo se anima al entrar por abajo; al salir por arriba queda completo.
+          const leaving = entry.boundingClientRect.top < (entry.rootBounds?.top ?? 0);
           const tall = Math.min(entry.boundingClientRect.height, 720);
-          const p = Math.min(1, entry.intersectionRect.height / (tall * 0.7));
+          const p = leaving ? 1 : Math.min(1, entry.intersectionRect.height / (tall * 0.7));
           entry.target.style.setProperty("--p", p.toFixed(3));
         }
       },

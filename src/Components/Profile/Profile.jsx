@@ -52,7 +52,7 @@ export default function Profile() {
         width="800"
         height="800"
         loading="lazy"
-        className="order-2 aspect-square w-full rounded-2xl object-cover min-[763px]:order-first min-[763px]:w-[45%] min-[763px]:max-w-[300px] min-[763px]:shrink-0 min-[900px]:w-[40%] min-[900px]:max-w-[380px] min-[1200px]:w-[60%] min-[1200px]:max-w-[370px] print:order-2 print:w-[40%] print:max-w-[200px]"
+        className="grow-on-scroll order-2 aspect-square w-full rounded-2xl object-cover min-[763px]:order-first min-[763px]:w-1/2 min-[763px]:max-w-[410px] min-[763px]:shrink-0 min-[991px]:w-[47%] min-[991px]:max-w-[367px] min-[1200px]:w-[60%] min-[1200px]:max-w-[370px] print:order-2 print:w-[40%] print:max-w-[200px]"
       />
       <ul className="order-1 flex w-full flex-col gap-1 text-[clamp(0.875rem,1rem+0.3vw,1.25rem)] font-medium min-[763px]:w-[55%] min-[763px]:grow print:w-[60%] print:gap-0 print:py-2">
         {YoSoy.map((item) => (

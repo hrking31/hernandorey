@@ -25,7 +25,11 @@ export default function Hola() {
         className="mb-8 flex items-center justify-end gap-2 min-[900px]:mb-11"
       >
         <h1 className={pageTitleText}>
-          <RevealText>Hola 👋🏻</RevealText>
+          <RevealText>Hola</RevealText>{" "}
+          {/* Fuera de RevealText: su efecto de entrada también usa transform. */}
+          <span aria-hidden="true" className="inline-block origin-[70%_70%] motion-safe:animate-wave">
+            👋🏻
+          </span>
         </h1>
         <img
           src={ReyPerfil}

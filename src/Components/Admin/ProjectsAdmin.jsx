@@ -17,7 +17,7 @@ import {
   LuTrash2,
 } from "react-icons/lu";
 import { db } from "../Firebase/Firebase";
-import { toList } from "../../utils/lists";
+import { duplicatesOf, toList } from "../../utils/lists";
 import { useConfirm, useToast } from "./feedback";
 import ImageGallery from "./ImageGallery";
 import ProjectForm from "./ProjectForm";
@@ -53,6 +53,16 @@ const toFirestore = (p) => ({
   featured: Boolean(p.featured),
   client: Boolean(p.client),
 });
+
+// Motivo para no guardar, o null si el proyecto se puede guardar.
+const invalidReason = (p) => {
+  if (!p.text?.trim()) return "El proyecto necesita un nombre";
+  const techs = duplicatesOf(p.techs, ",");
+  if (techs.length > 0) return `Tecnologías repetidas: ${techs.join(", ")}`;
+  const highlights = duplicatesOf(p.highlights, "\n");
+  if (highlights.length > 0) return `Logros repetidos: ${highlights.join(", ")}`;
+  return null;
+};
 
 const byOrder = (a, b) => (a.order ?? 0) - (b.order ?? 0);
 const imagesOf = (p) => [p.logoUrl, p.imageUrl];
@@ -127,7 +137,8 @@ export default function ProjectsAdmin() {
   };
 
   const handleSave = async (project) => {
-    if (!project.text?.trim()) return toast("El proyecto necesita un nombre", "error");
+    const invalid = invalidReason(project);
+    if (invalid) return toast(invalid, "error");
     setBusy(true);
     try {
       const data = { ...toFirestore(project), order: project.order ?? 0 };
@@ -168,7 +179,8 @@ export default function ProjectsAdmin() {
 
   const handleAdd = async (event) => {
     event.preventDefault();
-    if (!draft.text.trim()) return toast("El proyecto necesita un nombre", "error");
+    const invalid = invalidReason(draft);
+    if (invalid) return toast(invalid, "error");
     setBusy(true);
     try {
       const data = { ...toFirestore(draft), order: projects.length };

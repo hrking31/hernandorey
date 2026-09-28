@@ -32,6 +32,7 @@
 
   --animate-pulse-scale: pulse-scale 2s ease-in-out infinite;
   --animate-marquee: marquee 30s linear infinite;
+  --animate-wave: wave 2.5s ease-in-out infinite;
 
   @keyframes pulse-scale {
     0%,
@@ -40,6 +41,28 @@
     }
     50% {
       transform: scale(1.1);
+    }
+  }
+
+  /* Saludo: la mano gira desde la muñeca y descansa el último 40 %. */
+  @keyframes wave {
+    0%,
+    60%,
+    100% {
+      transform: rotate(0deg);
+    }
+    10%,
+    30% {
+      transform: rotate(14deg);
+    }
+    20% {
+      transform: rotate(-8deg);
+    }
+    40% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(10deg);
     }
   }
 
@@ -171,6 +194,34 @@
 .rv-dot:nth-child(1) { background: #ff5f57; transition-delay: 0.55s; }
 .rv-dot:nth-child(2) { background: #febc2e; transition-delay: 0.65s; }
 .rv-dot:nth-child(3) { background: #28c840; transition-delay: 0.75s; }
+
+/* Crece al entrar en pantalla y se achica al salir, siguiendo el scroll
+   (en ambos sentidos). Sin soporte del navegador se ve normal. */
+@supports (animation-timeline: view()) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    .grow-on-scroll {
+      animation: grow-in linear both, shrink-out linear forwards;
+      animation-timeline: view(), view();
+      animation-range: entry, exit;
+    }
+  }
+}
+@keyframes grow-in {
+  from {
+    scale: 0.2;
+  }
+  to {
+    scale: 1;
+  }
+}
+@keyframes shrink-out {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 0.2;
+  }
+}
 
 /* Brillo que sigue al cursor en las tarjetas normales. */
 .reveal-card::after {

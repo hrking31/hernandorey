@@ -19,13 +19,9 @@ export default function NavBar() {
         <NavLink
           to="/"
           aria-label="Hernando Rey, ir al inicio"
-          className="group flex items-center gap-1"
+          className="flex items-center gap-1 [@media(hover:hover)]:hover:animate-pulse-scale"
         >
-          <img
-            src={LogoRey}
-            alt=""
-            className="h-10 w-auto min-[993px]:h-12 [@media(hover:hover)]:group-hover:animate-pulse-scale"
-          />
+          <img src={LogoRey} alt="" className="h-10 w-auto min-[993px]:h-12" />
           <span className="hidden text-4xl font-black text-ink dark:text-ink-dark min-[993px]:inline">
             HernandoRey
           </span>
