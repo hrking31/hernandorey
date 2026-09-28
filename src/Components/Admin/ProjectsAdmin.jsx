@@ -7,7 +7,7 @@ import {
   getDocs,
   updateDoc,
   writeBatch,
-} from "firebase/firestore";
+} from "firebase/firestore/lite";
 import {
   LuArrowDown,
   LuArrowUp,

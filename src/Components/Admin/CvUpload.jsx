@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore/lite";
 import { LuFileText, LuUpload } from "react-icons/lu";
 import { db } from "../Firebase/Firebase";
 import { storage } from "../Firebase/storage";

@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore/lite";
 
 // Valores en .env.local (ver .env.example). La configuración web de Firebase
 // no es secreta; la seguridad depende de las reglas de Firestore y Storage.

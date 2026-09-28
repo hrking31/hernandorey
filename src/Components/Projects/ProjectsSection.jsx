@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore/lite";
 import { db } from "../Firebase/Firebase";
 import { toList } from "../../utils/lists";
 import { safeUrl } from "../../utils/safeUrl";

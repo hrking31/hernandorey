@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore/lite";
 import { db } from "../Components/Firebase/Firebase";
 import { safeUrl } from "../utils/safeUrl";
 
