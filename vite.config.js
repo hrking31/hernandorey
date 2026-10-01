@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
@@ -68,6 +69,11 @@ export default defineConfig({
   ],
   build: {
     rollupOptions: {
+      // en.html es la misma app con título y vista previa en inglés (ver firebase.json).
+      input: {
+        main: fileURLToPath(new URL("./index.html", import.meta.url)),
+        en: fileURLToPath(new URL("./en.html", import.meta.url)),
+      },
       output: {
         // Cada artículo del blog sale en su propio archivo articulo-xxxx.js,
         // para distinguirlo del código de la app (ver workbox.globIgnores).

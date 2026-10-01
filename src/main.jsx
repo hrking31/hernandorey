@@ -3,6 +3,7 @@ import App from "./App.jsx";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import ThemeProviderWrapper from "./Theme/ThemeContext.jsx";
+import "./i18n";
 import "./index.css";
 import { registerSW } from "virtual:pwa-register";
 

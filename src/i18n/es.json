@@ -1,0 +1,21 @@
+{
+  "meta": {
+    "title": "Hernando Rey · Desarrollador Full Stack",
+    "description": "Desarrollador Full Stack e ingeniero electrónico en Barranquilla. Proyectos en producción con React, Node.js y Firebase, e IoT con ESP32."
+  },
+  "nav": {
+    "home": "Hernando Rey, ir al inicio",
+    "main": "Principal",
+    "blog": "Blog",
+    "hola": "Hola"
+  },
+  "theme": {
+    "toLight": "Activar modo claro",
+    "toDark": "Activar modo oscuro",
+    "light": "Modo claro",
+    "dark": "Modo oscuro"
+  },
+  "language": {
+    "switch": "Read in English"
+  }
+}

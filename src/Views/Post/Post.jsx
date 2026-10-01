@@ -19,6 +19,7 @@ import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 import { Page, Section } from "../../Components/Layout/Layout";
 import remarkCallouts from "../../utils/remarkCallouts";
 import { getPost, loadContent, imageUrl, formatDate } from "../../content/blog";
+import { useLang } from "../../i18n/lang";
 
 // Solo los lenguajes que aparecen en los artículos: el paquete completo pesa
 // más del doble. Para uno nuevo, se importa y se agrega aquí.
@@ -31,6 +32,7 @@ export default function Post() {
   const { slug } = useParams();
   const post = getPost(slug);
   const [content, setContent] = useState(null);
+  const { to } = useLang();
 
   useEffect(() => {
     if (!post) return;
@@ -51,7 +53,7 @@ export default function Post() {
     };
   }, [post]);
 
-  if (!post) return <Navigate to="/blog" replace />;
+  if (!post) return <Navigate to={to("/blog")} replace />;
 
   const components = {
     img: ({ src = "", alt = "" }) => (
@@ -77,7 +79,7 @@ export default function Post() {
     <Page>
       <Section as="article" className="mb-16 lg:mb-20">
         <Link
-          to="/blog"
+          to={to("/blog")}
           className="mb-8 inline-flex items-center gap-2 text-sm font-bold text-muted hover:text-brand-strong dark:text-muted-dark dark:hover:text-brand"
         >
           <LuArrowLeft aria-hidden="true" className="size-4" />

@@ -1,11 +1,14 @@
 import { lazy, Suspense, useEffect, useRef } from "react";
 import { Landing, Hola, Blog } from "./Views";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ProtectedRoutes } from "./Components/ProtectedRoutes/ProtectedRoutes.jsx";
 import { auth } from "./Components/Firebase/Firebase";
 import { signOut } from "firebase/auth";
 import NavBar from "./Components/NavBar/NavBar";
 import ScrollManager from "./Components/ScrollManager/ScrollManager";
+import LanguageNotice from "./Components/LanguageNotice/LanguageNotice";
+import { langFromPath } from "./i18n/lang";
 
 // Se descargan solo al visitarlas: los artículos (procesador de Markdown) y
 // el panel de administración (Storage y formularios).
@@ -16,6 +19,8 @@ const Admin = lazy(() => import("./Views/Admin/Admin"));
 export default function App() {
   const location = useLocation();
   const prevPath = useRef(location.pathname);
+  const { i18n } = useTranslation();
+  const lang = langFromPath(location.pathname);
 
   // Por seguridad, la sesión se cierra al salir del panel.
   useEffect(() => {
@@ -25,16 +30,36 @@ export default function App() {
     prevPath.current = location.pathname;
   }, [location.pathname]);
 
+  // El idioma sigue a la URL. El título solo se cambia si es el de inicio del
+  // otro idioma, para no pisar el de un artículo abierto.
+  useEffect(() => {
+    const other = lang === "en" ? "es" : "en";
+    i18n.changeLanguage(lang);
+    document.documentElement.lang = lang;
+    if (document.title === i18n.t("meta.title", { lng: other })) {
+      document.title = i18n.t("meta.title", { lng: lang });
+    }
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", i18n.t("meta.description", { lng: lang }));
+  }, [lang, i18n]);
+
   return (
     <div>
       <ScrollManager />
       <NavBar />
+      <LanguageNotice />
       <Suspense fallback={null}>
         <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/hola" element={<Hola />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<Post />} />
+          {/* Las páginas públicas existen en español (/) y en inglés (/en). */}
+          {["/", "/en"].map((base) => (
+            <Route key={base} path={base}>
+              <Route index element={<Landing />} />
+              <Route path="hola" element={<Hola />} />
+              <Route path="blog" element={<Blog />} />
+              <Route path="blog/:slug" element={<Post />} />
+            </Route>
+          ))}
           {/* Enlaces antiguos a /post/... llevan a la lista del blog. */}
           <Route path="/post/:id" element={<Navigate to="/blog" replace />} />
           <Route path="/signin" element={<SignIn />} />

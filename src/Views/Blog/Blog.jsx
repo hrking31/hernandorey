@@ -13,10 +13,12 @@ import { posts, formatDate } from "../../content/blog";
 import RevealText from "../../Components/RevealText/RevealText";
 import useScrollReveal from "../../hooks/useScrollReveal";
 import { tilt, untilt } from "../../utils/tilt";
+import { useLang } from "../../i18n/lang";
 
 // Misma animación que las tarjetas de proyectos (clases rv-* y .reveal-card
 // en index.css): se levanta al entrar en pantalla y se inclina hacia el mouse.
 function PostCard({ post, index }) {
+  const { to } = useLang();
   return (
     <article
       data-reveal
@@ -51,7 +53,7 @@ function PostCard({ post, index }) {
         )}
         <h3 style={{ "--k": 1 }} className="rv text-xl leading-tight font-black group-hover:text-brand-strong dark:group-hover:text-brand">
           {/* El enlace cubre toda la tarjeta. */}
-          <Link to={`/blog/${post.slug}`} className="after:absolute after:inset-0">
+          <Link to={to(`/blog/${post.slug}`)} className="after:absolute after:inset-0">
             {post.title}
           </Link>
         </h3>

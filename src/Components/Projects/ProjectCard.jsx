@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { FaGithub } from "react-icons/fa6";
 import { LuBookOpen, LuExternalLink } from "react-icons/lu";
 import { buttonPrimary, buttonSecondary } from "../Layout/Layout";
+import { useLang } from "../../i18n/lang";
 
 // Las clases rv-* y data-reveal / data-progress conectan con las animaciones
 // de index.css y con el hook useScrollReveal (ver ProjectsSection).
@@ -18,9 +19,10 @@ function hostOf(url) {
 
 // Enlace interno (del propio sitio) o externo, con el mismo aspecto.
 function SmartLink({ href, className, children }) {
+  const { to } = useLang();
   if (href.startsWith("/")) {
     return (
-      <Link to={href} className={className}>
+      <Link to={to(href)} className={className}>
         {children}
       </Link>
     );

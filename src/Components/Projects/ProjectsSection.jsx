@@ -93,7 +93,7 @@ export default function ProjectsSection() {
           <div
             role="group"
             aria-label="Filtrar proyectos por categoría"
-            className="flex flex-wrap gap-2.5"
+            className="grid grid-cols-2 gap-2 min-[601px]:flex min-[601px]:flex-wrap min-[601px]:gap-2.5"
           >
             {[ALL, ...categories].map((category) => {
               const count =
@@ -107,14 +107,14 @@ export default function ProjectsSection() {
                   type="button"
                   aria-pressed={active}
                   onClick={() => changeFilter(category)}
-                  className={`flex h-11 items-center gap-2 rounded-full border-[1.5px] px-4 text-[15px] font-bold transition ${
+                  className={`flex h-9 items-center justify-center gap-1.5 rounded-full border-[1.5px] px-3 text-[13px] font-bold transition odd:last:col-span-2 min-[601px]:h-11 min-[601px]:gap-2 min-[601px]:px-4 min-[601px]:text-[15px] ${
                     active
                       ? "border-ink bg-ink text-surface dark:border-ink-dark dark:bg-ink-dark dark:text-surface-dark"
                       : "border-line hover:border-brand dark:border-line-dark"
                   }`}
                 >
                   {category}
-                  <span className="text-[13px] font-semibold opacity-70">{count}</span>
+                  <span className="text-[12px] font-semibold opacity-70 min-[601px]:text-[13px]">{count}</span>
                 </button>
               );
             })}

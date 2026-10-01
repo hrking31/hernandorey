@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "Hernando Rey · Full Stack Developer",
+    "description": "Full Stack Developer and electronics engineer based in Barranquilla, Colombia. Production projects with React, Node.js and Firebase, plus IoT with ESP32."
+  },
+  "nav": {
+    "home": "Hernando Rey, go to home",
+    "main": "Main",
+    "blog": "Blog",
+    "hola": "About"
+  },
+  "theme": {
+    "toLight": "Switch to light mode",
+    "toDark": "Switch to dark mode",
+    "light": "Light mode",
+    "dark": "Dark mode"
+  },
+  "language": {
+    "switch": "Ver en español"
+  },
+  "notice": {
+    "label": "Language",
+    "text": "This site is also available in English.",
+    "action": "View in English",
+    "close": "Close"
+  }
+}

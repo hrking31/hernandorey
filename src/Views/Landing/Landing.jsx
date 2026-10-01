@@ -13,9 +13,11 @@ import {
 } from "../../Components/Layout/Layout";
 import useCvUrl from "../../hooks/useCvUrl";
 import RevealText from "../../Components/RevealText/RevealText";
+import { useLang } from "../../i18n/lang";
 
 export default function Landing() {
   const cvUrl = useCvUrl();
+  const { to } = useLang();
 
   return (
     <Page>
@@ -63,7 +65,7 @@ export default function Landing() {
           </p>
 
           <div className="mt-4 flex flex-wrap justify-center gap-3 min-[992px]:justify-start">
-            <Link to="/hola#proyectos" className={buttonPrimary}>
+            <Link to={to("/hola#proyectos")} className={buttonPrimary}>
               Ver proyectos
               <LuArrowRight className="size-4" aria-hidden="true" />
             </Link>
