@@ -6,8 +6,13 @@
   "nav": {
     "home": "Hernando Rey, ir al inicio",
     "main": "Principal",
-    "blog": "Blog",
-    "hola": "Hola"
+    "proyectos": "Proyectos",
+    "sobre": "Sobre mí",
+    "blog": "Blog"
+  },
+  "projects": {
+    "title": "¿Qué he hecho?",
+    "intro": "Tres proyectos están en producción con clientes reales. Los demás son herramientas y experimentos propios."
   },
   "theme": {
     "toLight": "Activar modo claro",
@@ -17,5 +22,88 @@
   },
   "language": {
     "switch": "Read in English"
+  },
+  "landing": {
+    "hello": "Hola, soy",
+    "role": "Desarrollador Full Stack",
+    "tagline": "Ingeniero electrónico · React, Node.js y Firebase · IoT con ESP32",
+    "available": "Disponible · remoto, Barranquilla o reubicación",
+    "contact": "Escríbeme",
+    "what": "<b>Hago aplicaciones web y sistemas IoT</b> que usan personas reales todos los días.",
+    "production": "Tres de ellas están en producción: la tienda y el sistema de cotizaciones de <b>Ferrequipos De La Costa</b>, la pantalla de proyección de <b>VoxDei</b> y los sensores de <b>Alarma ITX</b>, que avisan por Telegram cuando un equipo se sale de rango.",
+    "stats": [
+      { "value": "3", "label": "apps en producción con clientes" },
+      { "value": "8", "label": "sensores ESP32 con firmware propio" },
+      { "value": "1", "label": "demo pública sin registro" }
+    ],
+    "hobbies": "Adicto al café ☕, amante del ejercicio 🏋🏻💪, cinéfilo empedernido 🎬🍿 y entusiasta de la domótica 🏠.",
+    "projects": "Ver proyectos",
+    "cv": "Descargar CV"
+  },
+  "blog": {
+    "title": "Blog",
+    "intro": "Escribo sobre lo que construyo: domótica con ESPHome y Home Assistant, pantallas con ESP32 y desarrollo web. Incluyo los tropiezos, que suelen ser la mitad del trabajo.",
+    "articles": "Artículos",
+    "tags": "Etiquetas",
+    "reading": "{{count}} min de lectura",
+    "soon": "Próximamente nuevos artículos."
+  },
+  "post": {
+    "back": "Volver al blog",
+    "loading": "Cargando artículo",
+    "toc": "En este artículo",
+    "helped": "¿Te sirvió?",
+    "write": "Escríbeme",
+    "writeText": "Si estás armando algo parecido o quieres que trabajemos juntos, respondo todos los correos.",
+    "copy": "Copiar correo",
+    "copied": "¡Copiado!",
+    "related": "Proyecto relacionado",
+    "seeProject": "Ver el proyecto",
+    "code": "Código",
+    "top": "Volver arriba"
+  },
+  "about": {
+    "title": "Hola",
+    "intro": "Soy <name>Hernando Rey</name>, ingeniero electrónico y desarrollador full stack.",
+    "lead": "Combino hardware y software para resolver problemas concretos de negocios y de la casa.",
+    "body": "<b>Me formé en el bootcamp de Henry y sigo aprendiendo por mi cuenta.</b> Trabajo sobre todo con React y Firebase, con Cloud Functions para la lógica del servidor, y con ESP32, ESPHome y Home Assistant para la parte física. Me gusta el proceso completo: hablar con quien va a usar la app, construirla, publicarla y seguir mejorándola cuando ya está en uso.",
+    "projects": "Ver mis proyectos",
+    "cv": "Descargar CV",
+    "cvTitle": "¡Aquí tienes mi CV!",
+    "who": "Yo soy",
+    "profile": [
+      { "text": "Hernando Alberto Rey Jiménez", "mostrarEn": "ambos" },
+      { "text": "a.k.a. Hrking31", "mostrarEn": "ambos" },
+      { "text": "Barranquilla, Colombia", "mostrarEn": "ambos" },
+      { "label": "Inglés", "text": "A2 (básico)", "mostrarEn": "ambos" },
+      { "label": "Disponible", "text": "remoto, presencial en Barranquilla o reubicación", "mostrarEn": "ambos" },
+      { "text": "Padre de dos Princesas 👑✨💖", "mostrarEn": "ambos" },
+      { "text": "hrking31@gmail.com", "mostrarEn": "solo-imprimir" },
+      { "text": "302 844 6805", "mostrarEn": "solo-imprimir" },
+      { "text": "https://hernandorey-31.web.app/", "mostrarEn": "solo-imprimir" },
+      { "text": "CV", "mostrarEn": "solo-pantalla" }
+    ],
+    "experience": "Experiencia",
+    "jobs": [
+      {
+        "when": "2024 – hoy",
+        "role": "Desarrollador Full Stack freelance",
+        "items": [
+          "<b>Ferrequipos De La Costa:</b> tienda, modo kiosco, cotizaciones, cuentas de cobro y cartera; Cloud Functions y pruebas con Vitest.",
+          "<b>VoxDei:</b> sistema de proyección para iglesias con panel de control y usuarios con permisos.",
+          "<b>Alarma ITX:</b> 8 sensores ESP32 con firmware propio, gráficas en tiempo real y alertas por Telegram."
+        ]
+      }
+    ],
+    "education": "Educación",
+    "studies": [
+      { "title": "Bootcamp de Desarrollo Web Full Stack · Henry", "detail": "2023" },
+      { "title": "Ingeniería Electrónica", "detail": "Politécnico de la Costa Atlántica · 2015" }
+    ],
+    "tech": "Tecnologías",
+    "daily": "Uso a diario",
+    "dailyNote": "Las verás en mis proyectos.",
+    "other": "He trabajado con",
+    "otherNote": "Aún sin un proyecto publicado que las muestre."
   }
 }

@@ -2,7 +2,8 @@ import { useState } from "react";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { LuCheck, LuCopy, LuMail } from "react-icons/lu";
 
-const EMAIL = "hrking31@gmail.com";
+export const EMAIL = "hrking31@gmail.com";
+export const LINKEDIN = "https://www.linkedin.com/in/hernandorey/";
 
 const iconClass =
   "flex size-11 items-center justify-center rounded-full bg-black/10 text-ink transition duration-200 hover:scale-110 hover:text-white dark:bg-white/20 dark:text-ink-dark";
@@ -30,7 +31,7 @@ export default function SocialMedia() {
         <FaGithub className="size-5" />
       </a>
       <a
-        href="https://www.linkedin.com/in/hernandorey/"
+        href={LINKEDIN}
         target="_blank"
         rel="noopener noreferrer"
         aria-label="LinkedIn de Hernando Rey"

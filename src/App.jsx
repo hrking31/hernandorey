@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useRef } from "react";
-import { Landing, Hola, Blog } from "./Views";
+import { Landing, Hola, Blog, Proyectos } from "./Views";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ProtectedRoutes } from "./Components/ProtectedRoutes/ProtectedRoutes.jsx";
@@ -8,13 +8,21 @@ import { signOut } from "firebase/auth";
 import NavBar from "./Components/NavBar/NavBar";
 import ScrollManager from "./Components/ScrollManager/ScrollManager";
 import LanguageNotice from "./Components/LanguageNotice/LanguageNotice";
-import { langFromPath } from "./i18n/lang";
+import { langFromPath, useLang } from "./i18n/lang";
 
 // Se descargan solo al visitarlas: los artículos (procesador de Markdown) y
 // el panel de administración (Storage y formularios).
 const Post = lazy(() => import("./Views/Post/Post"));
 const SignIn = lazy(() => import("./Views/SignIn/SignIn"));
 const Admin = lazy(() => import("./Views/Admin/Admin"));
+
+// /hola pasó a /sobre-mi, y los proyectos que tenía al final (/hola#proyectos)
+// tienen ahora su página: los enlaces viejos siguen funcionando.
+function HolaRedirect() {
+  const { hash } = useLocation();
+  const { to } = useLang();
+  return <Navigate to={to(hash === "#proyectos" ? "/proyectos" : "/sobre-mi")} replace />;
+}
 
 export default function App() {
   const location = useLocation();
@@ -55,7 +63,9 @@ export default function App() {
           {["/", "/en"].map((base) => (
             <Route key={base} path={base}>
               <Route index element={<Landing />} />
-              <Route path="hola" element={<Hola />} />
+              <Route path="proyectos" element={<Proyectos />} />
+              <Route path="sobre-mi" element={<Hola />} />
+              <Route path="hola" element={<HolaRedirect />} />
               <Route path="blog" element={<Blog />} />
               <Route path="blog/:slug" element={<Post />} />
             </Route>

@@ -9,12 +9,13 @@ export const leadText =
   "text-[clamp(0.875rem,1rem+0.3vw,1.8rem)] leading-[1.4] font-semibold italic";
 
 // Contenedor de página: deja espacio para la barra (abajo en móvil, arriba en
-// escritorio). overflow-x-clip recorta lo que las animaciones en 3D sacan por
-// los lados, para que la página nunca se deslice hacia los costados.
+// escritorio) y, en móvil, para los botones de idioma y tema de arriba.
+// overflow-x-clip recorta lo que las animaciones en 3D sacan por los lados,
+// para que la página nunca se deslice hacia los costados.
 export function Page({ className = "", children }) {
   return (
     <div
-      className={`overflow-x-clip text-ink dark:text-ink-dark pt-[3.2rem] min-[900px]:pt-36 print:pt-16 ${className}`}
+      className={`overflow-x-clip text-ink dark:text-ink-dark pt-16 min-[900px]:pt-36 print:pt-16 ${className}`}
     >
       {children}
     </div>
@@ -34,11 +35,12 @@ export function Section({ as: Tag = "section", className = "", children, ...prop
 export const pageTitleText =
   "text-[2.4rem] leading-[1.1] font-black min-[601px]:text-[2.8rem] min-[901px]:text-[clamp(2.4rem,5vw,3.9rem)]";
 
-// Título grande de sección (antes h3), alineado a la derecha como en el diseño original.
+// Título grande de sección (antes h3). Va a la izquierda como los demás títulos,
+// para que la vista no salte de un lado a otro.
 export function BigTitle({ as: Tag = "h2", className = "", children }) {
   return (
     <Tag
-      className={`text-right text-[2rem] leading-[1.15] font-black min-[601px]:text-[2.4rem] min-[901px]:text-[calc(1.3rem+2.7vw)] ${className}`}
+      className={`text-[2rem] leading-[1.15] font-black min-[601px]:text-[2.4rem] min-[901px]:text-[calc(1.3rem+2.7vw)] ${className}`}
     >
       {children}
     </Tag>

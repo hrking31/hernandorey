@@ -11,9 +11,10 @@
   --color-brand: #e7562e;
   --color-brand-strong: #c2410c;
 
-  /* Superficies y texto, modo claro */
-  --color-surface: #fcfcfc;
-  --color-card: #ffffff;
+  /* Superficies y texto, modo claro. Blanco hueso cálido en vez de blanco puro,
+     que encandilaba; las tarjetas van un poco más claras que el fondo. */
+  --color-surface: #f3f1ec;
+  --color-card: #faf9f6;
   --color-ink: #1d2025;
   --color-muted: #5a6069;
   --color-line: #e7e4de;
@@ -369,6 +370,11 @@
 /* Al imprimir el CV todo se ve quieto y completo, en papel blanco y con los
    colores del tema claro aunque la página esté en modo oscuro. */
 @media print {
+  /* En papel, fondo y tarjetas blancos (el blanco hueso es solo para pantalla). */
+  :root {
+    --color-surface: #fff;
+    --color-card: #fff;
+  }
   .dark {
     color-scheme: light;
     --color-surface-dark: var(--color-surface);

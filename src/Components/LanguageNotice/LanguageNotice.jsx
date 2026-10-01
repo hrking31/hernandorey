@@ -13,7 +13,7 @@ function browserIsSpanish() {
 // otro idioma. No redirige: el enlace que se envía manda, y el aviso se cierra
 // para siempre al elegir idioma o al tocar la X.
 export default function LanguageNotice() {
-  const { pathname, search, hash } = useLocation();
+  const { pathname, search } = useLocation();
   const { t } = useTranslation();
   const [open, setOpen] = useState(() => !browserIsSpanish());
 
@@ -38,7 +38,7 @@ export default function LanguageNotice() {
     >
       <p className="flex-1 text-sm leading-snug font-semibold">{en("notice.text")}</p>
       <Link
-        to={switchLangPath(pathname, "en") + search + hash}
+        to={switchLangPath(pathname, "en") + search}
         onClick={() => close("en")}
         hrefLang="en"
         className="flex h-11 shrink-0 items-center rounded-full bg-ink px-4 text-sm font-bold text-surface dark:bg-ink-dark dark:text-surface-dark"

@@ -6,8 +6,9 @@
   "nav": {
     "home": "Hernando Rey, go to home",
     "main": "Main",
-    "blog": "Blog",
-    "hola": "About"
+    "proyectos": "Projects",
+    "sobre": "About",
+    "blog": "Blog"
   },
   "theme": {
     "toLight": "Switch to light mode",

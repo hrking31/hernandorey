@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeHighlight from "rehype-highlight";
@@ -20,6 +21,10 @@ import { Page, Section } from "../../Components/Layout/Layout";
 import remarkCallouts from "../../utils/remarkCallouts";
 import { getPost, loadContent, imageUrl, formatDate } from "../../content/blog";
 import { useLang } from "../../i18n/lang";
+import { headingsOf, slugify, textOf } from "../../utils/headings";
+import ArticleToc from "../../Components/Article/ArticleToc";
+import ArticleEnd from "../../Components/Article/ArticleEnd";
+import BackToTop from "../../Components/Article/BackToTop";
 
 // Solo los lenguajes que aparecen en los artículos: el paquete completo pesa
 // más del doble. Para uno nuevo, se importa y se agrega aquí.
@@ -33,6 +38,8 @@ export default function Post() {
   const post = getPost(slug);
   const [content, setContent] = useState(null);
   const { to } = useLang();
+  const { t } = useTranslation();
+  const headings = useMemo(() => (content ? headingsOf(content) : []), [content]);
 
   useEffect(() => {
     if (!post) return;
@@ -56,8 +63,14 @@ export default function Post() {
   if (!post) return <Navigate to={to("/blog")} replace />;
 
   const components = {
+    // Mismo id que calcula el índice; scroll-mt deja libre la barra de arriba en PC.
+    h2: ({ children }) => (
+      <h2 id={slugify(textOf(children))} className="scroll-mt-24">
+        {children}
+      </h2>
+    ),
     img: ({ src = "", alt = "" }) => (
-      <img src={imageUrl(slug, src)} alt={alt} loading="lazy" className="rounded-xl" />
+      <img src={imageUrl(slug, src)} alt={alt} loading="lazy" className="mx-1 inline-block rounded-xl align-top" />
     ),
     a: ({ href = "", children }) =>
       href.startsWith("http") ? (
@@ -83,12 +96,12 @@ export default function Post() {
           className="mb-8 inline-flex items-center gap-2 text-sm font-bold text-muted hover:text-brand-strong dark:text-muted-dark dark:hover:text-brand"
         >
           <LuArrowLeft aria-hidden="true" className="size-4" />
-          Volver al blog
+          {t("post.back")}
         </Link>
 
         <header className="mb-8 flex flex-col gap-4">
           {post.tags.length > 0 && (
-            <ul aria-label="Etiquetas" className="flex flex-wrap gap-1.5">
+            <ul aria-label={t("blog.tags")} className="flex flex-wrap gap-1.5">
               {post.tags.map((tag) => (
                 <li
                   key={tag}
@@ -116,7 +129,7 @@ export default function Post() {
             )}
             <span className="flex items-center gap-1.5">
               <LuClock aria-hidden="true" className="size-4" />
-              {post.readingMinutes} min de lectura
+              {t("blog.reading", { count: post.readingMinutes })}
             </span>
           </p>
         </header>
@@ -130,7 +143,7 @@ export default function Post() {
         )}
 
         {content === null ? (
-          <div className="flex flex-col gap-3" aria-label="Cargando artículo">
+          <div className="flex flex-col gap-3" aria-label={t("post.loading")}>
             {[100, 92, 96, 80].map((width) => (
               <div
                 key={width}
@@ -140,18 +153,30 @@ export default function Post() {
             ))}
           </div>
         ) : (
-          <div className="prose max-w-none prose-neutral lg:prose-lg dark:prose-invert prose-headings:font-black prose-a:text-brand-strong dark:prose-a:text-brand prose-code:before:content-none prose-code:after:content-none prose-pre:p-0 prose-pre:bg-[#0d1117]">
-            <ReactMarkdown
-              remarkPlugins={[remarkGfm, remarkCallouts]}
-              rehypePlugins={[highlight]}
-              components={components}
-            >
-              {content}
-            </ReactMarkdown>
-          </div>
+          <>
+            {/* Desde 1100 px el índice va al costado, fijo mientras se lee. */}
+            <div className="grid gap-7 min-[1100px]:grid-cols-[minmax(0,1fr)_250px] min-[1100px]:items-start min-[1100px]:gap-14">
+              <ArticleToc headings={headings} />
+              {/* El texto corrido llega a unos 75 caracteres por línea (cómodo de
+                  leer en pantallas grandes); tablas y código usan todo el ancho.
+                  Las imágenes van centradas en el ancho del texto; varias en un
+                  mismo párrafo quedan lado a lado. */}
+              <div className="prose max-w-none min-w-0 prose-neutral lg:prose-lg dark:prose-invert prose-headings:font-black prose-headings:max-w-[75ch] prose-p:max-w-[75ch] prose-ul:max-w-[75ch] prose-ol:max-w-[75ch] prose-blockquote:max-w-[75ch] prose-a:text-brand-strong dark:prose-a:text-brand prose-code:before:content-none prose-code:after:content-none prose-pre:p-0 prose-pre:bg-[#0d1117] [&_.callout]:max-w-[75ch] [&_p:has(>img)]:text-center">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm, remarkCallouts]}
+                  rehypePlugins={[highlight]}
+                  components={components}
+                >
+                  {content}
+                </ReactMarkdown>
+              </div>
+            </div>
+            <ArticleEnd slug={slug} />
+          </>
         )}
       </Section>
 
+      <BackToTop />
       <SocialMedia />
     </Page>
   );

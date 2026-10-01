@@ -1,6 +1,6 @@
-import ReyPerfil from "../../assets/ReyPerfil.jpg";
+import { Link } from "react-router-dom";
+import { Trans, useTranslation } from "react-i18next";
 import RevealText from "../../Components/RevealText/RevealText";
-import { Estudios } from "../../Data/Data";
 import Profile from "../../Components/Profile/Profile";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 import TechCarousel from "../../Components/TechCarousel/TechCarousel";
@@ -14,105 +14,135 @@ import {
   bodyText,
   leadText,
   pageTitleText,
+  buttonPrimary,
+  buttonSecondary,
 } from "../../Components/Layout/Layout";
+import useCvUrl from "../../hooks/useCvUrl";
+import { useLang } from "../../i18n/lang";
 
+// Las partes en <b> de los textos (es.json) salen en negrita; <name>, en naranja.
+const bold = { b: <strong className="font-black" /> };
+const intro = { name: <strong className="font-black text-brand-strong dark:text-brand" /> };
+
+// Página "Sobre mí" (/sobre-mi). Ctrl+P aquí imprime el CV completo.
 export default function Hola() {
+  const { t } = useTranslation();
+  const { to } = useLang();
+  const cvUrl = useCvUrl();
+  const jobs = t("about.jobs", { returnObjects: true });
+  const studies = t("about.studies", { returnObjects: true });
+
   return (
-    // Mismo margen lateral que la página anterior con MUI (8 px y 22 px).
-    <Page className="px-2 min-[900px]:px-[1.4rem]">
-      <Section
-        as="header"
-        className="mb-8 flex items-center justify-end gap-2 min-[900px]:mb-11"
-      >
+    <Page>
+      <Section as="header" className="mb-8 min-[900px]:mb-11">
         <h1 className={pageTitleText}>
-          <RevealText>Hola</RevealText>{" "}
+          <RevealText>{t("about.title")}</RevealText>{" "}
           {/* Fuera de RevealText: su efecto de entrada también usa transform. */}
           <span aria-hidden="true" className="inline-block origin-[70%_70%] motion-safe:animate-wave">
             👋🏻
           </span>
         </h1>
-        <img
-          src={ReyPerfil}
-          alt=""
-          width="64"
-          height="64"
-          className="size-[62px] rounded-full object-cover min-[600px]:size-[60px] min-[900px]:size-[65px]"
-        />
       </Section>
 
-      <Section className="mb-9 flex flex-col gap-6 text-justify hyphens-auto min-[900px]:gap-10">
+      {/* En el celular el texto va sin justificar: justificado deja huecos entre palabras. */}
+      <Section className="mb-9 flex flex-col gap-6 min-[900px]:text-justify min-[900px]:hyphens-auto">
         <p className={bodyText}>
-          Soy tu amigo y colega en el mundo del código...{" "}
-          <strong className="font-black text-brand-strong dark:text-brand">
-            Hernando Rey
-          </strong>
-          .
+          <Trans i18nKey="about.intro" components={intro} />
         </p>
-        <p className={leadText}>
-          Ingeniero electrónico y desarrollador web, combinando hardware y
-          software para crear soluciones únicas.
-        </p>
+        <p className={leadText}>{t("about.lead")}</p>
         <p className={bodyText}>
-          <strong className="font-black">Como Desarrollador Full Stack,</strong>{" "}
-          combino mi pasión por la programación con un compromiso constante de
-          aprendizaje para dominar tecnologías emergentes. Tengo experiencia en
-          todo el ciclo de desarrollo de aplicaciones web, desde la creación de
-          interfaces intuitivas con React en el frontend hasta la construcción
-          de APIs robustas con Node.js y Express en el backend. Me especializo
-          en diseñar arquitecturas escalables, integrando bases de datos SQL y
-          NoSQL (como PostgreSQL y MongoDB) y aprovechando servicios en la nube
-          para optimizar el rendimiento y la eficiencia. Cada línea de código
-          que escribo no solo resuelve problemas, sino que también busca
-          ofrecer experiencias de usuario excepcionales y soluciones
-          tecnológicas innovadoras.
+          <Trans i18nKey="about.body" components={bold} />
         </p>
+        <div className="flex flex-wrap gap-3 print:hidden">
+          <Link to={to("/proyectos")} className={buttonPrimary}>
+            {t("about.projects")}
+          </Link>
+          {cvUrl && (
+            <a
+              href={cvUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              download="CV-HernandoRey.pdf"
+              className={buttonSecondary}
+            >
+              {t("about.cv")}
+            </a>
+          )}
+        </div>
       </Section>
 
       <Divider className="mt-2 mb-6 min-[900px]:mb-11" />
 
-      <Section className="flex flex-col">
+      <Section>
         <BigTitle>
-          <RevealText>Yo soy</RevealText>
+          <RevealText>{t("about.who")}</RevealText>
         </BigTitle>
         <div className="mt-4 mb-8 min-[900px]:mt-8 min-[900px]:mb-12 print:mt-4 print:mb-8">
           <Profile />
         </div>
+      </Section>
 
-        <SubTitle className="mb-4 min-[900px]:mb-6">
-          <RevealText>Educación</RevealText>
+      <Divider className="mb-6 min-[900px]:mb-11" />
+
+      {/* break-inside-avoid: al imprimir, el título no queda solo al final de una hoja. */}
+      <Section className="mb-8 min-[900px]:mb-12 print:break-inside-avoid">
+        <SubTitle className="mb-6">
+          <RevealText>{t("about.experience")}</RevealText>
         </SubTitle>
-        <ol className="mb-6 flex flex-col gap-2 pl-4 min-[900px]:mb-8">
-          {Estudios.map((estudio, index) => (
-            <li key={estudio} className={`flex gap-2 ${bodyText}`}>
-              <span className="font-bold">{Estudios.length - index}.</span>
-              {estudio}
-            </li>
+        <div className="grid gap-[22px]">
+          {jobs.map((job, j) => (
+            <div key={job.role} className="grid gap-2 border-l-[3px] border-brand pl-[18px]">
+              <p className="text-sm font-extrabold text-muted tabular-nums dark:text-muted-dark">
+                {job.when}
+              </p>
+              <h3 className="text-[1.35rem] leading-[1.2] font-black">{job.role}</h3>
+              <ul className={`grid list-disc gap-1.5 pl-[18px] ${bodyText}`}>
+                {job.items.map((_, k) => (
+                  <li key={k}>
+                    <Trans i18nKey={`about.jobs.${j}.items.${k}`} components={bold} />
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
-        </ol>
-
-        <SubTitle className="mb-4 min-[900px]:mb-6 print:mb-0 print:pt-16">
-          <RevealText>Tecnologías</RevealText>
-        </SubTitle>
-        <div className="mt-5 mb-4 min-[900px]:mb-6">
-          <TechCarousel />
         </div>
       </Section>
 
-      <Divider className="mt-4 mb-10" />
+      <Divider className="mb-6 min-[900px]:mb-11" />
 
-      <Section id="proyectos" className="scroll-mt-24 print:pt-16">
-        <BigTitle>
-          <RevealText>¿Qué he hecho?</RevealText>
-        </BigTitle>
-        <SubTitle className="mt-6 mb-5 min-[900px]:mt-8 min-[900px]:mb-10">
-          <RevealText delay={2}>Proyectos</RevealText>
+      <Section className="mb-8 min-[900px]:mb-12 print:break-inside-avoid">
+        <SubTitle className="mb-5">
+          <RevealText>{t("about.education")}</RevealText>
         </SubTitle>
+        <ol className="grid gap-3.5 pl-4">
+          {studies.map((study) => (
+            <li key={study.title} className="grid gap-0.5">
+              <b className="text-[clamp(1rem,1rem+0.3vw,1.2rem)] font-extrabold">{study.title}</b>
+              <span className="font-semibold text-muted dark:text-muted-dark">{study.detail}</span>
+            </li>
+          ))}
+        </ol>
+      </Section>
+
+      <Divider className="mb-6 min-[900px]:mb-11" />
+
+      <Section className="mb-4 min-[900px]:mb-6 print:break-inside-avoid">
+        <SubTitle className="mb-5">
+          <RevealText>{t("about.tech")}</RevealText>
+        </SubTitle>
+        <TechCarousel />
+      </Section>
+
+      {/* En pantalla los proyectos viven en /proyectos; aquí quedan solo para
+          el CV impreso (Ctrl+P), que los muestra en lista. */}
+      <Section className="hidden print:block print:pt-8">
+        <BigTitle>{t("projects.title")}</BigTitle>
+        <SubTitle className="mt-6 mb-5">{t("nav.proyectos")}</SubTitle>
         <ProjectsSection />
       </Section>
 
-      <div className="mt-12 min-[900px]:mt-14 print:hidden">
-        <SocialMedia />
-      </div>
+      <Divider className="mt-8 mb-11 min-[900px]:mb-15" />
+      <SocialMedia />
     </Page>
   );
 }

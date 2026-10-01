@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { LuCalendar, LuClock } from "react-icons/lu";
 import SocialMedia from "../../Components/SocialMedia/SocialMedia";
 import {
@@ -19,6 +20,7 @@ import { useLang } from "../../i18n/lang";
 // en index.css): se levanta al entrar en pantalla y se inclina hacia el mouse.
 function PostCard({ post, index }) {
   const { to } = useLang();
+  const { t } = useTranslation();
   return (
     <article
       data-reveal
@@ -39,7 +41,7 @@ function PostCard({ post, index }) {
       )}
       <div className="flex flex-1 flex-col gap-3 p-6">
         {post.tags.length > 0 && (
-          <ul aria-label="Etiquetas" className="flex flex-wrap gap-1.5">
+          <ul aria-label={t("blog.tags")} className="flex flex-wrap gap-1.5">
             {post.tags.slice(0, 4).map((tag, j) => (
               <li
                 key={tag}
@@ -71,7 +73,7 @@ function PostCard({ post, index }) {
           )}
           <span className="flex items-center gap-1.5">
             <LuClock aria-hidden="true" className="size-4" />
-            {post.readingMinutes} min de lectura
+            {t("blog.reading", { count: post.readingMinutes })}
           </span>
         </p>
       </div>
@@ -82,27 +84,26 @@ function PostCard({ post, index }) {
 export default function Blog() {
   const listRef = useRef(null);
   useScrollReveal(listRef, [posts.length]);
+  const { t } = useTranslation();
 
   return (
     <Page>
       <Section as="header" className="mb-8">
         <h1 className={pageTitleText}>
-          <RevealText>Blog</RevealText>
+          <RevealText>{t("blog.title")}</RevealText>
         </h1>
       </Section>
 
+      {/* Solo promete lo que ya tiene artículo; en el celular, sin justificar. */}
       <Section className="mb-6 min-[900px]:mb-8">
-        <p className={`text-justify hyphens-auto ${bodyText}`}>
-          En este espacio comparto mi viaje en el mundo tech a través de
-          artículos, tutoriales, teoría aplicada y fragmentos de código. Exploro
-          el desarrollo web, la automatización con Home Assistant, el teclado
-          ergonómico Corne y proyectos que combinan programación con hardware.
+        <p className={`min-[900px]:text-justify min-[900px]:hyphens-auto ${bodyText}`}>
+          {t("blog.intro")}
         </p>
       </Section>
 
       <Section className="mb-12 min-[900px]:mb-14">
         <h2 className={`relative mx-auto mb-8 w-fit text-center ${subTitleText} font-black after:absolute after:-bottom-1 after:left-1/2 after:h-0.5 after:w-[30%] after:-translate-x-1/2 after:bg-brand`}>
-          <RevealText>Artículos</RevealText>
+          <RevealText>{t("blog.articles")}</RevealText>
         </h2>
 
         {posts.length > 0 ? (
@@ -120,7 +121,7 @@ export default function Blog() {
           </ul>
         ) : (
           <p className="text-center font-semibold text-muted dark:text-muted-dark">
-            Próximamente nuevos artículos.
+            {t("blog.soon")}
           </p>
         )}
       </Section>
