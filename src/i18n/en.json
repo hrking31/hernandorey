@@ -10,6 +10,34 @@
     "sobre": "About",
     "blog": "Blog"
   },
+  "projects": {
+    "title": "What have I built?",
+    "intro": "Three projects are in production with real clients. The rest are my own tools and experiments.",
+    "all": "All",
+    "filter": "Filter projects by category",
+    "error": "Projects couldn't be loaded. Try reloading the page."
+  },
+  "categories": {
+    "IoT y Hardware": "IoT & Hardware",
+    "Herramientas": "Tools",
+    "Web": "Web"
+  },
+  "card": {
+    "screenshot": "Screenshot of {{title}}",
+    "live": "IN PRODUCTION",
+    "client": "Real client",
+    "techs": "Technologies",
+    "live_demo": "See it live",
+    "demo": "View demo",
+    "code": "Code",
+    "blog": "Read on the blog"
+  },
+  "social": {
+    "github": "Hernando Rey on GitHub",
+    "linkedin": "Hernando Rey on LinkedIn",
+    "mail": "Email {{email}}",
+    "copied": "Email copied"
+  },
   "theme": {
     "toLight": "Switch to light mode",
     "toDark": "Switch to dark mode",
@@ -24,5 +52,89 @@
     "text": "This site is also available in English.",
     "action": "View in English",
     "close": "Close"
+  },
+  "landing": {
+    "hello": "Hi, I'm",
+    "role": "Full Stack Developer",
+    "tagline": "Electronics engineer · React, Node.js & Firebase · IoT with ESP32",
+    "available": "Available · remote, Barranquilla or relocation",
+    "contact": "Email me",
+    "what": "<b>I build web apps and IoT systems</b> that real people use every day.",
+    "production": "Three of them are in production: the online store and quoting system for <b>Ferrequipos De La Costa</b>, the projection screen for <b>VoxDei</b>, and the <b>Alarma ITX</b> sensors, which send a Telegram alert when equipment goes out of range.",
+    "stats": [
+      { "value": "3", "label": "production apps with clients" },
+      { "value": "8", "label": "ESP32 sensors with custom firmware" },
+      { "value": "1", "label": "public demo, no sign-up" }
+    ],
+    "hobbies": "Coffee addict ☕, fitness lover 🏋🏻💪, die-hard movie buff 🎬🍿 and home automation enthusiast 🏠.",
+    "projects": "See projects",
+    "cv": "Download resume"
+  },
+  "blog": {
+    "title": "Blog",
+    "intro": "I write about what I build: home automation with ESPHome and Home Assistant, ESP32 displays and web development. I include the stumbles, which are usually half the work.",
+    "articles": "Articles",
+    "tags": "Tags",
+    "reading": "{{count}} min read",
+    "soon": "New articles coming soon.",
+    "spanish": "My articles are written in Spanish. Your browser can translate them into English in one click."
+  },
+  "post": {
+    "back": "Back to the blog",
+    "loading": "Loading article",
+    "toc": "In this article",
+    "helped": "Found it useful?",
+    "write": "Email me",
+    "writeText": "If you're building something similar or want to work together, I answer every email.",
+    "copy": "Copy email",
+    "copied": "Copied!",
+    "related": "Related project",
+    "seeProject": "See the project",
+    "code": "Code",
+    "top": "Back to top"
+  },
+  "about": {
+    "title": "Hi",
+    "intro": "I'm <name>Hernando Rey</name>, an electronics engineer and full stack developer.",
+    "lead": "I combine hardware and software to solve concrete problems for businesses and at home.",
+    "body": "<b>I trained at the Henry bootcamp and keep learning on my own.</b> I work mostly with React and Firebase, using Cloud Functions for server-side logic, and with ESP32, ESPHome and Home Assistant for the physical side. I enjoy the whole process: talking to the people who will use the app, building it, shipping it, and improving it once it's in use.",
+    "projects": "See my projects",
+    "cv": "Download resume",
+    "cvTitle": "Here's my resume!",
+    "who": "Who I am",
+    "profile": [
+      { "text": "Hernando Alberto Rey Jiménez", "mostrarEn": "ambos" },
+      { "text": "a.k.a. Hrking31", "mostrarEn": "ambos" },
+      { "text": "Barranquilla, Colombia", "mostrarEn": "ambos" },
+      { "label": "English", "text": "A2 (basic)", "mostrarEn": "ambos" },
+      { "label": "Available", "text": "remote, on-site in Barranquilla, or relocation", "mostrarEn": "ambos" },
+      { "text": "Father of two princesses 👑✨💖", "mostrarEn": "ambos" },
+      { "text": "hrking31@gmail.com", "mostrarEn": "solo-imprimir" },
+      { "text": "+57 302 844 6805", "mostrarEn": "solo-imprimir" },
+      { "text": "https://hernandorey-31.web.app/en", "mostrarEn": "solo-imprimir" },
+      { "text": "CV", "mostrarEn": "solo-pantalla" }
+    ],
+    "experience": "Experience",
+    "jobs": [
+      {
+        "when": "2024 – present",
+        "role": "Freelance Full Stack Developer",
+        "items": [
+          "<b>Ferrequipos De La Costa:</b> online store, kiosk mode, quotes, billing statements and accounts receivable; Cloud Functions and tests with Vitest.",
+          "<b>VoxDei:</b> church projection system with a control panel and role-based user permissions.",
+          "<b>Alarma ITX:</b> 8 ESP32 sensors with custom firmware, real-time charts and Telegram alerts."
+        ]
+      }
+    ],
+    "education": "Education",
+    "studies": [
+      { "title": "Full Stack Web Development Bootcamp · Henry", "detail": "2023" },
+      { "title": "Electronics Engineering", "detail": "Politécnico de la Costa Atlántica · 2015" }
+    ],
+    "tech": "Technologies",
+    "daily": "Daily stack",
+    "dailyNote": "You'll see them in my projects.",
+    "other": "I've also worked with",
+    "otherNote": "Not yet featured in a published project."
   }
 }

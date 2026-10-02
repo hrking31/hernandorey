@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { buttonPrimary, buttonSecondary } from "../Layout/Layout";
 import { EMAIL, LINKEDIN } from "../SocialMedia/SocialMedia";
-import { loadProjects } from "../../utils/projects";
+import { inLang, loadProjects } from "../../utils/projects";
 import { useLang } from "../../i18n/lang";
 
 function Box({ eyebrow, title, children }) {
   return (
-    <div className="flex flex-col gap-2.5 rounded-2xl border border-line bg-card p-[22px] dark:border-line-dark dark:bg-card-dark">
+    <div className="flex flex-col gap-2.5 rounded-2xl border border-line bg-card p-5.5 dark:border-line-dark dark:bg-card-dark">
       <p className="text-xs font-extrabold tracking-[.08em] text-brand-strong uppercase dark:text-brand">
         {eyebrow}
       </p>
@@ -22,8 +22,9 @@ function Box({ eyebrow, title, children }) {
 // relacionado es el que tiene en el panel el enlace a este artículo.
 export default function ArticleEnd({ slug }) {
   const { t } = useTranslation();
-  const { to } = useLang();
-  const [related, setRelated] = useState(null);
+  const { to, lang } = useLang();
+  const [found, setFound] = useState(null);
+  const related = found && inLang(found, lang);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
@@ -34,7 +35,7 @@ export default function ArticleEnd({ slug }) {
         const match = list.find((p) =>
           p.blogUrl.toLowerCase().replace(/\/+$/, "").endsWith(`/blog/${slug}`)
         );
-        setRelated(match ?? null);
+        setFound(match ?? null);
       })
       .catch(() => {
         // Sin proyectos, el final muestra solo el contacto.
@@ -51,7 +52,7 @@ export default function ArticleEnd({ slug }) {
   };
 
   return (
-    <section className="mt-12 grid gap-[18px] min-[800px]:grid-cols-2 print:hidden">
+    <section className="mt-12 grid gap-4.5 min-[800px]:grid-cols-2 print:hidden">
       <Box eyebrow={t("post.helped")} title={t("post.write")}>
         <p className="font-semibold text-muted dark:text-muted-dark">{t("post.writeText")}</p>
         <p className="font-extrabold select-all">{EMAIL}</p>

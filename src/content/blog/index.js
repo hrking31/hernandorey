@@ -32,9 +32,10 @@ export function loadContent(slug) {
   return load ? load() : Promise.resolve("");
 }
 
-export function formatDate(date) {
+// lang: "es" → "21 de agosto de 2026"; "en" → "August 21, 2026".
+export function formatDate(date, lang = "es") {
   if (!date) return "";
-  return new Date(`${date}T12:00:00`).toLocaleDateString("es-CO", {
+  return new Date(`${date}T12:00:00`).toLocaleDateString(lang === "en" ? "en-US" : "es-CO", {
     day: "numeric",
     month: "long",
     year: "numeric",

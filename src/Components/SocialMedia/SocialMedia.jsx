@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FaGithub, FaLinkedin } from "react-icons/fa6";
 import { LuCheck, LuCopy, LuMail } from "react-icons/lu";
 
@@ -10,6 +11,7 @@ const iconClass =
 
 export default function SocialMedia() {
   const [copied, setCopied] = useState(false);
+  const { t } = useTranslation();
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(EMAIL);
@@ -24,7 +26,7 @@ export default function SocialMedia() {
         href="https://github.com/hrking31"
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="GitHub de Hernando Rey"
+        aria-label={t("social.github")}
         title="GitHub"
         className={`${iconClass} hover:bg-[#171515]`}
       >
@@ -34,7 +36,7 @@ export default function SocialMedia() {
         href={LINKEDIN}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="LinkedIn de Hernando Rey"
+        aria-label={t("social.linkedin")}
         title="LinkedIn"
         className={`${iconClass} hover:bg-[#0a66c2]`}
       >
@@ -42,7 +44,7 @@ export default function SocialMedia() {
       </a>
       <a
         href={`mailto:${EMAIL}`}
-        aria-label={`Escribir a ${EMAIL}`}
+        aria-label={t("social.mail", { email: EMAIL })}
         title={EMAIL}
         className={`${iconClass} hover:bg-brand-strong`}
       >
@@ -51,14 +53,14 @@ export default function SocialMedia() {
       <button
         type="button"
         onClick={handleCopy}
-        aria-label="Copiar correo"
-        title={copied ? "¡Copiado!" : "Copiar correo"}
+        aria-label={t("post.copy")}
+        title={copied ? t("post.copied") : t("post.copy")}
         className={`${iconClass} hover:bg-brand-strong`}
       >
         {copied ? <LuCheck className="size-5" /> : <LuCopy className="size-5" />}
       </button>
       <span className="sr-only" aria-live="polite">
-        {copied ? "Correo copiado" : ""}
+        {copied ? t("social.copied") : ""}
       </span>
     </div>
   );

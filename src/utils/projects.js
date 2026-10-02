@@ -21,6 +21,24 @@ function toProject(doc) {
     highlights: toList(data.highlights, "\n"),
     featured: Boolean(data.featured),
     client: Boolean(data.client),
+    en: {
+      title: data.textEn ?? "",
+      description: data.subtextEn ?? "",
+      highlights: toList(data.highlightsEn, "\n"),
+    },
+  };
+}
+
+// El proyecto con los textos del idioma pedido. En inglés usa los campos *En
+// del panel; los que estén vacíos se quedan en español.
+export function inLang(project, lang) {
+  if (lang !== "en") return project;
+  const { en } = project;
+  return {
+    ...project,
+    title: en.title || project.title,
+    description: en.description || project.description,
+    highlights: en.highlights.length > 0 ? en.highlights : project.highlights,
   };
 }
 

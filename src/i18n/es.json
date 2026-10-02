@@ -12,7 +12,26 @@
   },
   "projects": {
     "title": "¿Qué he hecho?",
-    "intro": "Tres proyectos están en producción con clientes reales. Los demás son herramientas y experimentos propios."
+    "intro": "Tres proyectos están en producción con clientes reales. Los demás son herramientas y experimentos propios.",
+    "all": "Todos",
+    "filter": "Filtrar proyectos por categoría",
+    "error": "No se pudieron cargar los proyectos. Intenta recargar la página."
+  },
+  "card": {
+    "screenshot": "Captura de {{title}}",
+    "live": "EN PRODUCCIÓN",
+    "client": "Cliente real",
+    "techs": "Tecnologías",
+    "live_demo": "Ver en vivo",
+    "demo": "Ver demo",
+    "code": "Código",
+    "blog": "Leer en el blog"
+  },
+  "social": {
+    "github": "GitHub de Hernando Rey",
+    "linkedin": "LinkedIn de Hernando Rey",
+    "mail": "Escribir a {{email}}",
+    "copied": "Correo copiado"
   },
   "theme": {
     "toLight": "Activar modo claro",

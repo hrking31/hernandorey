@@ -15,14 +15,16 @@ import RevealText from "../../Components/RevealText/RevealText";
 import useScrollReveal from "../../hooks/useScrollReveal";
 import { tilt, untilt } from "../../utils/tilt";
 import { useLang } from "../../i18n/lang";
+import SpanishNote from "../../Components/Article/SpanishNote";
 
 // Misma animación que las tarjetas de proyectos (clases rv-* y .reveal-card
 // en index.css): se levanta al entrar en pantalla y se inclina hacia el mouse.
 function PostCard({ post, index }) {
-  const { to } = useLang();
+  const { to, lang } = useLang();
   const { t } = useTranslation();
   return (
     <article
+      lang="es"
       data-reveal
       style={{ "--i": index % 2 }}
       className="reveal-card group relative flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-card hover:shadow-xl hover:shadow-black/10 dark:border-line-dark dark:bg-card-dark"
@@ -68,7 +70,7 @@ function PostCard({ post, index }) {
           {post.date && (
             <span className="flex items-center gap-1.5">
               <LuCalendar aria-hidden="true" className="size-4" />
-              <time dateTime={post.date}>{formatDate(post.date)}</time>
+              <time dateTime={post.date}>{formatDate(post.date, lang)}</time>
             </span>
           )}
           <span className="flex items-center gap-1.5">
@@ -99,6 +101,7 @@ export default function Blog() {
         <p className={`min-[900px]:text-justify min-[900px]:hyphens-auto ${bodyText}`}>
           {t("blog.intro")}
         </p>
+        <SpanishNote className="mt-5" />
       </Section>
 
       <Section className="mb-12 min-[900px]:mb-14">

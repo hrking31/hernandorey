@@ -36,12 +36,19 @@ service firebase.storage {
       allow delete: if esAdmin();
     }
 
-    // El CV que se sube desde el panel.
+    // Los CV que se suben desde el panel: en español y en inglés.
+    function pdf() {
+      return request.resource.size < 10 * 1024 * 1024
+        && request.resource.contentType == 'application/pdf';
+    }
     match /CV-HernandoRey.pdf {
       allow get: if true;
-      allow create, update: if esAdmin()
-        && request.resource.size < 10 * 1024 * 1024
-        && request.resource.contentType == 'application/pdf';
+      allow create, update: if esAdmin() && pdf();
+      allow delete: if esAdmin();
+    }
+    match /RESUME-HernandoRey.pdf {
+      allow get: if true;
+      allow create, update: if esAdmin() && pdf();
       allow delete: if esAdmin();
     }
   }

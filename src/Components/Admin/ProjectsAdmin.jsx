@@ -36,6 +36,9 @@ const EMPTY = {
   category: "",
   featured: false,
   client: false,
+  textEn: "",
+  subtextEn: "",
+  highlightsEn: "",
 };
 
 // Campos que se guardan en Firestore (las listas como arreglos).
@@ -52,6 +55,10 @@ const toFirestore = (p) => ({
   category: p.category || "",
   featured: Boolean(p.featured),
   client: Boolean(p.client),
+  // Versión en inglés (/en); vacía = se muestra la de español.
+  textEn: p.textEn?.trim() || "",
+  subtextEn: p.subtextEn?.trim() || "",
+  highlightsEn: toList(p.highlightsEn, "\n"),
 });
 
 // Motivo para no guardar, o null si el proyecto se puede guardar.
@@ -61,6 +68,8 @@ const invalidReason = (p) => {
   if (techs.length > 0) return `Tecnologías repetidas: ${techs.join(", ")}`;
   const highlights = duplicatesOf(p.highlights, "\n");
   if (highlights.length > 0) return `Logros repetidos: ${highlights.join(", ")}`;
+  const highlightsEn = duplicatesOf(p.highlightsEn, "\n");
+  if (highlightsEn.length > 0) return `Logros en inglés repetidos: ${highlightsEn.join(", ")}`;
   return null;
 };
 
@@ -217,7 +226,7 @@ export default function ProjectsAdmin() {
           <div>
             <h2 className="text-xl font-black">Proyectos</h2>
             <p className="text-sm text-muted dark:text-muted-dark">
-              Se muestran en este orden en la página Hola.
+              Se muestran en este orden en la página Proyectos.
             </p>
           </div>
           <Button onClick={() => setShowNew((v) => !v)} aria-expanded={showNew}>

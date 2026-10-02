@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { flushSync } from "react-dom";
-import { loadProjects } from "../../utils/projects";
+import { useTranslation } from "react-i18next";
+import { inLang, loadProjects } from "../../utils/projects";
+import { useLang } from "../../i18n/lang";
 import useScrollReveal from "../../hooks/useScrollReveal";
 import { tilt, untilt } from "../../utils/tilt";
 import ProjectCard from "./ProjectCard";
 
-const ALL = "Todos";
+// Valor interno del filtro "todos"; el texto visible sale de projects.all.
+const ALL = "*";
 
 function Skeleton() {
   return (
@@ -25,6 +28,8 @@ export default function ProjectsSection() {
   const [status, setStatus] = useState("loading");
   const [filter, setFilter] = useState(ALL);
   const rootRef = useRef(null);
+  const { t } = useTranslation();
+  const { lang } = useLang();
 
   // Se vuelve a preparar cada vez que cambian las tarjetas visibles.
   useScrollReveal(rootRef, [status, filter]);
@@ -52,13 +57,15 @@ export default function ProjectsSection() {
   if (status === "error") {
     return (
       <p className="font-semibold text-muted dark:text-muted-dark">
-        No se pudieron cargar los proyectos. Intenta recargar la página.
+        {t("projects.error")}
       </p>
     );
   }
 
-  const categories = [...new Set(projects.map((p) => p.category).filter(Boolean))];
-  const visible = projects.filter((p) => filter === ALL || p.category === filter);
+  // Textos en el idioma de la página (en /en, los campos en inglés del panel).
+  const shown = projects.map((p) => inLang(p, lang));
+  const categories = [...new Set(shown.map((p) => p.category).filter(Boolean))];
+  const visible = shown.filter((p) => filter === ALL || p.category === filter);
   const featured = visible.filter((p) => p.featured);
   const rest = visible.filter((p) => !p.featured);
 
@@ -68,7 +75,7 @@ export default function ProjectsSection() {
         {categories.length > 1 && (
           <div
             role="group"
-            aria-label="Filtrar proyectos por categoría"
+            aria-label={t("projects.filter")}
             className="grid grid-cols-2 gap-2 min-[601px]:flex min-[601px]:flex-wrap min-[601px]:gap-2.5"
           >
             {[ALL, ...categories].map((category) => {
@@ -89,7 +96,9 @@ export default function ProjectsSection() {
                       : "border-line hover:border-brand dark:border-line-dark"
                   }`}
                 >
-                  {category}
+                  {category === ALL
+                    ? t("projects.all")
+                    : t(`categories.${category}`, { defaultValue: category })}
                   <span className="text-[12px] font-semibold opacity-70 min-[601px]:text-[13px]">{count}</span>
                 </button>
               );
@@ -119,7 +128,7 @@ export default function ProjectsSection() {
         )}
       </div>
 
-      <PrintList projects={projects} />
+      <PrintList projects={shown} />
     </>
   );
 }

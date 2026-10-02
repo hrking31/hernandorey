@@ -89,14 +89,14 @@ export default function Hola() {
         <SubTitle className="mb-6">
           <RevealText>{t("about.experience")}</RevealText>
         </SubTitle>
-        <div className="grid gap-[22px]">
+        <div className="grid gap-5.5">
           {jobs.map((job, j) => (
-            <div key={job.role} className="grid gap-2 border-l-[3px] border-brand pl-[18px]">
+            <div key={job.role} className="grid gap-2 border-l-[3px] border-brand pl-4.5">
               <p className="text-sm font-extrabold text-muted tabular-nums dark:text-muted-dark">
                 {job.when}
               </p>
               <h3 className="text-[1.35rem] leading-[1.2] font-black">{job.role}</h3>
-              <ul className={`grid list-disc gap-1.5 pl-[18px] ${bodyText}`}>
+              <ul className={`grid list-disc gap-1.5 pl-4.5 ${bodyText}`}>
                 {job.items.map((_, k) => (
                   <li key={k}>
                     <Trans i18nKey={`about.jobs.${j}.items.${k}`} components={bold} />
@@ -114,7 +114,7 @@ export default function Hola() {
         <SubTitle className="mb-5">
           <RevealText>{t("about.education")}</RevealText>
         </SubTitle>
-        <ol className="grid gap-3.5 pl-4">
+        <ol className="grid gap-3.5">
           {studies.map((study) => (
             <li key={study.title} className="grid gap-0.5">
               <b className="text-[clamp(1rem,1rem+0.3vw,1.2rem)] font-extrabold">{study.title}</b>

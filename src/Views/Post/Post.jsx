@@ -25,6 +25,7 @@ import { headingsOf, slugify, textOf } from "../../utils/headings";
 import ArticleToc from "../../Components/Article/ArticleToc";
 import ArticleEnd from "../../Components/Article/ArticleEnd";
 import BackToTop from "../../Components/Article/BackToTop";
+import SpanishNote from "../../Components/Article/SpanishNote";
 
 // Solo los lenguajes que aparecen en los artículos: el paquete completo pesa
 // más del doble. Para uno nuevo, se importa y se agrega aquí.
@@ -37,7 +38,7 @@ export default function Post() {
   const { slug } = useParams();
   const post = getPost(slug);
   const [content, setContent] = useState(null);
-  const { to } = useLang();
+  const { to, lang } = useLang();
   const { t } = useTranslation();
   const headings = useMemo(() => (content ? headingsOf(content) : []), [content]);
 
@@ -112,11 +113,12 @@ export default function Post() {
               ))}
             </ul>
           )}
-          <h1 className="text-[2rem] leading-tight font-black lg:text-[2.8rem]">
+          {/* lang="es": en /en el navegador ofrece traducir el artículo. */}
+          <h1 lang="es" className="text-[2rem] leading-tight font-black lg:text-[2.8rem]">
             {post.title}
           </h1>
           {post.subtitle && (
-            <p className="text-lg leading-snug font-semibold text-muted italic dark:text-muted-dark">
+            <p lang="es" className="text-lg leading-snug font-semibold text-muted italic dark:text-muted-dark">
               {post.subtitle}
             </p>
           )}
@@ -124,7 +126,7 @@ export default function Post() {
             {post.date && (
               <span className="flex items-center gap-1.5">
                 <LuCalendar aria-hidden="true" className="size-4" />
-                <time dateTime={post.date}>{formatDate(post.date)}</time>
+                <time dateTime={post.date}>{formatDate(post.date, lang)}</time>
               </span>
             )}
             <span className="flex items-center gap-1.5">
@@ -132,6 +134,7 @@ export default function Post() {
               {t("blog.reading", { count: post.readingMinutes })}
             </span>
           </p>
+          <SpanishNote />
         </header>
 
         {post.cover && (
@@ -161,7 +164,7 @@ export default function Post() {
                   leer en pantallas grandes); tablas y código usan todo el ancho.
                   Las imágenes van centradas en el ancho del texto; varias en un
                   mismo párrafo quedan lado a lado. */}
-              <div className="prose max-w-none min-w-0 prose-neutral lg:prose-lg dark:prose-invert prose-headings:font-black prose-headings:max-w-[75ch] prose-p:max-w-[75ch] prose-ul:max-w-[75ch] prose-ol:max-w-[75ch] prose-blockquote:max-w-[75ch] prose-a:text-brand-strong dark:prose-a:text-brand prose-code:before:content-none prose-code:after:content-none prose-pre:p-0 prose-pre:bg-[#0d1117] [&_.callout]:max-w-[75ch] [&_p:has(>img)]:text-center">
+              <div lang="es" className="prose max-w-none min-w-0 prose-neutral lg:prose-lg dark:prose-invert prose-headings:font-black prose-headings:max-w-[75ch] prose-p:max-w-[75ch] prose-ul:max-w-[75ch] prose-ol:max-w-[75ch] prose-blockquote:max-w-[75ch] prose-a:text-brand-strong dark:prose-a:text-brand prose-code:before:content-none prose-code:after:content-none prose-pre:p-0 prose-pre:bg-[#0d1117] [&_.callout]:max-w-[75ch] [&_p:has(>img)]:text-center">
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm, remarkCallouts]}
                   rehypePlugins={[highlight]}

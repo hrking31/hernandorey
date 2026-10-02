@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { FaGithub } from "react-icons/fa6";
 import { LuBookOpen, LuExternalLink } from "react-icons/lu";
 import { buttonPrimary, buttonSecondary } from "../Layout/Layout";
@@ -37,6 +38,7 @@ function SmartLink({ href, className, children }) {
 // Captura dentro de una ventana de navegador, siempre completa. Los tres
 // puntos se "encienden" cuando la tarjeta termina de aparecer.
 function Screenshot({ project, framed }) {
+  const { t } = useTranslation();
   const host = hostOf(project.demoUrl || project.repoUrl);
   const logo = project.logo && (
     <img src={project.logo} alt="" loading="lazy" className="size-20 rounded-full object-cover shadow-lg sm:size-24" />
@@ -44,7 +46,7 @@ function Screenshot({ project, framed }) {
   const image = project.image && (
     <img
       src={project.image}
-      alt={`Captura de ${project.title}`}
+      alt={t("card.screenshot", { title: project.title })}
       loading="lazy"
       className={`rv-img ${framed ? "size-full object-contain" : "h-auto w-full"}`}
     />
@@ -70,6 +72,7 @@ function Screenshot({ project, framed }) {
 }
 
 function Badges({ project }) {
+  const { t } = useTranslation();
   if (!project.client && !project.category) return null;
   return (
     <div className="rv flex flex-wrap items-center gap-2" style={{ "--k": 0 }}>
@@ -77,16 +80,16 @@ function Badges({ project }) {
         <>
           <span className="flex h-6 items-center gap-1.5 rounded-full bg-brand/10 px-3 text-xs font-extrabold tracking-wide text-brand-strong dark:bg-brand/15 dark:text-brand">
             <span className="size-1.5 rounded-full bg-green-600 dark:bg-green-400" />
-            EN PRODUCCIÓN
+            {t("card.live")}
           </span>
           <span className="flex h-6 items-center rounded-full border border-line px-3 text-xs font-extrabold dark:border-line-dark">
-            Cliente real
+            {t("card.client")}
           </span>
         </>
       )}
       {project.category && (
         <span className="text-xs font-bold text-muted dark:text-muted-dark">
-          {project.category}
+          {t(`categories.${project.category}`, { defaultValue: project.category })}
         </span>
       )}
     </div>
@@ -118,9 +121,10 @@ function Title({ project, featured }) {
 }
 
 function Techs({ techs }) {
+  const { t } = useTranslation();
   if (techs.length === 0) return null;
   return (
-    <ul aria-label="Tecnologías" className="flex flex-wrap gap-2">
+    <ul aria-label={t("card.techs")} className="flex flex-wrap gap-2">
       {techs.map((tech, j) => (
         <li
           key={tech}
@@ -135,27 +139,28 @@ function Techs({ techs }) {
 }
 
 function Actions({ project, featured, k }) {
+  const { t } = useTranslation();
   if (!project.demoUrl && !project.repoUrl && !project.blogUrl) return null;
   return (
     <div className="rv mt-auto flex flex-wrap gap-3 pt-2" style={{ "--k": k }}>
       {project.demoUrl && (
         <SmartLink href={project.demoUrl} className={buttonPrimary}>
           <LuExternalLink className="size-4" aria-hidden="true" />
-          {featured ? "Ver en vivo" : "Ver demo"}
+          {featured ? t("card.live_demo") : t("card.demo")}
           <span className="sr-only">: {project.title}</span>
         </SmartLink>
       )}
       {project.repoUrl && (
         <SmartLink href={project.repoUrl} className={buttonSecondary}>
           <FaGithub className="size-4" aria-hidden="true" />
-          Código
-          <span className="sr-only"> de {project.title}</span>
+          {t("card.code")}
+          <span className="sr-only">: {project.title}</span>
         </SmartLink>
       )}
       {project.blogUrl && (
         <SmartLink href={project.blogUrl} className={buttonSecondary}>
           <LuBookOpen className="size-4" aria-hidden="true" />
-          Leer en el blog
+          {t("card.blog")}
           <span className="sr-only">: {project.title}</span>
         </SmartLink>
       )}

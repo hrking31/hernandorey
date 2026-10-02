@@ -14,13 +14,14 @@ service cloud.firestore {
       return request.auth != null && request.auth.uid == "vzvpmGaQbdPIfndbPHOxxsN58tw2";
     }
 
-    // Proyectos de la página Hola.
+    // Proyectos de la página Proyectos (con sus textos en inglés: textEn, etc.).
     match /proyectos/{id} {
       allow read: if true;
       allow write: if esAdmin();
     }
 
-    // config/cv: enlace del PDF que se descarga desde Inicio y Hola.
+    // config/cv: enlaces de los PDF que se descargan desde Inicio y Sobre mí
+    // (url en español, urlEn en inglés).
     match /config/{id} {
       allow read: if true;
       allow write: if esAdmin();
